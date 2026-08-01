@@ -20,7 +20,7 @@ export function HandCircle({ children }: { children: React.ReactNode }) {
         viewBox="0 0 200 68"
         fill="none"
         preserveAspectRatio="none"
-        className="pointer-events-none absolute -left-[6%] top-1/2 h-[150%] w-[112%] -translate-y-1/2"
+        className="pointer-events-none absolute -left-[11%] top-1/2 h-[164%] w-[122%] -translate-y-1/2"
       >
         <path
           pathLength={1}
