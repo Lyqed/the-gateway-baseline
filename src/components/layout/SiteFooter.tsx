@@ -23,7 +23,7 @@ export function SiteFooter() {
                 href={SITE_CONFIG.sisterUrl}
                 className="underline decoration-steel/50 underline-offset-4 transition-colors duration-150 hover:text-gold"
               >
-                theopensourcegateway.com ↗
+                opensourcegateway.com ↗
               </a>
             </li>
             <li>

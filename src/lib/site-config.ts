@@ -11,7 +11,7 @@ export const SITE_CONFIG = {
   /** Correction / contact address for the tracker. */
   contactEmail: "antonbraverman1@gmail.com",
   /** Sister site: the community gateway built against this bar. */
-  sisterUrl: "https://theopensourcegateway.com",
+  sisterUrl: "https://opensourcegateway.com",
   /** The project repo behind the reference implementation. */
   repoUrl: "https://github.com/Lyqed/thegatewayproject",
   locale: "en",
