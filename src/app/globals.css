@@ -1,0 +1,305 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ *
+ * Design tokens — copied verbatim from the binding design brief
+ * (docs/DESIGN.md, section 2). Semantic mapping is binding:
+ *   teal = conforms/verified, gold = partial/in progress,
+ *   blossom = missing/error, monarch = leader/emphasis/primary action,
+ *   violet = human voice, skylight = links. Never swap these roles.
+ * ------------------------------------------------------------------ */
+:root {
+  color-scheme: light;
+
+  /* Architecture */
+  --surface-atrium: oklch(97.5% 0.004 95);   /* warm gallery white — page ground */
+  --surface-panel: oklch(94.5% 0.005 250);   /* cool panel white — cards, wells */
+  --steel: oklch(76% 0.01 250);              /* brushed rail — borders, rules */
+  --steel-dark: oklch(52% 0.014 255);        /* fixture gray — secondary text */
+  --floor: oklch(21% 0.012 270);             /* polished dark floor — footer, dark band */
+  --ink: oklch(19% 0.016 270);               /* primary text */
+
+  /* Murals (semantic, never decorative-only) */
+  --monarch: oklch(69% 0.185 55);            /* monarch orange — leadership, emphasis, CTAs */
+  --violet: oklch(54% 0.21 300);             /* mural violet — the human layer: annotations, community */
+  --teal: oklch(64% 0.115 195);              /* sky teal — conformance, verified, success */
+  --gold: oklch(80% 0.15 90);                /* sun gold — partial, in-progress, caution */
+  --skylight: oklch(63% 0.14 250);           /* skylight blue — links, interactive */
+  --blossom: oklch(58% 0.2 25);              /* blossom red — missing, errors, hard stops */
+
+  /* Type scale */
+  --text-base: clamp(1rem, 0.94rem + 0.3vw, 1.125rem);
+  --text-hero: clamp(2.75rem, 1.2rem + 6.5vw, 7rem);
+  --text-section: clamp(1.75rem, 1.2rem + 2.2vw, 3rem);
+
+  /* Rhythm */
+  --space-section: clamp(5rem, 3.5rem + 6vw, 11rem);
+
+  /* Motion */
+  --duration-fast: 150ms;
+  --duration-normal: 320ms;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ------------------------------------------------------------------ *
+ * Derived AA-safe text shades. The mural tokens above are reserved
+ * for non-text (dots, fills, strokes) where they fall short of 4.5:1
+ * on the atrium ground; text set in a mural color uses these darker
+ * members of the same family (brief section 6: "verify every
+ * mural-color-on-white pairing >= 4.5:1 for text, or reserve for
+ * non-text"). Roles are unchanged.
+ * ------------------------------------------------------------------ */
+:root {
+  --monarch-text: oklch(50% 0.155 55);
+  --teal-text: oklch(44% 0.095 195);
+  --gold-text: oklch(48% 0.105 90);
+  --skylight-text: oklch(46% 0.135 250);
+  --blossom-text: oklch(47% 0.185 25);
+  --focus-ring: oklch(53% 0.16 55);          /* darker monarch: >=3:1 on atrium */
+}
+
+/* ------------------------------------------------------------------ *
+ * Map tokens into Tailwind v4. Utilities like `bg-atrium`,
+ * `text-steel-dark`, `border-steel`, `font-hand` flow from here.
+ * ------------------------------------------------------------------ */
+@theme inline {
+  --color-atrium: var(--surface-atrium);
+  --color-panel: var(--surface-panel);
+  --color-steel: var(--steel);
+  --color-steel-dark: var(--steel-dark);
+  --color-floor: var(--floor);
+  --color-ink: var(--ink);
+
+  --color-monarch: var(--monarch);
+  --color-violet: var(--violet);
+  --color-teal: var(--teal);
+  --color-gold: var(--gold);
+  --color-skylight: var(--skylight);
+  --color-blossom: var(--blossom);
+
+  --color-monarch-text: var(--monarch-text);
+  --color-teal-text: var(--teal-text);
+  --color-gold-text: var(--gold-text);
+  --color-skylight-text: var(--skylight-text);
+  --color-blossom-text: var(--blossom-text);
+
+  --font-sans: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, "SFMono-Regular", monospace;
+  --font-hand: var(--font-shantell), "Comic Sans MS", cursive;
+}
+
+/* ------------------------------------------------------------------ *
+ * Base
+ * ------------------------------------------------------------------ */
+html {
+  scroll-padding-top: 5.5rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  background: var(--surface-atrium);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: oklch(69% 0.185 55 / 0.25);
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* ------------------------------------------------------------------ *
+ * Type voices
+ * ------------------------------------------------------------------ */
+.text-hero {
+  font-size: var(--text-hero);
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+}
+
+.text-section {
+  font-size: var(--text-section);
+  letter-spacing: -0.025em;
+  line-height: 1.02;
+}
+
+/* Mono always at smaller optical sizes with a touch of tracking. */
+.font-mono {
+  letter-spacing: 0.02em;
+}
+
+/* Uppercase micro-labels in the instrument voice. */
+.mono-label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* ------------------------------------------------------------------ *
+ * Visual vocabulary — architecture
+ * ------------------------------------------------------------------ */
+
+/* Skylight bands: hard-edged diagonal light, not lines. */
+.skylight-band {
+  background-image: linear-gradient(
+    108deg,
+    transparent 0 22%,
+    oklch(80% 0.15 90 / 0.1) 22% 30%,
+    transparent 30% 44%,
+    oklch(63% 0.14 250 / 0.06) 44% 50%,
+    transparent 50% 68%,
+    oklch(80% 0.15 90 / 0.07) 68% 73%,
+    transparent 73%
+  );
+}
+
+/* Perforated rail: the mesh railing as a dot-grid texture band. */
+.perf-rail {
+  background-image: radial-gradient(
+    oklch(52% 0.014 255 / 0.28) 1px,
+    transparent 1.4px
+  );
+  background-size: 11px 11px;
+}
+
+/* Polished floor: faint vertical reflection of the content above. */
+.floor-reflection {
+  background: linear-gradient(
+    to bottom,
+    oklch(97.5% 0.004 95 / 0.09),
+    transparent 42%
+  );
+}
+
+/* ------------------------------------------------------------------ *
+ * Machined hover: cards lift 2px, hard-edged shadow shifts like
+ * sunlight (offset, not blur).
+ * ------------------------------------------------------------------ */
+.lift {
+  transition:
+    transform var(--duration-fast) var(--ease-out-expo),
+    box-shadow var(--duration-fast) var(--ease-out-expo);
+}
+
+.lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 5px 6px 0 0 oklch(21% 0.012 270 / 0.1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lift,
+  .lift:hover {
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Reveal machinery. The `js` class is set by an inline one-liner in
+ * the layout, so users without JavaScript (and reduced-motion users)
+ * see everything immediately — nothing is hidden by default.
+ * The machined layer fades and translates; the hand layer draws
+ * itself (stroke-dash on `pathLength=1` paths).
+ * ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-reveal] {
+    opacity: 0;
+    transform: translateY(14px);
+    transition:
+      opacity var(--duration-normal) var(--ease-out-expo),
+      transform 560ms var(--ease-out-expo);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  .js [data-reveal].is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  .js [data-draw] .draw-path {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    transition: stroke-dashoffset 780ms var(--ease-out-expo);
+    transition-delay: var(--reveal-delay, 120ms);
+  }
+
+  .js [data-draw].is-visible .draw-path {
+    stroke-dashoffset: 0;
+  }
+
+  /* The stillness layer barely moves at all: monolith bands fade in
+     slowly (1200ms, linear, Kubrick pacing) and their sentence does
+     not translate, only appears. */
+  .js [data-still] {
+    opacity: 0;
+    transition: opacity 1200ms linear;
+  }
+
+  .js [data-still].is-visible {
+    opacity: 1;
+  }
+
+  /* The watching dot's only motion: a slow opacity breath. A flat
+     dot, nothing more — no glow, no lens flare. */
+  .watching-dot {
+    animation: watching-breath 5.6s ease-in-out infinite;
+  }
+}
+
+@keyframes watching-breath {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Matrix
+ * ------------------------------------------------------------------ */
+.matrix-scroll {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+}
+
+.matrix-sticky {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: var(--surface-atrium);
+  box-shadow: 1px 0 0 0 var(--steel);
+}
+
+tr.is-leading .matrix-sticky {
+  background: oklch(95% 0.03 65);
+}
+
+details.gateway-notes summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+details.gateway-notes summary::-webkit-details-marker {
+  display: none;
+}
+
+details.gateway-notes summary .marker::before {
+  content: "+";
+}
+
+details.gateway-notes[open] summary .marker::before {
+  content: "−";
+}
