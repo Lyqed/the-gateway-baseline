@@ -12,8 +12,9 @@ export function SiteFooter() {
     <footer className="relative mt-auto bg-floor text-atrium">
       <div aria-hidden="true" className="floor-reflection absolute inset-0" />
       <div className="relative mx-auto w-full max-w-6xl px-6 py-16">
-        <p className="font-mono text-sm text-atrium">
-          Attribution on the bill, not in a dashboard.
+        <p className="max-w-xl font-mono text-sm leading-relaxed text-atrium">
+          A common standard for cost attribution in AI: the spend named on
+          the provider&apos;s bill, not estimated in a dashboard.
         </p>
         <p className="mt-10 font-mono text-xs text-steel">
           © {year} {SITE_CONFIG.name}
