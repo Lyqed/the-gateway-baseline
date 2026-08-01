@@ -21,7 +21,7 @@ export function SiteFooter() {
             <li>
               <a
                 href={SITE_CONFIG.sisterUrl}
-                className="underline decoration-steel/50 underline-offset-4 transition-colors duration-150 hover:text-gold"
+                className="underline decoration-steel/50 underline-offset-4 transition-colors duration-150 hover:text-skylight"
               >
                 opensourcegateway.com ↗
               </a>
@@ -29,7 +29,7 @@ export function SiteFooter() {
             <li>
               <a
                 href={SITE_CONFIG.repoUrl}
-                className="underline decoration-steel/50 underline-offset-4 transition-colors duration-150 hover:text-gold"
+                className="underline decoration-steel/50 underline-offset-4 transition-colors duration-150 hover:text-skylight"
               >
                 github.com/Lyqed/thegatewayproject ↗
               </a>
@@ -37,7 +37,7 @@ export function SiteFooter() {
             <li>
               <a
                 href={`mailto:${SITE_CONFIG.contactEmail}`}
-                className="underline decoration-steel/50 underline-offset-4 transition-colors duration-150 hover:text-gold"
+                className="underline decoration-steel/50 underline-offset-4 transition-colors duration-150 hover:text-skylight"
               >
                 corrections: {SITE_CONFIG.contactEmail}
               </a>

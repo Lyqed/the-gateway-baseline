@@ -15,7 +15,7 @@ export function History() {
     >
       <div className="flex flex-wrap items-end justify-between gap-6">
         <div>
-          <p className="mono-label text-steel-dark">04 — Spec history</p>
+          <p className="mono-label text-steel-dark">04 · Spec history</p>
           <h2 id="history-heading" className="text-section mt-4 font-medium">
             Every change to the bar, dated
           </h2>

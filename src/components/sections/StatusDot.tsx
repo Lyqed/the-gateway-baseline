@@ -10,9 +10,9 @@ export const STATUS_LABEL: Record<SupportStatus, string> = {
 
 /** AA-safe text color class per status (derived family members). */
 export const STATUS_TEXT_CLASS: Record<SupportStatus, string> = {
-  yes: "text-teal-text",
-  partial: "text-gold-text",
-  no: "text-blossom-text",
+  yes: "text-teal-deep",
+  partial: "text-gold-deep",
+  no: "text-blossom-deep",
   unknown: "text-steel-dark",
 };
 
@@ -45,7 +45,7 @@ export function StatusDot({ status, size = 14 }: StatusDotProps) {
             cx="12"
             cy="12"
             r="7.5"
-            stroke="var(--gold-text)"
+            stroke="var(--gold-deep)"
             strokeWidth="2"
           />
           <path d="M 12 4.5 A 7.5 7.5 0 0 0 12 19.5 Z" fill="var(--gold)" />

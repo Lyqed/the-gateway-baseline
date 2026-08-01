@@ -30,7 +30,7 @@ export function Hero() {
 
       <div className="relative mx-auto w-full max-w-6xl px-6 pb-16 pt-20 sm:pb-20 sm:pt-28">
         <p className="mono-label text-steel-dark">
-          Spec · GB-1 — GB-9 · last change {lastChange}
+          Spec · GB-1 to GB-9 · last change {lastChange}
         </p>
 
         <h1

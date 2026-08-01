@@ -7,7 +7,7 @@ import { SITE_CONFIG } from "@/lib/site-config";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 export const alt =
-  "The Gateway Baseline — nine checks, GB-1 through GB-9, verified against public documentation";
+  "The Gateway Baseline: nine checks, GB-1 through GB-9, verified against public documentation";
 
 /**
  * Hex approximations of the oklch tokens in globals.css; Satori

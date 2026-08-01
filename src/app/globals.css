@@ -41,20 +41,27 @@
 }
 
 /* ------------------------------------------------------------------ *
- * Derived AA-safe text shades. The mural tokens above are reserved
- * for non-text (dots, fills, strokes) where they fall short of 4.5:1
- * on the atrium ground; text set in a mural color uses these darker
- * members of the same family (brief section 6: "verify every
- * mural-color-on-white pairing >= 4.5:1 for text, or reserve for
- * non-text"). Roles are unchanged.
+ * Derived extension — shared verbatim across both sites. The mural
+ * tokens above are reserved for non-text (dots, fills, strokes) where
+ * they fall short of 4.5:1 on the atrium ground; text set in a mural
+ * color uses the darker `-deep` member of the same family (brief
+ * section 6: "verify every mural-color-on-white pairing >= 4.5:1 for
+ * text, or reserve for non-text"). Roles are never swapped. `-wash`
+ * members are the faint section grounds. This block is kept byte-
+ * identical across both sites.
  * ------------------------------------------------------------------ */
 :root {
-  --monarch-text: oklch(50% 0.155 55);
-  --teal-text: oklch(44% 0.095 195);
-  --gold-text: oklch(48% 0.105 90);
-  --skylight-text: oklch(46% 0.135 250);
-  --blossom-text: oklch(47% 0.185 25);
-  --focus-ring: oklch(53% 0.16 55);          /* darker monarch: >=3:1 on atrium */
+  --skylight-deep: oklch(46% 0.14 250);      /* link text at body sizes */
+  --monarch-deep: oklch(50% 0.155 55);       /* leader/emphasis text */
+  --violet-deep: oklch(47% 0.19 300);        /* human-layer small text on washes */
+  --teal-deep: oklch(44% 0.095 195);         /* verified label text */
+  --gold-deep: oklch(48% 0.105 90);          /* in-progress label text */
+  --blossom-deep: oklch(47% 0.185 25);       /* missing/error label text */
+  --violet-wash: oklch(95.5% 0.02 300);      /* community panel ground */
+  --gold-wash: oklch(96% 0.03 95);           /* in-progress panel ground */
+  --teal-wash: oklch(96% 0.02 195);          /* done/verified panel ground */
+  --floor-soft: oklch(30% 0.014 270);        /* floor hairlines */
+  --focus-ring: oklch(53% 0.16 55);          /* darker monarch, AA-safe on atrium */
 }
 
 /* ------------------------------------------------------------------ *
@@ -69,6 +76,7 @@
   --color-floor: var(--floor);
   --color-ink: var(--ink);
 
+  --color-floor-soft: var(--floor-soft);
   --color-monarch: var(--monarch);
   --color-violet: var(--violet);
   --color-teal: var(--teal);
@@ -76,11 +84,15 @@
   --color-skylight: var(--skylight);
   --color-blossom: var(--blossom);
 
-  --color-monarch-text: var(--monarch-text);
-  --color-teal-text: var(--teal-text);
-  --color-gold-text: var(--gold-text);
-  --color-skylight-text: var(--skylight-text);
-  --color-blossom-text: var(--blossom-text);
+  --color-monarch-deep: var(--monarch-deep);
+  --color-violet-deep: var(--violet-deep);
+  --color-violet-wash: var(--violet-wash);
+  --color-teal-deep: var(--teal-deep);
+  --color-teal-wash: var(--teal-wash);
+  --color-gold-deep: var(--gold-deep);
+  --color-gold-wash: var(--gold-wash);
+  --color-skylight-deep: var(--skylight-deep);
+  --color-blossom-deep: var(--blossom-deep);
 
   --font-sans: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-plex-mono), ui-monospace, "SFMono-Regular", monospace;

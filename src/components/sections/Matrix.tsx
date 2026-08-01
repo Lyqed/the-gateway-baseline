@@ -18,7 +18,7 @@ function cellTitle(gateway: Gateway, criterionId: string): string {
   const criterion = CRITERIA.find((c) => c.id === criterionId);
   const cell = gateway.support[criterionId];
   if (!criterion || !cell) return "";
-  return `${gateway.name} · ${criterion.code} ${criterion.short}: ${STATUS_LABEL[cell.status]} — ${cell.note}`;
+  return `${gateway.name} · ${criterion.code} ${criterion.short}: ${STATUS_LABEL[cell.status]}. ${cell.note}`;
 }
 
 function Legend() {
@@ -35,7 +35,7 @@ function Legend() {
           aria-hidden="true"
           className="inline-block size-3 bg-monarch"
         />
-        <span>Leading — closest to the bar</span>
+        <span>Leading: closest to the bar</span>
       </li>
     </ul>
   );
@@ -110,7 +110,7 @@ function MatrixTable({ top }: { top: number }) {
                   <span className="flex items-center gap-2">
                     {gateway.name}
                     {leading && (
-                      <span className="border border-monarch px-1.5 py-0.5 text-[0.625rem] uppercase tracking-widest text-monarch-text">
+                      <span className="border border-monarch px-1.5 py-0.5 text-[0.625rem] uppercase tracking-widest text-monarch-deep">
                         Leading
                       </span>
                     )}
@@ -163,7 +163,7 @@ function MatrixStrips({ top }: { top: number }) {
               <p className="font-mono text-sm font-medium">
                 {gateway.name}
                 {leading && (
-                  <span className="ml-2 border border-monarch px-1.5 py-0.5 font-mono text-[0.625rem] uppercase tracking-widest text-monarch-text">
+                  <span className="ml-2 border border-monarch px-1.5 py-0.5 font-mono text-[0.625rem] uppercase tracking-widest text-monarch-deep">
                     Leading
                   </span>
                 )}
@@ -205,7 +205,7 @@ function CellNotes() {
   return (
     <div className="mt-12">
       <h3 className="mono-label text-steel-dark">
-        Cell notes — every judgment, in words
+        Cell notes: every judgment, in words
       </h3>
       <div className="mt-4 border-t border-steel">
         {GATEWAYS.map((gateway) => (
@@ -251,7 +251,7 @@ function CellNotes() {
             {index > 0 && " · "}
             <a
               href={gateway.url}
-              className="text-skylight-text underline decoration-steel underline-offset-4 hover:decoration-skylight-text"
+              className="text-skylight-deep underline decoration-steel underline-offset-4 hover:decoration-skylight-deep"
             >
               {gateway.name} ↗
             </a>
@@ -267,7 +267,7 @@ function UpstreamSignals() {
   return (
     <div className="mt-14 border-t border-steel pt-8">
       <h3 className="mono-label text-steel-dark">
-        Upstream signals — refs that move cells
+        Upstream signals: refs that move cells
       </h3>
       <ul className="mt-5 space-y-3">
         {TRACKED_REFS.map((ref) => {
@@ -281,18 +281,18 @@ function UpstreamSignals() {
             >
               <a
                 href={href}
-                className="text-skylight-text underline decoration-steel underline-offset-4 hover:decoration-skylight-text"
+                className="text-skylight-deep underline decoration-steel underline-offset-4 hover:decoration-skylight-deep"
               >
                 {ref.repo} #{ref.number} ↗
               </a>
               <span className="uppercase text-steel-dark">{ref.kind}</span>
               {ref.check && (
-                <span className="font-medium text-monarch-text">
+                <span className="font-medium text-monarch-deep">
                   {ref.check}
                 </span>
               )}
               <span className="text-ink">{ref.title}</span>
-              <span className="text-steel-dark">— {ref.moves}</span>
+              <span className="text-steel-dark">· {ref.moves}</span>
               {ref.ours && <span className="text-violet">ours</span>}
             </li>
           );
@@ -323,7 +323,7 @@ export function Matrix() {
       <div className="mx-auto w-full max-w-6xl px-6">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div>
-            <p className="mono-label text-steel-dark">02 — The matrix</p>
+            <p className="mono-label text-steel-dark">02 · The matrix</p>
             <h2
               id="matrix-heading"
               className="text-section mt-4 font-medium"

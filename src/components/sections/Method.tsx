@@ -17,7 +17,7 @@ export function Method() {
     >
       <div aria-hidden="true" className="skylight-band absolute inset-0" />
       <div className="relative mx-auto w-full max-w-6xl px-6 py-[var(--space-section)]">
-        <p className="mono-label text-steel-dark">03 — Method</p>
+        <p className="mono-label text-steel-dark">03 · Method</p>
         <h2 id="method-heading" className="text-section mt-4 font-medium">
           How a cell gets its color
         </h2>
@@ -51,7 +51,7 @@ export function Method() {
                 <span className="font-semibold text-ink">
                   SNAPSHOT {snapshot.date}
                 </span>{" "}
-                — {snapshot.note}
+                · {snapshot.note}
               </p>
             </div>
           </Reveal>
@@ -67,7 +67,7 @@ export function Method() {
               <p className="mt-4">
                 <a
                   href={`mailto:${SITE_CONFIG.contactEmail}`}
-                  className="font-mono text-sm text-skylight-text underline decoration-steel underline-offset-4 hover:decoration-skylight-text"
+                  className="font-mono text-sm text-skylight-deep underline decoration-steel underline-offset-4 hover:decoration-skylight-deep"
                 >
                   {SITE_CONFIG.contactEmail}
                 </a>

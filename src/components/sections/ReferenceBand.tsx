@@ -29,7 +29,7 @@ export function ReferenceBand() {
           </a>
           <a
             href={SITE_CONFIG.repoUrl}
-            className="font-mono text-sm text-skylight-text underline decoration-steel underline-offset-4 hover:decoration-skylight-text"
+            className="font-mono text-sm text-skylight-deep underline decoration-steel underline-offset-4 hover:decoration-skylight-deep"
           >
             github.com/Lyqed/thegatewayproject ↗
           </a>

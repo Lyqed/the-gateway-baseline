@@ -7,8 +7,8 @@ import {
 import { Reveal } from "@/components/reveal/Reveal";
 
 const SIDE_LABEL: Record<Criterion["side"], string> = {
-  control: "Control · GB-1 — GB-6",
-  invoice: "Invoice · GB-7 — GB-8",
+  control: "Control · GB-1 to GB-6",
+  invoice: "Invoice · GB-7 to GB-8",
   operations: "Operations · GB-9",
 };
 
@@ -33,11 +33,11 @@ function ConformanceNote({ criterion }: { criterion: Criterion }) {
   return (
     <p className="mt-5 font-mono text-xs text-steel-dark">
       conformance:{" "}
-      <span className="text-teal-text">
+      <span className="text-teal-deep">
         {conforms} of {GATEWAYS.length} conform
       </span>{" "}
-      · <span className="text-gold-text">{partial} partial</span> ·{" "}
-      <span className="text-blossom-text">
+      · <span className="text-gold-deep">{partial} partial</span> ·{" "}
+      <span className="text-blossom-deep">
         {GATEWAYS.length - conforms - partial - unknown} missing
       </span>
     </p>
@@ -78,7 +78,7 @@ function CheckRow({
           <ConformanceNote criterion={criterion} />
           {isAspirational && (
             <p className="mt-4 inline-block rotate-[1.5deg] font-hand text-lg text-violet">
-              *entered 14 July 2026 — awaits verification
+              *entered 14 July 2026, awaits verification
             </p>
           )}
         </div>
@@ -99,7 +99,7 @@ export function Checks() {
       aria-labelledby="checks-heading"
       className="mx-auto w-full max-w-6xl px-6 py-[var(--space-section)]"
     >
-      <p className="mono-label text-steel-dark">01 — The spec</p>
+      <p className="mono-label text-steel-dark">01 · The spec</p>
       <h2
         id="checks-heading"
         className="text-section mt-4 max-w-3xl font-medium"
