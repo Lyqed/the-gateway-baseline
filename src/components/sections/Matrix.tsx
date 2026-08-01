@@ -8,6 +8,7 @@ import {
 } from "@/lib/gateways";
 import { Reveal } from "@/components/reveal/Reveal";
 import { Butterfly } from "@/components/marks/Butterfly";
+import { PerforatedRail } from "@/components/marks/PerforatedRail";
 import {
   STATUS_LABEL,
   STATUS_TEXT_CLASS,
@@ -203,7 +204,7 @@ function MatrixStrips({ top }: { top: number }) {
 /** Accessible disclosure: every cell's note text, per gateway. */
 function CellNotes() {
   return (
-    <div className="mt-12">
+    <div>
       <h3 className="mono-label text-steel-dark">
         Cell notes: every judgment, in words
       </h3>
@@ -265,7 +266,7 @@ function CellNotes() {
 /** Upstream signals: the refs that move cells, cited by number. */
 function UpstreamSignals() {
   return (
-    <div className="mt-14 border-t border-steel pt-8">
+    <div>
       <h3 className="mono-label text-steel-dark">
         Upstream signals: refs that move cells
       </h3>
@@ -346,9 +347,20 @@ export function Matrix() {
           <MatrixTable top={top} />
           <MatrixStrips top={top} />
         </div>
+      </div>
 
-        <CellNotes />
-        <UpstreamSignals />
+      {/* Chapter break: the data well above, the sourced notes below.
+          The rail divides the matrix's two registers so the section
+          reads as distinct chapters, not one uniform scroll. */}
+      <PerforatedRail className="my-12 opacity-70" />
+
+      <div className="mx-auto w-full max-w-6xl px-6">
+        <div className="border border-steel bg-atrium p-6 sm:p-8">
+          <CellNotes />
+        </div>
+        <div className="mt-8 border border-steel bg-atrium p-6 sm:p-8">
+          <UpstreamSignals />
+        </div>
       </div>
     </section>
   );
