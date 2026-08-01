@@ -261,20 +261,4 @@ body {
   .js [data-still].is-visible {
     opacity: 1;
   }
-
-  /* The watching dot's only motion: a slow opacity breath. A flat
-     dot, nothing more — no glow, no lens flare. */
-  .watching-dot {
-    animation: watching-breath 5.6s ease-in-out infinite;
-  }
-}
-
-@keyframes watching-breath {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.45;
-  }
 }
