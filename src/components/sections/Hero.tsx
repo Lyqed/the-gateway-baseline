@@ -33,8 +33,8 @@ export function Hero() {
         <div className="relative mt-10 max-w-2xl">
           <Reveal mode="draw">
             <p className="text-lg leading-relaxed text-steel-dark sm:text-xl">
-              A common standard for how AI spend is attributed. Not a
-              dashboard, and not a feature list. A set of{" "}
+              A common standard for cost attribution in AI. Not a dashboard,
+              and not a feature list. A set of{" "}
               <HandCircle>
                 <span className="text-ink">requirements</span>
               </HandCircle>{" "}

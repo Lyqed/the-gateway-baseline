@@ -13,7 +13,7 @@ export function SiteFooter() {
       <div aria-hidden="true" className="floor-reflection absolute inset-0" />
       <div className="relative mx-auto w-full max-w-6xl px-6 py-16">
         <p className="max-w-xl font-mono text-sm leading-relaxed text-atrium">
-          A common standard for cost attribution in AI: the spend named on
+          A common standard for cost attribution in AI. The spend named on
           the provider&apos;s bill, not estimated in a dashboard.
         </p>
         <p className="mt-10 font-mono text-xs text-steel">
