@@ -12,17 +12,17 @@ export function HandCircle({ children }: { children: React.ReactNode }) {
       {children}
       <svg
         aria-hidden="true"
-        viewBox="0 0 124 44"
+        viewBox="0 0 140 60"
         fill="none"
         preserveAspectRatio="none"
-        className="pointer-events-none absolute -left-[8%] -top-[18%] h-[136%] w-[116%]"
+        className="pointer-events-none absolute -left-[12%] -top-[32%] h-[164%] w-[124%]"
       >
         <path
           pathLength={1}
           className="draw-path"
-          d="M 10 24 C 8 12 34 4 62 4 C 96 4 118 10 116 22 C 114 34 86 41 54 40 C 26 39 12 34 11 26"
+          d="M 14 30 C 10 15 40 6 70 6 C 108 6 132 14 130 30 C 128 46 96 55 60 54 C 28 53 14 46 13 34"
           stroke="var(--violet)"
-          strokeWidth="2.5"
+          strokeWidth="2.2"
           strokeLinecap="round"
         />
       </svg>

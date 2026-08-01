@@ -47,9 +47,10 @@ export function Hero() {
 
         <Reveal>
           <p className="mt-10 max-w-2xl text-base leading-relaxed text-ink">
-            Six of them. The sharpest is the last: the operator-owned tag
-            reaches the cloud provider&apos;s own invoice as an authoritative
-            dollar figure. Not an estimate. The bill.
+            Two things decide whether the numbers hold. Whether the figure is
+            authoritative, the dollars the provider actually billed, not an
+            estimate. And who you trust to name the request. Everything else
+            follows from those.
           </p>
         </Reveal>
       </div>

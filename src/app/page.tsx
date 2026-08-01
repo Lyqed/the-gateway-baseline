@@ -1,33 +1,28 @@
 import { Hero } from "@/components/sections/Hero";
+import { WhyAuthoritative } from "@/components/sections/WhyAuthoritative";
+import { TrustChoice } from "@/components/sections/TrustChoice";
 import { Requirements } from "@/components/sections/Requirements";
-import { MonolithBand } from "@/components/sections/MonolithBand";
 import { PerforatedRail } from "@/components/marks/PerforatedRail";
 
 /**
  * The Gateway Baseline — a single page, statically prerendered. One
- * thing: cost attribution. The thesis up front (Hero), the six
- * requirements stated plainly (Requirements), and one still point.
+ * scope: cost attribution. Two centers carry the page.
  *
- * Two monolith bands, symmetry discipline observed, exactly one
- * watching dot (spent on the dark band). The requirements state the
- * case; then the room goes quiet and the sharpest one is repeated
- * alone.
+ * The thesis up front (Hero), then the sharp point: why an authoritative
+ * figure, not an estimate, is the thing that matters (WhyAuthoritative).
+ * Then the trust choice a team makes, hedged toward trusting developers
+ * (TrustChoice), which now carries the operator-owned-tag line that once
+ * stood alone on a monolith band. The six requirements follow, in
+ * service of those two arguments rather than as the headline.
  */
 export default function Home() {
   return (
     <>
       <Hero />
-      <MonolithBand
-        surface="atrium"
-        sentence="The gateway assigns the tag. It does not take the caller's word."
-      />
+      <WhyAuthoritative />
       <PerforatedRail />
+      <TrustChoice />
       <Requirements />
-      <MonolithBand
-        surface="floor"
-        watchingDot
-        sentence="The exact dollar figure, on the provider's bill."
-      />
     </>
   );
 }

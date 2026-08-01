@@ -25,8 +25,14 @@ export function Requirements() {
           id="requirements-heading"
           className="text-section mt-5 font-medium"
         >
-          What a gateway has to do before its numbers mean anything.
+          The concrete list, in service of both.
         </h2>
+        <p className="mt-6 leading-relaxed text-steel-dark">
+          Six requirements a gateway either meets or does not. The
+          operator-owned tag carries the trust choice. The invoice-grade
+          figure carries the authoritative-number argument. The rest hold
+          the line around them.
+        </p>
       </div>
 
       <div className="mt-16 flex flex-col gap-16 sm:gap-20">
