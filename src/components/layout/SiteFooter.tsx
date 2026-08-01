@@ -2,8 +2,8 @@ import { SITE_CONFIG } from "@/lib/site-config";
 
 /**
  * The polished floor. Dark band with a faint vertical reflection of
- * the content above it, mono small print, sister-site link, and the
- * standing line.
+ * the content above it. Quiet: no links, no email, no cross-references.
+ * The site name, the standing line, and the year.
  */
 export function SiteFooter() {
   const year = new Date().getFullYear();
@@ -13,42 +13,10 @@ export function SiteFooter() {
       <div aria-hidden="true" className="floor-reflection absolute inset-0" />
       <div className="relative mx-auto w-full max-w-6xl px-6 py-16">
         <p className="font-mono text-sm text-atrium">
-          Verified cells, not marketing pages.
+          Attribution on the bill, not in a dashboard.
         </p>
-
-        <nav aria-label="Footer" className="mt-10">
-          <ul className="flex flex-wrap gap-x-8 gap-y-3 font-mono text-xs text-steel">
-            <li>
-              <a
-                href={SITE_CONFIG.sisterUrl}
-                className="underline decoration-steel/50 underline-offset-4 transition-colors duration-150 hover:text-skylight"
-              >
-                opensourcegateway.com ↗
-              </a>
-            </li>
-            <li>
-              <a
-                href={SITE_CONFIG.repoUrl}
-                className="underline decoration-steel/50 underline-offset-4 transition-colors duration-150 hover:text-skylight"
-              >
-                github.com/Lyqed/thegatewayproject ↗
-              </a>
-            </li>
-            <li>
-              <a
-                href={`mailto:${SITE_CONFIG.contactEmail}`}
-                className="underline decoration-steel/50 underline-offset-4 transition-colors duration-150 hover:text-skylight"
-              >
-                corrections: {SITE_CONFIG.contactEmail}
-              </a>
-            </li>
-          </ul>
-        </nav>
-
         <p className="mt-10 font-mono text-xs text-steel">
-          © {year} {SITE_CONFIG.name} · statuses hand-verified against public
-          documentation · &quot;unknown&quot; means exactly that, not
-          &quot;no&quot;
+          © {year} {SITE_CONFIG.name}
         </p>
       </div>
     </footer>

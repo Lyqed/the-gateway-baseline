@@ -1,38 +1,33 @@
 import { Hero } from "@/components/sections/Hero";
-import { Checks } from "@/components/sections/Checks";
-import { Matrix } from "@/components/sections/Matrix";
+import { Requirements } from "@/components/sections/Requirements";
 import { MonolithBand } from "@/components/sections/MonolithBand";
-import { Method } from "@/components/sections/Method";
-import { History } from "@/components/sections/History";
-import { ReferenceBand } from "@/components/sections/ReferenceBand";
 import { PerforatedRail } from "@/components/marks/PerforatedRail";
 
 /**
- * The Gateway Baseline — a single page, anchored nav, statically
- * prerendered. Sections per the binding brief (docs/DESIGN.md §7):
- * the matrix shouts with data, then the room goes quiet (3b); the
- * second still point (5b) is bare atrium, and the dot was already
- * spent on the dark band.
+ * The Gateway Baseline — a single page, statically prerendered. One
+ * thing: cost attribution. The thesis up front (Hero), the six
+ * requirements stated plainly (Requirements), and one still point.
+ *
+ * Two monolith bands, symmetry discipline observed, exactly one
+ * watching dot (spent on the dark band). The requirements state the
+ * case; then the room goes quiet and the sharpest one is repeated
+ * alone.
  */
 export default function Home() {
   return (
     <>
       <Hero />
-      <Checks />
-      <Matrix />
+      <MonolithBand
+        surface="atrium"
+        sentence="The gateway assigns the tag. It does not take the caller's word."
+      />
+      <PerforatedRail />
+      <Requirements />
       <MonolithBand
         surface="floor"
         watchingDot
-        sentence="The gateway never just believes a tag."
+        sentence="The exact dollar figure, on the provider's bill."
       />
-      <Method />
-      <PerforatedRail />
-      <History />
-      <MonolithBand
-        surface="atrium"
-        sentence="Someone is told when a cap is hit."
-      />
-      <ReferenceBand />
     </>
   );
 }

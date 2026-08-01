@@ -1,8 +1,9 @@
 /**
  * The monarch — one butterfly, used at most once per site, at the
  * moment of transformation. On the Baseline that moment is the
- * matrix: where claims become verified cells. Hand-drawn path
- * quality, monarch + floor-dark, per the brief's vocabulary.
+ * invoice requirement: where an estimate becomes an authoritative
+ * dollar figure on the provider's own bill. Hand-drawn path quality,
+ * monarch + floor-dark, per the brief's vocabulary.
  */
 export function Butterfly({ className = "" }: { className?: string }) {
   return (

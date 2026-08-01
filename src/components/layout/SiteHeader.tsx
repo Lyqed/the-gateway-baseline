@@ -17,7 +17,7 @@ function Mark() {
 
 /**
  * Anchored single-page nav. Machined: hairline rule, mono labels,
- * no client JS — the four anchors fit at every width.
+ * no client JS. The anchors fit at every width.
  */
 export function SiteHeader() {
   return (

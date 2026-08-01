@@ -1,19 +1,13 @@
 /**
  * Single source of truth for site-wide constants.
- * The Gateway Baseline — the neutral yardstick site.
+ * The Gateway Baseline — a statement of cost-attribution requirements.
  */
 export const SITE_CONFIG = {
   name: "The Gateway Baseline",
-  tagline: "Nine checks a platform team can hold any LLM gateway to",
+  tagline: "Cost attribution for AI traffic, stated as requirements",
   description:
-    "Nine checks a platform team can hold any LLM gateway to, verified against public documentation. Verified cells, not marketing pages.",
+    "Cost attribution for AI traffic is not a dashboard. It is a set of requirements a gateway either meets or does not, and the sharpest is that the operator-owned tag reaches the cloud provider's own invoice as an authoritative dollar figure.",
   url: "https://thegatewaybaseline.com",
-  /** Correction / contact address for the tracker. */
-  contactEmail: "antonbraverman1@gmail.com",
-  /** Sister site: the community gateway built against this bar. */
-  sisterUrl: "https://opensourcegateway.com",
-  /** The project repo behind the reference implementation. */
-  repoUrl: "https://github.com/Lyqed/thegatewayproject",
   locale: "en",
 } as const;
 
@@ -22,10 +16,8 @@ export type NavItem = {
   href: string;
 };
 
-/** Anchored single-page navigation. */
+/** Anchored single-page navigation: the requirements. */
 export const NAV_ITEMS: readonly NavItem[] = [
-  { label: "Checks", href: "#checks" },
-  { label: "Matrix", href: "#matrix" },
-  { label: "Method", href: "#method" },
-  { label: "History", href: "#history" },
+  { label: "Requirements", href: "#requirements" },
+  { label: "The invoice", href: "#the-invoice" },
 ] as const;

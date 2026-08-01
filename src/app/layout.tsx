@@ -37,12 +37,12 @@ export const metadata: Metadata = {
   },
   description: SITE_CONFIG.description,
   keywords: [
+    "cost attribution",
+    "AI cost attribution",
     "LLM gateway",
-    "AI gateway",
-    "gateway baseline",
-    "spend attribution",
-    "AI spend governance",
-    "GB-1",
+    "chargeback",
+    "invoice-grade attribution",
+    "cloud billing labels",
   ],
   openGraph: {
     type: "website",

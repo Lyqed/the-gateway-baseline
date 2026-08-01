@@ -1,18 +1,18 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { ImageResponse } from "next/og";
-import { CRITERIA } from "@/lib/gateways";
+import { REQUIREMENTS } from "@/lib/requirements";
 import { SITE_CONFIG } from "@/lib/site-config";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 export const alt =
-  "The Gateway Baseline: nine checks, GB-1 through GB-9, verified against public documentation";
+  "The Gateway Baseline: cost attribution for AI traffic, stated as six requirements a gateway either meets or does not";
 
 /**
  * Hex approximations of the oklch tokens in globals.css; Satori
- * cannot parse oklch(). Floor-dark ground, display title, mono GB
- * chip row — per the brief.
+ * cannot parse oklch(). Floor-dark ground, display title, mono index
+ * row — per the brief.
  */
 const C = {
   floor: "#24252D",
@@ -115,9 +115,9 @@ export default async function OpengraphImage() {
         </div>
 
         <div style={{ display: "flex", gap: 10 }}>
-          {CRITERIA.map((criterion) => (
+          {REQUIREMENTS.map((req) => (
             <div
-              key={criterion.code}
+              key={req.index}
               style={{
                 display: "flex",
                 fontFamily: "IBM Plex Mono",
@@ -127,7 +127,7 @@ export default async function OpengraphImage() {
                 padding: "8px 16px",
               }}
             >
-              {criterion.code}
+              {req.index}
             </div>
           ))}
         </div>

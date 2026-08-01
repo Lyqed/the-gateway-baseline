@@ -1,24 +1,14 @@
-import {
-  CRITERIA,
-  GATEWAYS,
-  SPEC_HISTORY,
-  tallyMatrix,
-  topScore,
-} from "@/lib/gateways";
 import { Reveal } from "@/components/reveal/Reveal";
 import { Ring } from "@/components/marks/Ring";
 import { HandCircle } from "@/components/marks/HandStrokes";
 
 /**
- * Hero — the ring motif behind, display caps, one hand annotation
- * (violet stroke circling "verified", Shantell "not vendor claims"),
- * and GB-1..GB-9 as a mono chip row.
+ * Hero — the ring motif behind, display caps, and the thesis stated
+ * plainly: cost attribution for AI traffic is not a dashboard. One
+ * restrained hand annotation circles "requirements" (violet stroke,
+ * Shantell note "not a dashboard").
  */
 export function Hero() {
-  const tally = tallyMatrix();
-  const top = topScore();
-  const lastChange = SPEC_HISTORY[0].date;
-
   return (
     <section
       id="top"
@@ -28,9 +18,9 @@ export function Hero() {
       <div aria-hidden="true" className="skylight-band absolute inset-0" />
       <Ring className="absolute -right-[16rem] -top-[14rem] w-[46rem] opacity-70 sm:-right-[12rem] lg:-right-[6rem]" />
 
-      <div className="relative mx-auto w-full max-w-6xl px-6 pb-16 pt-20 sm:pb-20 sm:pt-28">
+      <div className="relative mx-auto w-full max-w-6xl px-6 pb-20 pt-20 sm:pb-28 sm:pt-28">
         <p className="mono-label text-steel-dark">
-          Spec · GB-1 to GB-9 · last change {lastChange}
+          Cost attribution · AI traffic
         </p>
 
         <h1
@@ -43,48 +33,25 @@ export function Hero() {
         <div className="relative mt-10 max-w-2xl">
           <Reveal mode="draw">
             <p className="text-lg leading-relaxed text-steel-dark sm:text-xl">
-              Nine checks a platform team can hold any LLM gateway to,{" "}
+              Cost attribution for AI traffic is not a dashboard. It is a set of{" "}
               <HandCircle>
-                <span className="text-ink">verified</span>
+                <span className="text-ink">requirements</span>
               </HandCircle>{" "}
-              against public documentation.
+              a gateway either meets or does not.
             </p>
           </Reveal>
           <p className="mt-4 -rotate-2 font-hand text-lg text-violet">
-            *not vendor claims
+            *not a dashboard
           </p>
         </div>
 
         <Reveal>
-          <ul className="mt-12 flex flex-wrap gap-2">
-            {CRITERIA.map((criterion) => (
-              <li key={criterion.id}>
-                <a
-                  href={`#${criterion.code.toLowerCase()}`}
-                  title={criterion.title}
-                  className="lift inline-flex items-baseline gap-2 border border-steel bg-panel px-3 py-1.5 font-mono text-xs text-ink"
-                >
-                  <span className="font-semibold">{criterion.code}</span>
-                  <span className="hidden text-steel-dark sm:inline">
-                    {criterion.short}
-                  </span>
-                </a>
-              </li>
-            ))}
-          </ul>
+          <p className="mt-10 max-w-2xl text-base leading-relaxed text-ink">
+            Six of them. The sharpest is the last: the operator-owned tag
+            reaches the cloud provider&apos;s own invoice as an authoritative
+            dollar figure. Not an estimate. The bill.
+          </p>
         </Reveal>
-
-        <p className="mt-12 font-mono text-xs text-steel-dark">
-          {GATEWAYS.length} gateways · {tally.total} cells · {tally.green}{" "}
-          conform · {tally.partial} partial · {tally.missing} missing ·{" "}
-          {tally.unknown} not verified
-          {top < CRITERIA.length && (
-            <span className="text-ink">
-              {" "}
-              · top score {top}/{CRITERIA.length}
-            </span>
-          )}
-        </p>
       </div>
     </section>
   );
