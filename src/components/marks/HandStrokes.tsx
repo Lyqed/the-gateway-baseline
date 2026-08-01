@@ -5,24 +5,29 @@
  * Decorative; the words they annotate carry the meaning.
  */
 
-/** Wraps an inline word with a hand-wobbled violet ellipse. */
+/**
+ * Wraps an inline word with a hand-wobbled violet ellipse. The word gets
+ * horizontal breathing room (the ellipse extends sideways, where the text
+ * flow has slack) and the stroke is inset from the box edges so it clears
+ * the glyphs above, below, and beside without touching adjacent lines.
+ */
 export function HandCircle({ children }: { children: React.ReactNode }) {
   return (
-    <span className="relative inline-block whitespace-nowrap">
+    <span className="relative inline-block whitespace-nowrap px-[0.35em]">
       {children}
       <svg
         aria-hidden="true"
-        viewBox="0 0 140 60"
+        viewBox="0 0 200 68"
         fill="none"
         preserveAspectRatio="none"
-        className="pointer-events-none absolute -left-[12%] -top-[32%] h-[164%] w-[124%]"
+        className="pointer-events-none absolute -left-[6%] top-1/2 h-[150%] w-[112%] -translate-y-1/2"
       >
         <path
           pathLength={1}
           className="draw-path"
-          d="M 14 30 C 10 15 40 6 70 6 C 108 6 132 14 130 30 C 128 46 96 55 60 54 C 28 53 14 46 13 34"
+          d="M 20 34 C 14 17 54 9 100 9 C 154 9 190 17 188 34 C 186 51 140 60 96 59 C 46 58 22 50 21 38"
           stroke="var(--violet)"
-          strokeWidth="2.2"
+          strokeWidth="2"
           strokeLinecap="round"
         />
       </svg>

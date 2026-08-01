@@ -30,21 +30,22 @@ export function WhyAuthoritative() {
               id="why-heading"
               className="text-section mt-5 max-w-2xl font-medium text-ink"
             >
-              An estimate is not good enough when the real number exists.
+              An estimate loses the argument the moment someone doubts it.
             </h2>
 
             <div className="mt-8 space-y-6 text-lg leading-relaxed text-ink sm:text-xl">
               <p>
-                A token-counting tool tallies tokens against a price table.
-                LiteLLM is the common example. That is useful. But everything
-                it holds is an estimate.
+                Count tokens, multiply by a price list, and you have a number.
+                It is a useful number, and it is a guess. Close, often. Still a
+                guess.
               </p>
               <p>
-                The moment a team disputes its bill, an estimate is just your
-                arithmetic against their disbelief. The authoritative figure,
-                the dollars the provider actually billed, is the only number
-                that ends that conversation. An estimation tool, by
-                definition, does not hold it.
+                Then a team looks at what it owes and pushes back. A guess has
+                no answer to that. It is one side&apos;s math against the other
+                side&apos;s doubt, and neither can win. The figure the provider
+                actually charged has no such weakness. It is not a case to
+                argue. It is the bill, and the bill is where the disagreement
+                stops.
               </p>
             </div>
           </div>
@@ -60,25 +61,26 @@ export function WhyAuthoritative() {
           </p>
           <div className="max-w-2xl space-y-6 text-lg leading-relaxed text-ink">
             <p>
-              You cannot settle whether the spend is worth it until the cost
-              side is a{" "}
+              There is a harder question underneath: is any of this spend
+              earning its keep? You cannot answer it while the cost half stays
+              a{" "}
               <span className="relative inline-block">
-                fact
+                guess
                 <span className="absolute -bottom-1 left-0 w-full">
                   <Reveal mode="draw">
                     <HandUnderline />
                   </Reveal>
                 </span>
               </span>
-              . The value of AI spend is genuinely hard to measure. That is
-              not proof it is absent. But the argument can only be settled if
-              cost is known.
+              . What these tools return is real but diffuse and slow to
+              measure, which is not the same as worthless. The verdict is out.
+              It stays out until one side of the ledger is nailed down.
             </p>
             <p className="text-steel-dark">
-              To measure value you have to know what it cost. Authoritative
-              cost is the precondition for the entire ROI question: the
-              dollar figure on the provider&apos;s own bill, not an estimate
-              reconstructed in a third-party dashboard.
+              Cost is the side you can nail down. Take it from the source that
+              cannot be disputed, the provider&apos;s own bill, and the return
+              on the spend becomes a question with a chance of an answer
+              instead of a standoff between two dashboards.
             </p>
           </div>
         </div>
