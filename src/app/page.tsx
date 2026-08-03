@@ -2,6 +2,7 @@ import { Hero } from "@/components/sections/Hero";
 import { WhyAuthoritative } from "@/components/sections/WhyAuthoritative";
 import { TrustChoice } from "@/components/sections/TrustChoice";
 import { Requirements } from "@/components/sections/Requirements";
+import { Tracker } from "@/components/sections/Tracker";
 import { PerforatedRail } from "@/components/marks/PerforatedRail";
 
 /**
@@ -13,7 +14,9 @@ import { PerforatedRail } from "@/components/marks/PerforatedRail";
  * Then the trust choice a team makes, hedged toward trusting developers
  * (TrustChoice), which now carries the operator-owned-tag line that once
  * stood alone on a monolith band. The six requirements follow, in
- * service of those two arguments rather than as the headline.
+ * service of those two arguments rather than as the headline. The
+ * scoreboard closes the page: the standard, then every gateway measured
+ * against it — our own row on the same bar, reds and all.
  */
 export default function Home() {
   return (
@@ -23,6 +26,7 @@ export default function Home() {
       <PerforatedRail />
       <TrustChoice />
       <Requirements />
+      <Tracker />
     </>
   );
 }

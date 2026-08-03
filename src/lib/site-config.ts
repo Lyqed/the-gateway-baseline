@@ -6,7 +6,7 @@ export const SITE_CONFIG = {
   name: "The Gateway Baseline",
   tagline: "A common standard for cost attribution in AI",
   description:
-    "A common standard for cost attribution in AI: spend named on the cloud provider's own bill, not estimated in a dashboard. An estimate loses the argument the moment someone doubts it, and authoritative cost is the precondition for the whole question of whether the spend is worth it.",
+    "A common standard for cost attribution in AI: spend named on the cloud provider's own bill, not estimated in a dashboard. An estimate loses the argument the moment someone doubts it, and authoritative cost is the precondition for the whole question of whether all of this spend is worth it.",
   url: "https://thegatewaybaseline.com",
   locale: "en",
 } as const;
