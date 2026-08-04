@@ -28,10 +28,11 @@ export function Requirements() {
           The concrete list, in service of both.
         </h2>
         <p className="mt-6 leading-relaxed text-steel-dark">
-          Six requirements a gateway either meets or does not. The
-          operator-owned tag carries the trust choice. The invoice-grade
-          figure carries the authoritative-number argument. The rest hold
-          the line around them.
+          Six requirements a gateway either meets or does not. They are the
+          required core of the standard; the operator-owned tag carries the
+          trust choice, the invoice-grade figure carries the
+          authoritative-number argument, and the rest hold the line around
+          them. Further checks extend the bar without loosening these.
         </p>
       </div>
 

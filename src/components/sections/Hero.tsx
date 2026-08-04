@@ -19,13 +19,9 @@ export function Hero() {
       <Ring className="absolute -right-[16rem] -top-[14rem] w-[46rem] opacity-70 sm:-right-[12rem] lg:-right-[6rem]" />
 
       <div className="relative mx-auto w-full max-w-6xl px-6 pb-20 pt-20 sm:pb-28 sm:pt-28">
-        <p className="mono-label text-steel-dark">
-          Cost attribution · AI traffic
-        </p>
-
         <h1
           id="hero-heading"
-          className="text-hero mt-8 max-w-4xl font-medium uppercase"
+          className="text-hero max-w-4xl font-medium uppercase"
         >
           The Gateway Baseline
         </h1>
@@ -33,7 +29,7 @@ export function Hero() {
         <div className="relative mt-10 max-w-2xl">
           <Reveal mode="draw">
             <p className="text-lg leading-relaxed text-steel-dark sm:text-xl">
-              A common standard for cost attribution in AI. Not a dashboard,
+              The standard for cost attribution in AI. Not a dashboard,
               and not a feature list. A set of{" "}
               <HandCircle>
                 <span className="text-ink">requirements</span>

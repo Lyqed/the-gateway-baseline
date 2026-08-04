@@ -1,12 +1,12 @@
 /**
  * Single source of truth for site-wide constants.
- * The Gateway Baseline: a common standard for cost attribution in AI.
+ * The Gateway Baseline: the standard for cost attribution in AI.
  */
 export const SITE_CONFIG = {
   name: "The Gateway Baseline",
-  tagline: "A common standard for cost attribution in AI",
+  tagline: "An open standard for LLM gateways",
   description:
-    "A common standard for cost attribution in AI: spend named on the cloud provider's own bill, not estimated in a dashboard. An estimate loses the argument the moment someone doubts it, and authoritative cost is the precondition for the whole question of whether all of this spend is worth it.",
+    "The standard for cost attribution in AI: spend named on the cloud provider's own bill, not estimated in a dashboard. An estimate loses the argument the moment someone doubts it, and authoritative cost is the precondition for the whole question of whether all of this spend is worth it.",
   url: "https://thegatewaybaseline.com",
   locale: "en",
 } as const;
