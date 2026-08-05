@@ -7,6 +7,7 @@ import {
   PATCH_STATUS_DATE,
   type PatchRef,
 } from "@/lib/ledger";
+import { snapshotCellCount, snapshotFor } from "@/lib/snapshots";
 
 function PatchList({ refs }: { refs: readonly PatchRef[] }) {
   return (
@@ -79,17 +80,27 @@ export default function LedgerPage() {
           Verification passes
         </h2>
         <ol className="mt-4 space-y-5">
-          {PASSES.map((p, i) => (
-            <li key={i} className="flex gap-5">
-              <time
-                dateTime={p.date}
-                className="mono-label mt-1 shrink-0 text-steel-dark"
-              >
-                {p.date}
-              </time>
-              <span className="text-sm">{p.note}</span>
-            </li>
-          ))}
+          {PASSES.map((p, i) => {
+            const snapshot = snapshotFor(p.date);
+            return (
+              <li key={i} className="flex gap-5">
+                <time
+                  dateTime={p.date}
+                  className="mono-label mt-1 shrink-0 text-steel-dark"
+                >
+                  {p.date}
+                </time>
+                <span className="text-sm">
+                  {p.note}
+                  {snapshot ? (
+                    <span className="mono-label ml-2 text-steel-dark">
+                      {snapshotCellCount(snapshot)} cells frozen
+                    </span>
+                  ) : null}
+                </span>
+              </li>
+            );
+          })}
         </ol>
       </section>
 
@@ -136,7 +147,7 @@ export default function LedgerPage() {
               Ours ({OUR_PATCHES.length})
             </span>
             <span className="text-sm text-steel-dark">
-              patches we wrote into scored gateways
+              patches we wrote upstream to move the field onto the standard
             </span>
           </summary>
           <PatchList refs={OUR_PATCHES} />
