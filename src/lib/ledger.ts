@@ -74,6 +74,16 @@ export const CORRECTIONS: readonly Correction[] = [
  */
 export const PATCH_LEDGER: readonly PatchRef[] = refs as PatchRef[];
 
+/** Patches we wrote into scored gateways. */
+export const OUR_PATCHES: readonly PatchRef[] = PATCH_LEDGER.filter(
+  (r) => r.ours,
+);
+
+/** Issues and pull requests by others that move the same checks. */
+export const COMMUNITY_PATCHES: readonly PatchRef[] = PATCH_LEDGER.filter(
+  (r) => !r.ours,
+);
+
 /** The dispute protocol, stated plainly. */
 export const DISPUTE_PROTOCOL: readonly string[] = [
   "Anyone can dispute any cell, including a vendor disputing its own row in either direction. A dispute is a claim that a cell is wrong, backed by evidence from the same classes the specification accepts: a public documentation citation, a conformance-run transcript, or a cloud billing artifact.",

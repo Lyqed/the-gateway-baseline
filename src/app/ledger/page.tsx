@@ -1,10 +1,40 @@
 import {
+  COMMUNITY_PATCHES,
   CORRECTIONS,
   DISPUTE_PROTOCOL,
+  OUR_PATCHES,
   PASSES,
-  PATCH_LEDGER,
   PATCH_STATUS_DATE,
+  type PatchRef,
 } from "@/lib/ledger";
+
+function PatchList({ refs }: { refs: readonly PatchRef[] }) {
+  return (
+    <ul className="divide-y divide-steel border-t border-steel">
+      {refs.map((ref) => (
+        <li key={`${ref.repo}#${ref.number}`} className="py-4">
+          <p className="flex flex-wrap items-baseline gap-x-3">
+            <a
+              href={ref.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-mono text-sm text-skylight-deep underline underline-offset-2 hover:text-ink"
+            >
+              {ref.repo}#{ref.number}
+            </a>
+            <span className="font-medium">{ref.title}</span>
+            <span className="mono-label text-steel-dark">
+              {ref.kind === "issue" ? "issue" : "pr"}
+            </span>
+          </p>
+          <p className="mt-1 text-sm text-steel-dark">
+            {ref.moves}. <span className="text-ink">{ref.status}.</span>
+          </p>
+        </li>
+      ))}
+    </ul>
+  );
+}
 
 /**
  * The verification ledger. Corrections lead: a record that keeps its own
@@ -69,33 +99,48 @@ export default function LedgerPage() {
           Upstream patch ledger
         </h2>
         <p className="mt-3 max-w-2xl text-sm text-steel-dark">
-          The standard moves by patches into the gateways it scores, not only
-          by scoring them. Statuses verified {PATCH_STATUS_DATE} against the
-          GitHub API.
+          The standard moves by patches into the gateways it scores, and by
+          the community moving the same checks unprompted. Two lists: patches
+          we wrote, and issues or pull requests by others that move a check.
+          Every status is verified against the GitHub API, on
+          {" "}{PATCH_STATUS_DATE} by hand and nightly by CI.
         </p>
-        <ul className="mt-5 divide-y divide-steel border-y border-steel">
-          {PATCH_LEDGER.map((ref) => (
-            <li key={`${ref.repo}#${ref.number}`} className="py-4">
-              <p className="flex flex-wrap items-baseline gap-x-3">
-                <a
-                  href={ref.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-mono text-sm text-skylight-deep underline underline-offset-2 hover:text-ink"
-                >
-                  {ref.repo}#{ref.number}
-                </a>
-                <span className="font-medium">{ref.title}</span>
-                {ref.ours ? (
-                  <span className="mono-label text-violet-deep">ours</span>
-                ) : null}
-              </p>
-              <p className="mt-1 text-sm text-steel-dark">
-                {ref.moves}. <span className="text-ink">{ref.status}.</span>
-              </p>
-            </li>
-          ))}
-        </ul>
+
+        <details className="group mt-6 border-y border-steel" open>
+          <summary className="flex cursor-pointer list-none items-baseline gap-3 py-4 [&::-webkit-details-marker]:hidden">
+            <span
+              aria-hidden
+              className="font-mono text-xs text-steel-dark transition-transform group-open:rotate-90"
+            >
+              ▸
+            </span>
+            <span className="mono-label text-violet-deep">
+              Community ({COMMUNITY_PATCHES.length})
+            </span>
+            <span className="text-sm text-steel-dark">
+              the field moving toward the bar on its own
+            </span>
+          </summary>
+          <PatchList refs={COMMUNITY_PATCHES} />
+        </details>
+
+        <details className="group border-b border-steel">
+          <summary className="flex cursor-pointer list-none items-baseline gap-3 py-4 [&::-webkit-details-marker]:hidden">
+            <span
+              aria-hidden
+              className="font-mono text-xs text-steel-dark transition-transform group-open:rotate-90"
+            >
+              ▸
+            </span>
+            <span className="mono-label text-steel-dark">
+              Ours ({OUR_PATCHES.length})
+            </span>
+            <span className="text-sm text-steel-dark">
+              patches we wrote into scored gateways
+            </span>
+          </summary>
+          <PatchList refs={OUR_PATCHES} />
+        </details>
       </section>
 
       {/* Dispute protocol */}

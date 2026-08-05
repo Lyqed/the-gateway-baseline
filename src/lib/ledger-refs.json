@@ -25,12 +25,23 @@
     "repo": "agentgateway/agentgateway",
     "number": 2806,
     "kind": "pr",
-    "title": "Operator-set billing labels on native Vertex requests",
+    "title": "Operator-configured billing labels for cost attribution on Vertex",
     "moves": "Billing labels riding to the Vertex invoice (GB-8)",
     "status": "Open",
     "expectedState": "open",
     "ours": true,
     "url": "https://github.com/agentgateway/agentgateway/pull/2806"
+  },
+  {
+    "repo": "agentgateway/agentgateway",
+    "number": 2490,
+    "kind": "issue",
+    "title": "Vertex provider: translated Gemini chat cannot carry billing labels",
+    "moves": "Billing labels surviving the translated Vertex chat path (GB-8)",
+    "status": "Closed as completed 2026-07-16",
+    "expectedState": "closed",
+    "ours": true,
+    "url": "https://github.com/agentgateway/agentgateway/issues/2490"
   },
   {
     "repo": "BerriAI/litellm",
@@ -56,6 +67,149 @@
   },
   {
     "repo": "BerriAI/litellm",
+    "number": 4029,
+    "kind": "issue",
+    "title": "Allow Proxy Admin to Enforce Certain Params",
+    "moves": "Operator-required metadata keys with rejection of bare requests (GB-1)",
+    "status": "Closed as completed 2024-06-10, shipped as the enforced_params setting",
+    "expectedState": "closed",
+    "ours": false,
+    "url": "https://github.com/BerriAI/litellm/issues/4029"
+  },
+  {
+    "repo": "BerriAI/litellm",
+    "number": 2599,
+    "kind": "issue",
+    "title": "JWT-based Auth v2",
+    "moves": "Spend tracked against identities from proxy-validated JWTs (GB-2)",
+    "status": "Closed as completed 2024-03-23",
+    "expectedState": "closed",
+    "ours": false,
+    "url": "https://github.com/BerriAI/litellm/issues/2599"
+  },
+  {
+    "repo": "agentgateway/agentgateway",
+    "number": 222,
+    "kind": "issue",
+    "title": "Use case: role based LLM consumption",
+    "moves": "Per-group consumption keyed off claims in a gateway-validated JWT (GB-2)",
+    "status": "Open as of 2026-08-05, maintainer-filed 2025-07-28",
+    "expectedState": "open",
+    "ours": false,
+    "url": "https://github.com/agentgateway/agentgateway/issues/222"
+  },
+  {
+    "repo": "BerriAI/litellm",
+    "number": 32779,
+    "kind": "issue",
+    "title": "Security hardening: restrict x-litellm-customer-id to authorized virtual keys",
+    "moves": "Attribution headers pinned to the key, not the caller (GB-3)",
+    "status": "Open as of 2026-08-05, filed 2026-07-10",
+    "expectedState": "open",
+    "ours": false,
+    "url": "https://github.com/BerriAI/litellm/issues/32779"
+  },
+  {
+    "repo": "agentgateway/agentgateway",
+    "number": 1449,
+    "kind": "issue",
+    "title": "Support API key metadata in remote rate limit CEL expressions",
+    "moves": "Key-pinned metadata driving limits instead of caller headers (GB-3)",
+    "status": "Closed as completed 2026-04-29",
+    "expectedState": "closed",
+    "ours": false,
+    "url": "https://github.com/agentgateway/agentgateway/issues/1449"
+  },
+  {
+    "repo": "agentgateway/agentgateway",
+    "number": 747,
+    "kind": "issue",
+    "title": "Support custom response body and headers for authn/authz failures",
+    "moves": "Operator-worded status, headers, and body on gateway rejections (GB-4)",
+    "status": "Open as of 2026-08-05, filed 2025-12-18",
+    "expectedState": "open",
+    "ours": false,
+    "url": "https://github.com/agentgateway/agentgateway/issues/747"
+  },
+  {
+    "repo": "BerriAI/litellm",
+    "number": 9985,
+    "kind": "issue",
+    "title": "max_internal_user_budget cannot be configured",
+    "moves": "The fleet-wide default user budget taking effect at all (GB-5)",
+    "status": "Closed as completed 2025-05-06",
+    "expectedState": "closed",
+    "ours": false,
+    "url": "https://github.com/BerriAI/litellm/issues/9985"
+  },
+  {
+    "repo": "BerriAI/litellm",
+    "number": 13581,
+    "kind": "issue",
+    "title": "Default budget assignment for auto-generated JWT teams",
+    "moves": "Default budgets stamped on JWT-created teams at birth (GB-5)",
+    "status": "Closed as completed 2025-09-16, maintainer-filed",
+    "expectedState": "closed",
+    "ours": false,
+    "url": "https://github.com/BerriAI/litellm/issues/13581"
+  },
+  {
+    "repo": "BerriAI/litellm",
+    "number": 3743,
+    "kind": "issue",
+    "title": "Webhooks for budget alerting events",
+    "moves": "A webhook fired when a spender hits their budget (GB-6)",
+    "status": "Closed as completed 2024-05-21",
+    "expectedState": "closed",
+    "ours": false,
+    "url": "https://github.com/BerriAI/litellm/issues/3743"
+  },
+  {
+    "repo": "BerriAI/litellm",
+    "number": 34069,
+    "kind": "issue",
+    "title": "Support aws_session_tags in Bedrock role assumption for CUR 2.0 cost attribution",
+    "moves": "Session tags on Bedrock role assumption so spend splits inside CUR 2.0 (GB-7)",
+    "status": "Open as of 2026-08-05, filed 2026-07-21",
+    "expectedState": "open",
+    "ours": false,
+    "url": "https://github.com/BerriAI/litellm/issues/34069"
+  },
+  {
+    "repo": "BerriAI/litellm",
+    "number": 34073,
+    "kind": "pr",
+    "title": "Add aws_session_tags support for STS AssumeRole",
+    "moves": "aws_session_tags passed as Tags on the sts:AssumeRole call (GB-7)",
+    "status": "Open and unmerged as of 2026-08-05, filed 2026-07-21",
+    "expectedState": "open",
+    "ours": false,
+    "url": "https://github.com/BerriAI/litellm/pull/34073"
+  },
+  {
+    "repo": "BerriAI/litellm",
+    "number": 9175,
+    "kind": "pr",
+    "title": "Optional labels field in Vertex AI requests",
+    "moves": "A labels field carried on native Vertex requests (GB-8)",
+    "status": "Merged 2025-09-09",
+    "expectedState": "merged",
+    "ours": false,
+    "url": "https://github.com/BerriAI/litellm/pull/9175"
+  },
+  {
+    "repo": "BerriAI/litellm",
+    "number": 25499,
+    "kind": "pr",
+    "title": "Propagate metadata labels to embedding, Imagen, and rerank",
+    "moves": "Billing labels reaching Vertex embeddings, Imagen, and rerank calls (GB-8)",
+    "status": "Merged 2026-05-01",
+    "expectedState": "merged",
+    "ours": false,
+    "url": "https://github.com/BerriAI/litellm/pull/25499"
+  },
+  {
+    "repo": "BerriAI/litellm",
     "number": 13692,
     "kind": "issue",
     "title": "Vertex AI label passthrough",
@@ -64,5 +218,60 @@
     "expectedState": "closed",
     "ours": false,
     "url": "https://github.com/BerriAI/litellm/issues/13692"
+  },
+  {
+    "repo": "agentgateway/agentgateway",
+    "number": 2023,
+    "kind": "pr",
+    "title": "Use Gemini native generateContent endpoints on Vertex",
+    "moves": "Vertex Gemini traffic moved onto the native endpoints that honor labels (GB-8)",
+    "status": "Merged 2026-07-24",
+    "expectedState": "merged",
+    "ours": false,
+    "url": "https://github.com/agentgateway/agentgateway/pull/2023"
+  },
+  {
+    "repo": "Portkey-AI/gateway",
+    "number": 984,
+    "kind": "pr",
+    "title": "Add labels parameter in Vertex AI",
+    "moves": "A labels parameter on Vertex calls bound for the billing export (GB-8)",
+    "status": "Merged 2025-03-12",
+    "expectedState": "merged",
+    "ours": false,
+    "url": "https://github.com/Portkey-AI/gateway/pull/984"
+  },
+  {
+    "repo": "BerriAI/litellm",
+    "number": 20409,
+    "kind": "issue",
+    "title": "When do config.yaml changes take effect on a running proxy?",
+    "moves": "A stated contract for when config edits reach a running proxy (GB-9)",
+    "status": "Closed 2026-02-04: the maintainer answer is that a restart is required",
+    "expectedState": "closed",
+    "ours": false,
+    "url": "https://github.com/BerriAI/litellm/issues/20409"
+  },
+  {
+    "repo": "agentgateway/agentgateway",
+    "number": 1774,
+    "kind": "issue",
+    "title": "Hot reload: route changes not reflected in the running proxy",
+    "moves": "Route edits taking effect on the running proxy without a restart (GB-9)",
+    "status": "Closed as completed 2026-05-08",
+    "expectedState": "closed",
+    "ours": false,
+    "url": "https://github.com/agentgateway/agentgateway/issues/1774"
+  },
+  {
+    "repo": "agentgateway/agentgateway",
+    "number": 2648,
+    "kind": "issue",
+    "title": "Standalone reload applies only to the pod that received the request",
+    "moves": "Config reloads landing on every replica, not one pod (GB-9)",
+    "status": "Closed as completed 2026-07-29",
+    "expectedState": "closed",
+    "ours": false,
+    "url": "https://github.com/agentgateway/agentgateway/issues/2648"
   }
 ]
