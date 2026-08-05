@@ -147,7 +147,8 @@ export default function LedgerPage() {
               Ours ({OUR_PATCHES.length})
             </span>
             <span className="text-sm text-steel-dark">
-              patches we wrote upstream to move the field onto the standard
+              patches I personally wrote upstream to move the field onto the
+              standard
             </span>
           </summary>
           <PatchList refs={OUR_PATCHES} />

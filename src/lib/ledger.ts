@@ -74,7 +74,7 @@ export const CORRECTIONS: readonly Correction[] = [
  */
 export const PATCH_LEDGER: readonly PatchRef[] = refs as PatchRef[];
 
-/** Patches we wrote upstream to move the field onto the standard. */
+/** Patches I personally wrote upstream to move the field onto the standard. */
 export const OUR_PATCHES: readonly PatchRef[] = PATCH_LEDGER.filter(
   (r) => r.ours,
 );
