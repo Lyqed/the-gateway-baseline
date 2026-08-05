@@ -1,0 +1,68 @@
+[
+  {
+    "repo": "agentgateway/agentgateway",
+    "number": 2435,
+    "kind": "pr",
+    "title": "Session tags on Bedrock routes",
+    "moves": "Operator-set tags riding to the AWS invoice (GB-7)",
+    "status": "Merged 2026-07-06",
+    "expectedState": "merged",
+    "ours": true,
+    "url": "https://github.com/agentgateway/agentgateway/pull/2435"
+  },
+  {
+    "repo": "agentgateway/agentgateway",
+    "number": 2447,
+    "kind": "pr",
+    "title": "Per-request app and team values on cloud credentials",
+    "moves": "Per-request tags on AWS credentials, fresh for every caller (GB-7)",
+    "status": "Merged 2026-07-08",
+    "expectedState": "merged",
+    "ours": true,
+    "url": "https://github.com/agentgateway/agentgateway/pull/2447"
+  },
+  {
+    "repo": "agentgateway/agentgateway",
+    "number": 2806,
+    "kind": "pr",
+    "title": "Operator-set billing labels on native Vertex requests",
+    "moves": "Billing labels riding to the Vertex invoice (GB-8)",
+    "status": "Open",
+    "expectedState": "open",
+    "ours": true,
+    "url": "https://github.com/agentgateway/agentgateway/pull/2806"
+  },
+  {
+    "repo": "BerriAI/litellm",
+    "number": 32797,
+    "kind": "pr",
+    "title": "STS session tags for Bedrock AssumeRole paths",
+    "moves": "Operator-set tags riding to the AWS invoice (GB-7)",
+    "status": "Open since 2026-07-10, checks passing, no maintainer review as of 2026-08-05",
+    "expectedState": "open",
+    "ours": true,
+    "url": "https://github.com/BerriAI/litellm/pull/32797"
+  },
+  {
+    "repo": "Portkey-AI/gateway",
+    "number": 1728,
+    "kind": "pr",
+    "title": "Session tags on Bedrock credentials",
+    "moves": "Operator-set tags riding to the AWS invoice (GB-7)",
+    "status": "Open",
+    "expectedState": "open",
+    "ours": true,
+    "url": "https://github.com/Portkey-AI/gateway/pull/1728"
+  },
+  {
+    "repo": "BerriAI/litellm",
+    "number": 13692,
+    "kind": "issue",
+    "title": "Vertex AI label passthrough",
+    "moves": "Billing labels riding to the Vertex invoice (GB-8)",
+    "status": "Closed",
+    "expectedState": "closed",
+    "ours": false,
+    "url": "https://github.com/BerriAI/litellm/issues/13692"
+  }
+]

@@ -1,0 +1,30 @@
+name: verify-ledger
+
+# The ledger asserts facts reality can change under us. Re-verify every
+# patch-ledger ref against the GitHub API nightly and on every push, and
+# fail loudly on drift, so a stale status is caught by machinery.
+on:
+  schedule:
+    - cron: "20 5 * * *"
+  push:
+    paths:
+      - "src/lib/ledger-refs.json"
+      - "scripts/verify-ledger-refs.mjs"
+      - ".github/workflows/verify-ledger.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verify ledger refs against the GitHub API
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/verify-ledger-refs.mjs

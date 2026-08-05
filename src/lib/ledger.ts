@@ -1,3 +1,5 @@
+import refs from "./ledger-refs.json";
+
 /**
  * The verification ledger: the dated record behind the tracker.
  *
@@ -32,6 +34,12 @@ export type PatchRef = {
   moves: string;
   /** Status on statusDate, stated plainly. */
   status: string;
+  /**
+   * The machine-checkable state behind the prose. CI re-verifies every
+   * ref against the GitHub API nightly and fails on drift, so a stale
+   * status is caught by machinery, not by a reader.
+   */
+  expectedState: "merged" | "open" | "closed";
   /** True when the contribution is ours. */
   ours: boolean;
   url: string;
@@ -59,68 +67,12 @@ export const CORRECTIONS: readonly Correction[] = [
   },
 ] as const;
 
-export const PATCH_LEDGER: readonly PatchRef[] = [
-  {
-    repo: "agentgateway/agentgateway",
-    number: 2435,
-    kind: "pr",
-    title: "Session tags on Bedrock routes",
-    moves: "Operator-set tags riding to the AWS invoice (GB-7)",
-    status: "Merged 2026-07-06",
-    ours: true,
-    url: "https://github.com/agentgateway/agentgateway/pull/2435",
-  },
-  {
-    repo: "agentgateway/agentgateway",
-    number: 2447,
-    kind: "pr",
-    title: "Per-request app and team values on cloud credentials",
-    moves: "Per-request tags on AWS credentials, fresh for every caller (GB-7)",
-    status: "Merged 2026-07-08",
-    ours: true,
-    url: "https://github.com/agentgateway/agentgateway/pull/2447",
-  },
-  {
-    repo: "agentgateway/agentgateway",
-    number: 2806,
-    kind: "pr",
-    title: "Operator-set billing labels on native Vertex requests",
-    moves: "Billing labels riding to the Vertex invoice (GB-8)",
-    status: "Open",
-    ours: true,
-    url: "https://github.com/agentgateway/agentgateway/pull/2806",
-  },
-  {
-    repo: "BerriAI/litellm",
-    number: 32797,
-    kind: "pr",
-    title: "STS session tags for Bedrock AssumeRole paths",
-    moves: "Operator-set tags riding to the AWS invoice (GB-7)",
-    status: "Open since 2026-07-10, checks passing, no maintainer review as of 2026-08-05",
-    ours: true,
-    url: "https://github.com/BerriAI/litellm/pull/32797",
-  },
-  {
-    repo: "Portkey-AI/gateway",
-    number: 1728,
-    kind: "pr",
-    title: "Session tags on Bedrock credentials",
-    moves: "Operator-set tags riding to the AWS invoice (GB-7)",
-    status: "Open",
-    ours: true,
-    url: "https://github.com/Portkey-AI/gateway/pull/1728",
-  },
-  {
-    repo: "BerriAI/litellm",
-    number: 13692,
-    kind: "issue",
-    title: "Vertex AI label passthrough",
-    moves: "Billing labels riding to the Vertex invoice (GB-8)",
-    status: "Closed",
-    ours: false,
-    url: "https://github.com/BerriAI/litellm/issues/13692",
-  },
-] as const;
+/**
+ * The patch data lives in ledger-refs.json, one home for prose and the
+ * machine-checkable state: this module renders it, and CI verifies it
+ * (.github/workflows/verify-ledger.yml).
+ */
+export const PATCH_LEDGER: readonly PatchRef[] = refs as PatchRef[];
 
 /** The dispute protocol, stated plainly. */
 export const DISPUTE_PROTOCOL: readonly string[] = [
