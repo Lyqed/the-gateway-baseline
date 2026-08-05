@@ -1,8 +1,10 @@
 /**
  * The Gateway Baseline conformance tracker.
  *
- * Every gateway measured against the same twelve checks, coded GB-1
- * through GB-12. Statuses are hand-verified against public documentation on
+ * Every gateway measured against the same bar: nine normative checks
+ * (GB-1..GB-9, frozen as GB/1.0 in lib/spec.ts) plus three provisional
+ * candidates (GB-10..GB-12) that are verified and shown but do not
+ * score. Statuses are hand-verified against public documentation on
  * the date recorded per gateway; our own row is scored from the code and
  * held to the same bar, reds and all. The integrity rule is the whole
  * point: our row is verified identically to everyone else’s.
@@ -16,12 +18,17 @@ export type CheckStatus = "yes" | "partial" | "no";
 export type Check = {
   /** Stable key, matches the cell keys below. */
   key: string;
-  /** Coded check, GB-1..GB-9. */
+  /** Coded check, GB-1..GB-12. */
   code: string;
   /** Short column label for the matrix. */
   short: string;
   /** One-line definition of the check. */
   title: string;
+  /**
+   * True for candidates in the provisional track (/spec/candidates).
+   * Candidate cells are verified and shown but never score.
+   */
+  provisional?: boolean;
 };
 
 export type GatewayRow = {
@@ -49,10 +56,20 @@ export const CHECKS: readonly Check[] = [
   { key: "aws-invoice", code: "GB-7", short: "AWS bill", title: "The tag reaches the AWS invoice" },
   { key: "vertex-invoice", code: "GB-8", short: "Vertex bill", title: "The tag reaches the Vertex invoice" },
   { key: "live-changes", code: "GB-9", short: "Live change", title: "The rules and config can change while it runs, with no dropped requests and stated staleness" },
-  { key: "fleet-gitops", code: "GB-10", short: "Fleet as Git", title: "The fleet is managed the way teams already manage clusters: desired state in Git, a reconciler that converges it" },
-  { key: "metered-shapes", code: "GB-11", short: "All shapes metered", title: "Every traffic shape the gateway carries is metered and attributed — nothing escapes the meter, and inexactness is stated, never silent" },
-  { key: "invoice-true", code: "GB-12", short: "Invoice-true", title: "The spend figure is the bill’s, not a guess — provider-authoritative usage, no fabricated dollars, estimates only with a stated error bound" },
+  { key: "fleet-gitops", code: "GB-10", short: "Fleet as Git", title: "The fleet is managed the way teams already manage clusters: desired state in Git, a reconciler that converges it", provisional: true },
+  { key: "metered-shapes", code: "GB-11", short: "All shapes metered", title: "Every traffic shape the gateway carries is metered and attributed: nothing escapes the meter, and inexactness is stated, never silent", provisional: true },
+  { key: "invoice-true", code: "GB-12", short: "Invoice-true", title: "The spend figure is the bill’s, not a guess: provider-authoritative usage, no fabricated dollars, estimates only with a stated error bound", provisional: true },
 ];
+
+/** The nine normative checks that score. */
+export const NORMATIVE_CHECKS: readonly Check[] = CHECKS.filter(
+  (c) => !c.provisional,
+);
+
+/** The provisional candidates: verified, shown, never scored. */
+export const CANDIDATE_CHECKS: readonly Check[] = CHECKS.filter(
+  (c) => c.provisional,
+);
 
 export const GATEWAYS: readonly GatewayRow[] = [
   {

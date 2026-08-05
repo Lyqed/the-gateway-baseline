@@ -1,16 +1,20 @@
-import { CHECKS, GATEWAYS, LAST_VERIFIED } from "@/lib/gateways";
+import { CHECKS, NORMATIVE_CHECKS, GATEWAYS, LAST_VERIFIED } from "@/lib/gateways";
 import { Reveal } from "@/components/reveal/Reveal";
 
 /**
- * The conformance scoreboard: every gateway measured against the same twelve
- * checks. Not a marketing table — a verification record. Our own row leads
- * and is scored from the code against the same bar, reds and all; the
- * integrity rule (our row verified identically to everyone else's) is what
- * makes the rest of the board trustworthy.
+ * The conformance scoreboard: every gateway measured against the same bar.
+ * Not a marketing table, a verification record. Our own row leads and is
+ * scored from the code against the same bar, reds and all; the integrity
+ * rule (our row verified identically to everyone else's) is what makes the
+ * rest of the board trustworthy.
+ *
+ * Only the nine normative checks of GB/1.0 score. The three provisional
+ * candidates (GB-10..12) are verified and shown, visually set apart, and
+ * excluded from every score, per the admission rules at /spec/candidates.
  *
  * Status is encoded in FORM, not only color: a filled square (verified), a
- * half square (partial), a hollow square (missing). The semantic tokens —
- * teal / gold / blossom — carry the same meaning for anyone who sees color.
+ * half square (partial), a hollow square (missing). The semantic tokens,
+ * teal / gold / blossom, carry the same meaning for anyone who sees color.
  * Each cell's note is its title attribute, so the reasoning is one hover
  * away and never asserted without a source.
  */
@@ -22,8 +26,10 @@ const STATUS_META = {
 } as const;
 
 function score(cells: Record<string, { status: string }>): string {
-  const n = Object.values(cells).filter((c) => c.status === "yes").length;
-  return `${n}/${CHECKS.length}`;
+  const n = NORMATIVE_CHECKS.filter(
+    (c) => cells[c.key]?.status === "yes",
+  ).length;
+  return `${n}/${NORMATIVE_CHECKS.length}`;
 }
 
 export function Tracker() {
@@ -40,15 +46,29 @@ export function Tracker() {
             Every gateway, against the same bar.
           </h2>
           <p className="mt-6 leading-relaxed text-steel-dark">
-            The requirements above, coded GB-1 through GB-12, checked against
-            each gateway&rsquo;s public documentation. Our own reference
+            The nine checks of{" "}
+            <a
+              href="/spec"
+              className="text-skylight-deep underline underline-offset-2 hover:text-ink"
+            >
+              GB/1.0
+            </a>
+            , checked against each gateway&rsquo;s public documentation, plus
+            three{" "}
+            <a
+              href="/spec/candidates"
+              className="text-skylight-deep underline underline-offset-2 hover:text-ink"
+            >
+              provisional candidates
+            </a>{" "}
+            that are verified but do not score. Our own reference
             implementation is on the board too, scored from its code and held
-            to the same bar &mdash; the reds are ours to show. Hover any cell
-            for the sourced reasoning.
+            to the same bar: the reds are ours to show. Hover any cell for the
+            sourced reasoning.
           </p>
         </div>
 
-        {/* What each check means — each check, in one line. */}
+        {/* What each check means, one line per check. */}
         <dl className="mt-12 grid gap-x-10 gap-y-5 sm:grid-cols-2">
           {CHECKS.map((c) => (
             <div key={c.key} className="flex gap-4">
@@ -57,6 +77,11 @@ export function Tracker() {
               </dt>
               <dd className="text-sm leading-relaxed text-steel-dark">
                 <span className="text-ink">{c.short}.</span> {c.title}.
+                {c.provisional ? (
+                  <span className="ml-1 font-mono text-[0.62rem] uppercase tracking-[0.1em] text-gold-deep">
+                    candidate, does not score
+                  </span>
+                ) : null}
               </dd>
             </div>
           ))}
@@ -96,12 +121,24 @@ export function Tracker() {
                     <th
                       key={c.key}
                       scope="col"
-                      title={c.title}
-                      className="px-2.5 py-3 text-center font-mono text-[0.66rem] font-medium uppercase tracking-[0.08em] text-steel-dark"
+                      title={
+                        c.provisional
+                          ? `${c.title}. Candidate: verified, does not score.`
+                          : c.title
+                      }
+                      className={`px-2.5 py-3 text-center font-mono text-[0.66rem] font-medium uppercase tracking-[0.08em] ${
+                        c.provisional
+                          ? "border-l border-dashed border-steel/60 text-gold-deep first-of-type:border-l-0"
+                          : "text-steel-dark"
+                      }`}
                     >
-                      <span className="block text-ink">{c.code}</span>
+                      <span
+                        className={`block ${c.provisional ? "text-gold-deep" : "text-ink"}`}
+                      >
+                        {c.code}
+                      </span>
                       <span className="mt-0.5 block normal-case tracking-normal">
-                        {c.short}
+                        {c.provisional ? "candidate" : c.short}
                       </span>
                     </th>
                   ))}
@@ -149,11 +186,18 @@ export function Tracker() {
                       return (
                         <td
                           key={c.key}
-                          title={`${c.code} — ${meta.label}: ${cell.note}`}
-                          className="px-2.5 py-3.5 text-center"
+                          title={`${c.code} ${meta.label}${
+                            c.provisional ? " (candidate, does not score)" : ""
+                          }: ${cell.note}`}
+                          className={`px-2.5 py-3.5 text-center ${
+                            c.provisional
+                              ? "border-l border-dashed border-steel/60 opacity-70 first-of-type:border-l-0"
+                              : ""
+                          }`}
                         >
                           <span className="sr-only">
                             {c.code} {meta.label}
+                            {c.provisional ? " (candidate, does not score)" : ""}
                           </span>
                           <span
                             aria-hidden
@@ -182,10 +226,24 @@ export function Tracker() {
         </Reveal>
 
         <p className="mt-6 max-w-2xl font-mono text-xs leading-relaxed text-steel-dark">
-          Verified {LAST_VERIFIED} against public documentation. A cell is a
-          reading of what the docs say a gateway does, not a claim about what a
-          deployment achieves. Corrections welcome &mdash; every judgment is
-          sourced, and our own row moves down the same way when we fall short.
+          Verified {LAST_VERIFIED} against public documentation, scored against{" "}
+          <a
+            href="/spec"
+            className="text-skylight-deep underline underline-offset-2 hover:text-ink"
+          >
+            GB/1.0
+          </a>{" "}
+          and nothing else. A cell is a reading of what the docs say a gateway
+          does, not a claim about what a deployment achieves. Corrections
+          welcome: every judgment is sourced, and our own row moves down the
+          same way when we fall short. Dated passes and corrections live in the{" "}
+          <a
+            href="/ledger"
+            className="text-skylight-deep underline underline-offset-2 hover:text-ink"
+          >
+            ledger
+          </a>
+          .
         </p>
       </div>
     </section>

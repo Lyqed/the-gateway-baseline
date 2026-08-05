@@ -29,5 +29,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.6,
     },
+    {
+      url: `${SITE_CONFIG.url}/ledger`,
+      lastModified: frozen,
+      changeFrequency: "weekly",
+      priority: 0.6,
+    },
   ];
 }

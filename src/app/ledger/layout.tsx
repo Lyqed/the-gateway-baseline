@@ -1,25 +1,20 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { SITE_CONFIG } from "@/lib/site-config";
-import { SPEC_VERSION, SPEC_FROZEN } from "@/lib/spec";
+import { SPEC_VERSION } from "@/lib/spec";
 
 /**
- * Chrome for the specification section. The root route holds; the spec
- * is online. These routes are indexable on their own metadata, overriding
- * the holding layout's noindex, because publishing the spec is the act
- * of putting the standard online.
+ * Chrome for the ledger, matching the specification section. Indexable
+ * on its own metadata while the root holds.
  */
 export const metadata: Metadata = {
-  title: {
-    default: `${SPEC_VERSION}, ${SITE_CONFIG.name}`,
-    template: `%s, ${SPEC_VERSION}, ${SITE_CONFIG.name}`,
-  },
+  title: `Ledger, ${SITE_CONFIG.name}`,
   description:
-    "The Gateway Baseline specification: the normative checks an LLM gateway either meets or does not, scoped to money and the controls around it.",
+    "The dated record behind the Gateway Baseline tracker: verification passes, corrections kept rather than erased, upstream patches with their real statuses, and the dispute protocol.",
   robots: { index: true, follow: true },
 };
 
-export default function SpecLayout({
+export default function LedgerLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
@@ -32,8 +27,8 @@ export default function SpecLayout({
           >
             {SITE_CONFIG.name}
           </Link>
-          <Link href="/spec" className="mono-label text-steel-dark hover:text-ink">
-            Specification {SPEC_VERSION}
+          <Link href="/ledger" className="mono-label text-steel-dark hover:text-ink">
+            Ledger
           </Link>
         </div>
       </header>
@@ -43,29 +38,17 @@ export default function SpecLayout({
       <footer className="border-t border-steel">
         <div className="mx-auto flex w-full max-w-3xl flex-wrap items-baseline justify-between gap-3 px-6 py-6">
           <p className="mono-label text-steel-dark">
-            {SPEC_VERSION}, frozen {SPEC_FROZEN}
+            The record only grows. Nothing is rewritten.
           </p>
           <nav className="flex gap-5">
             <Link href="/spec" className="mono-label text-steel-dark hover:text-ink">
-              Checks
+              Specification {SPEC_VERSION}
             </Link>
             <Link
               href="/spec/candidates"
               className="mono-label text-steel-dark hover:text-ink"
             >
               Candidates
-            </Link>
-            <Link
-              href="/spec#changelog"
-              className="mono-label text-steel-dark hover:text-ink"
-            >
-              Changelog
-            </Link>
-            <Link
-              href="/ledger"
-              className="mono-label text-steel-dark hover:text-ink"
-            >
-              Ledger
             </Link>
           </nav>
         </div>

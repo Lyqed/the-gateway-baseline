@@ -22,12 +22,18 @@ export default function Holding() {
         <p className="mx-auto mt-5 max-w-lg font-mono text-[0.72rem] uppercase leading-relaxed tracking-[0.22em] text-steel-dark sm:text-xs sm:tracking-[0.28em]">
           {SITE_CONFIG.tagline}
         </p>
-        <p className="mt-10">
+        <p className="mt-10 flex items-baseline justify-center gap-8">
           <a
             href="/spec"
             className="mono-label text-skylight-deep underline underline-offset-4 hover:text-ink"
           >
             Specification GB/1.0
+          </a>
+          <a
+            href="/ledger"
+            className="mono-label text-skylight-deep underline underline-offset-4 hover:text-ink"
+          >
+            Ledger
           </a>
         </p>
       </div>
