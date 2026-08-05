@@ -1,8 +1,8 @@
 /**
  * The Gateway Baseline conformance tracker.
  *
- * Every gateway measured against the same six requirements, coded GB-1
- * through GB-9. Statuses are hand-verified against public documentation on
+ * Every gateway measured against the same twelve checks, coded GB-1
+ * through GB-12. Statuses are hand-verified against public documentation on
  * the date recorded per gateway; our own row is scored from the code and
  * held to the same bar, reds and all. The integrity rule is the whole
  * point: our row is verified identically to everyone else’s.
@@ -105,7 +105,7 @@ export const GATEWAYS: readonly GatewayRow[] = [
     kind: "open source",
     url: "https://docs.litellm.ai",
     ours: false,
-    lastVerified: "2026-08-03",
+    lastVerified: "2026-08-05",
     cells: {
       "enforced-keys": { status: "partial", note: "enforced_params (e.g. require user/metadata.generation_name, rejects missing with 'please pass param=user') exists but is an Enterprise-gated feature, not free-tier." },
       "jwt-values": { status: "partial", note: "OIDC/JWT claims map to attribution via JWT-to-virtual-key mapping, but docs state 'JWT → Virtual Key Mapping is an Enterprise feature.'" },
@@ -113,7 +113,7 @@ export const GATEWAYS: readonly GatewayRow[] = [
       "error-bodies": { status: "partial", note: "Custom rejection message/status is settable via a ProxyException in a custom_auth/guardrail Python hook, not a pure config-level rejection body." },
       "default-limit": { status: "yes", note: "Fleet-wide default caps exist via litellm_settings max_internal_user_budget and max_end_user_budget_id, applied to users/end-users by default, not per-key opt-in only." },
       alerts: { status: "yes", note: "Built-in Slack/webhook/email budget and threshold alerting ships in the proxy, not merely Prometheus metrics you wire yourself." },
-      "aws-invoice": { status: "partial", note: "PR #32797 (aws_session_tags on STS AssumeRole) MERGED 2026-07-16, so operator-set tags now reach AWS CUR and caller cannot forge, but tags are config-pinned per." },
+      "aws-invoice": { status: "no", note: "Corrected 2026-08-05: PR #32797 (aws_session_tags on STS AssumeRole) is open and unmerged per the GitHub API, so no operator-set session tags reach the AWS CUR; the 2026-08-03 pass scored this partial on a mistaken merged status." },
       "vertex-invoice": { status: "partial", note: "LiteLLM forwards a labels field (and converts string metadata to labels) into Vertex generateContent for GCP billing, but docs show no server-side label pinning so." },
       "live-changes": { status: "partial", note: "With store_model_in_db, pods poll and converge on config changes within proxy_config_reload_interval_seconds (default 30s), but a process restart drops in-flight." },
       "fleet-gitops": { status: "no", note: "A single proxy instance with a config surface; no fleet-as-Git model, no reconciler converging many data planes toward a repo." },
