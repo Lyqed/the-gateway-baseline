@@ -86,7 +86,7 @@ export const COMMUNITY_PATCHES: readonly PatchRef[] = PATCH_LEDGER.filter(
 
 /** The dispute protocol, stated plainly. */
 export const DISPUTE_PROTOCOL: readonly string[] = [
-  "Anyone can dispute any cell, including a vendor disputing its own row in either direction. A dispute is a claim that a cell is wrong, backed by evidence from the same classes the specification accepts: a public documentation citation, a conformance-run transcript, or a cloud billing artifact.",
+  "A dispute is a claim that a cell is wrong, backed by evidence from the same classes the specification accepts: a public documentation citation, a conformance-run transcript, or a cloud billing artifact.",
   "Every dispute is re-verified against its evidence, and the adjudication is recorded here, dated, whichever direction the score moves. A dispute that stands corrects the cell and enters the corrections list; a dispute that fails is recorded with the reason.",
   "Our own row is disputed the same way and has no special standing. The first entry in the corrections list above was self-inflicted, and that is the standard the rest of the board is held to.",
 ] as const;
