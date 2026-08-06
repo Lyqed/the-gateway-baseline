@@ -66,6 +66,17 @@
     "url": "https://github.com/Portkey-AI/gateway/pull/1728"
   },
   {
+    "repo": "cloudflare/pingora",
+    "number": 951,
+    "kind": "issue",
+    "title": "Allow response_body_filter to end the downstream response cleanly after the current chunk",
+    "moves": "A clean wire-level end for the mid-stream cut, in the engine the gateway builds on (GB-4)",
+    "status": "Filed 2026-08-06, open",
+    "expectedState": "open",
+    "ours": true,
+    "url": "https://github.com/cloudflare/pingora/issues/951"
+  },
+  {
     "repo": "BerriAI/litellm",
     "number": 4029,
     "kind": "issue",
