@@ -46,9 +46,13 @@ export type PatchRef = {
 };
 
 /** ISO date every patch-ledger status below was verified against the GitHub API. */
-export const PATCH_STATUS_DATE = "2026-08-05";
+export const PATCH_STATUS_DATE = "2026-08-19";
 
 export const PASSES: readonly VerificationPass[] = [
+  {
+    date: "2026-08-19",
+    note: "Third verification: every patch-ledger ref re-checked against the GitHub API with zero drift, agentgateway #2508 (dynamic RoleSessionName, merged 2026-07-16) added to the record, LiteLLM #32797 confirmed still open, and the tracker's dated cells re-read where documentation moved.",
+  },
   {
     date: "2026-08-03",
     note: "Second full verification: every cell re-checked against current vendor documentation, GB-9 resolved for every gateway, and our own reference row added, scored from the code and held to the same bar.",

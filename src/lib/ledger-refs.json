@@ -23,6 +23,17 @@
   },
   {
     "repo": "agentgateway/agentgateway",
+    "number": 2508,
+    "kind": "pr",
+    "title": "Dynamic (CEL) RoleSessionName for AWS assume-role auth",
+    "moves": "A per-request identity on the CUR's session-name column, not one static string for every caller (GB-7)",
+    "status": "Merged 2026-07-16",
+    "expectedState": "merged",
+    "ours": true,
+    "url": "https://github.com/agentgateway/agentgateway/pull/2508"
+  },
+  {
+    "repo": "agentgateway/agentgateway",
     "number": 2806,
     "kind": "pr",
     "title": "Operator-configured billing labels for cost attribution on Vertex",

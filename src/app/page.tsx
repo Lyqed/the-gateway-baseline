@@ -4,6 +4,7 @@ import { WhyAuthoritative } from "@/components/sections/WhyAuthoritative";
 import { TrustChoice } from "@/components/sections/TrustChoice";
 import { Checks } from "@/components/sections/Checks";
 import { Tracker } from "@/components/sections/Tracker";
+import { UpstreamSignals } from "@/components/sections/UpstreamSignals";
 
 /**
  * The Gateway Baseline — a single page, statically prerendered.
@@ -25,6 +26,7 @@ export default function Home() {
       <TrustChoice />
       <Checks />
       <Tracker />
+      <UpstreamSignals />
     </>
   );
 }
