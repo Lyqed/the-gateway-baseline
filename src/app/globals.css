@@ -96,7 +96,6 @@
 
   --font-sans: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-plex-mono), ui-monospace, "SFMono-Regular", monospace;
-  --font-hand: var(--font-shantell), "Comic Sans MS", cursive;
 }
 
 /* ------------------------------------------------------------------ *

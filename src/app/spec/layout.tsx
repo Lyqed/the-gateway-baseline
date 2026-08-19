@@ -50,6 +50,12 @@ export default function SpecLayout({
               Checks
             </Link>
             <Link
+              href="/spec/candidates"
+              className="mono-label text-steel-dark hover:text-ink"
+            >
+              Candidates
+            </Link>
+            <Link
               href="/spec#changelog"
               className="mono-label text-steel-dark hover:text-ink"
             >

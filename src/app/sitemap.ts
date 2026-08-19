@@ -24,6 +24,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     })),
     {
+      url: `${SITE_CONFIG.url}/spec/candidates`,
+      lastModified: frozen,
+      changeFrequency: "weekly",
+      priority: 0.6,
+    },
+    {
       url: `${SITE_CONFIG.url}/ledger`,
       lastModified: frozen,
       changeFrequency: "weekly",

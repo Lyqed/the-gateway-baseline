@@ -1,31 +1,23 @@
 import { Reveal } from "@/components/reveal/Reveal";
-import { HandUnderline } from "@/components/marks/HandStrokes";
 
 /**
- * Why authoritative attribution matters (Center 1) — the sharp point of
- * the whole page, given the earliest and heaviest real estate after the
- * thesis. Two arguments, in the author's voice: an estimate is your
- * arithmetic against their disbelief, and you cannot settle whether the
- * spend is worth it until the cost side is a fact.
- *
- * Set as a monarch-ruled panel with the largest body type on the page,
- * skylight band behind it. No paint carries information alone; the
- * violet underline annotates the one word "fact".
+ * Why authoritative attribution matters — the sharp point of the whole
+ * page. Two arguments, plainly set: an estimate is one side's arithmetic
+ * against the other side's doubt, and the ROI question stays unanswerable
+ * while the cost half stays a guess. Document-grade: a ruled panel and a
+ * margin-noted follow-through, no decoration.
  */
 export function WhyAuthoritative() {
   return (
     <section
       id="why-it-matters"
       aria-labelledby="why-heading"
-      className="mx-auto w-full max-w-6xl px-6 pb-[var(--space-section)] pt-16 sm:pt-20"
+      className="mx-auto w-full max-w-6xl scroll-mt-20 px-6 py-[var(--space-section)]"
     >
       <Reveal>
-        <div className="relative border-t-2 border-monarch bg-panel px-6 py-12 sm:px-12 sm:py-16">
-          <div aria-hidden="true" className="skylight-band absolute inset-0" />
-          <div className="relative max-w-3xl">
-            <p className="mono-label text-monarch-deep">
-              Why it matters
-            </p>
+        <div className="border-t-2 border-monarch bg-panel px-6 py-12 sm:px-12 sm:py-16">
+          <div className="max-w-3xl">
+            <p className="mono-label text-monarch-deep">Why it matters</p>
             <h2
               id="why-heading"
               className="text-section mt-5 max-w-2xl font-medium text-ink"
@@ -52,8 +44,6 @@ export function WhyAuthoritative() {
         </div>
       </Reveal>
 
-      {/* The larger reason. Set apart, past the panel edge, so the ROI
-          argument reads as the deeper claim rather than a footnote. */}
       <Reveal delay={80}>
         <div className="mt-16 grid gap-x-10 gap-y-6 sm:mt-20 sm:grid-cols-[6rem_1fr]">
           <p className="font-mono text-sm text-steel-dark sm:pt-2">
@@ -63,18 +53,9 @@ export function WhyAuthoritative() {
             <p>
               There is a harder question underneath: is any of this spend
               earning its keep? You cannot answer it while the cost half stays
-              a{" "}
-              <span className="relative inline-block">
-                guess
-                <span className="absolute -bottom-1 left-0 w-full">
-                  <Reveal mode="draw">
-                    <HandUnderline />
-                  </Reveal>
-                </span>
-              </span>
-              . What these tools return is real but diffuse and slow to
+              a guess. What these tools return is real but diffuse and slow to
               measure, which is not the same as worthless. The verdict is out.
-              It stays out until one side of the ledger is nailed down.
+              It stays out until one side of the equation is nailed down.
             </p>
             <p className="text-steel-dark">
               Cost is the side you can nail down. Take it from the source that

@@ -37,7 +37,7 @@ export type GatewayRow = {
   cells: Record<string, { status: CheckStatus; note: string }>;
 };
 
-export const LAST_VERIFIED = "2026-08-03";
+export const LAST_VERIFIED = "2026-08-19";
 
 export const CHECKS: readonly Check[] = [
   { key: "enforced-keys", code: "GB-1", short: "Tagged", title: "Every request is tagged with who it is for" },

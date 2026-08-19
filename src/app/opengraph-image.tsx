@@ -1,13 +1,13 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { ImageResponse } from "next/og";
-import { REQUIREMENTS } from "@/lib/requirements";
+import { SPEC_CHECKS } from "@/lib/spec";
 import { SITE_CONFIG } from "@/lib/site-config";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 export const alt =
-  "The Gateway Baseline: cost attribution for AI traffic, stated as six requirements a gateway either meets or does not";
+  "The Gateway Baseline: cost attribution for AI traffic, stated as nine checks a gateway either passes or does not";
 
 /**
  * Hex approximations of the oklch tokens in globals.css; Satori
@@ -115,19 +115,19 @@ export default async function OpengraphImage() {
         </div>
 
         <div style={{ display: "flex", gap: 10 }}>
-          {REQUIREMENTS.map((req) => (
+          {SPEC_CHECKS.map((check) => (
             <div
-              key={req.index}
+              key={check.code}
               style={{
                 display: "flex",
                 fontFamily: "IBM Plex Mono",
                 fontSize: 20,
                 color: C.steel,
                 border: `1.5px solid ${C.steelDark}`,
-                padding: "8px 16px",
+                padding: "8px 14px",
               }}
             >
-              {req.index}
+              {check.code}
             </div>
           ))}
         </div>

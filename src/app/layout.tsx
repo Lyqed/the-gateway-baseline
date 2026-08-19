@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, IBM_Plex_Mono, Shantell_Sans } from "next/font/google";
+import { Space_Grotesk, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { SITE_CONFIG } from "@/lib/site-config";
 import { SkipLink } from "@/components/layout/SkipLink";
@@ -18,14 +18,6 @@ const plexMono = IBM_Plex_Mono({
   variable: "--font-plex-mono",
   subsets: ["latin"],
   weight: ["400", "500", "600"],
-  display: "swap",
-});
-
-/** The mural voice: hand annotations only, never body text. */
-const shantell = Shantell_Sans({
-  variable: "--font-shantell",
-  subsets: ["latin"],
-  weight: ["400", "500"],
   display: "swap",
 });
 
@@ -73,7 +65,7 @@ export default function RootLayout({
   return (
     <html
       lang={SITE_CONFIG.locale}
-      className={`${spaceGrotesk.variable} ${plexMono.variable} ${shantell.variable} h-full`}
+      className={`${spaceGrotesk.variable} ${plexMono.variable} h-full`}
     >
       <body className="flex min-h-full flex-col">
         <script dangerouslySetInnerHTML={{ __html: JS_FLAG }} />

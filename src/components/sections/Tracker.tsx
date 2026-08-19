@@ -1,74 +1,107 @@
-import { CHECKS, NORMATIVE_CHECKS, GATEWAYS, LAST_VERIFIED } from "@/lib/gateways";
+import Link from "next/link";
+import {
+  CHECKS,
+  NORMATIVE_CHECKS,
+  GATEWAYS,
+  LAST_VERIFIED,
+  type GatewayRow,
+} from "@/lib/gateways";
+import { SIDE_LABEL, SPEC_CHECKS, type SpecSide } from "@/lib/spec";
 import { Reveal } from "@/components/reveal/Reveal";
 
 /**
- * The conformance scoreboard: every gateway measured against the same bar.
- * Not a marketing table, a verification record. Our own row leads and is
- * scored from the code against the same bar, reds and all; the integrity
- * rule (our row verified identically to everyone else's) is what makes the
- * rest of the board trustworthy.
+ * The conformance scoreboard: every gateway measured against the same
+ * bar, sorted by what it verifies. Not a marketing table, a
+ * verification record.
  *
- * The nine normative checks of GB/1.0 score.
- *
- * Status is encoded in FORM, not only color: a filled square (verified), a
- * half square (partial), a hollow square (missing). The semantic tokens,
- * teal / gold / blossom, carry the same meaning for anyone who sees color.
- * Each cell's note is its title attribute, so the reasoning is one hover
- * away and never asserted without a source.
+ * Status is encoded in FORM, not only color: a filled square
+ * (verified), a half square (partial), a hollow square (missing). The
+ * semantic tokens, teal / gold / blossom, carry the same meaning for
+ * anyone who sees color. Each cell's sourced reasoning is its title
+ * attribute; each column header links to the normative text it scores.
  */
 
 const STATUS_META = {
-  yes: { glyph: "■", label: "verified", cls: "text-teal-deep", fill: "var(--teal)" },
-  partial: { glyph: "◧", label: "partial", cls: "text-gold-deep", fill: "var(--gold)" },
-  no: { glyph: "□", label: "missing", cls: "text-blossom-deep", fill: "var(--blossom)" },
+  yes: { glyph: "■", label: "verified", fill: "var(--teal)" },
+  partial: { glyph: "◧", label: "partial", fill: "var(--gold)" },
+  no: { glyph: "□", label: "missing", fill: "var(--blossom)" },
 } as const;
 
-function score(cells: Record<string, { status: string }>): string {
-  const n = NORMATIVE_CHECKS.filter(
-    (c) => cells[c.key]?.status === "yes",
-  ).length;
-  return `${n}/${NORMATIVE_CHECKS.length}`;
+function verifiedCount(g: GatewayRow): number {
+  return NORMATIVE_CHECKS.filter((c) => g.cells[c.key]?.status === "yes")
+    .length;
+}
+
+/**
+ * Sort key: the verified count leads (it is the number the column
+ * shows), partials break ties only.
+ */
+function weight(g: GatewayRow): number {
+  return NORMATIVE_CHECKS.reduce((acc, c) => {
+    const s = g.cells[c.key]?.status;
+    return acc + (s === "yes" ? 1 : s === "partial" ? 0.01 : 0);
+  }, 0);
+}
+
+const slugByKey = new Map(SPEC_CHECKS.map((c) => [c.key, c.slug]));
+
+/** Column groups in CHECKS order: side + how many columns it spans. */
+function sideGroups(): { side: SpecSide; span: number }[] {
+  const groups: { side: SpecSide; span: number }[] = [];
+  for (const check of CHECKS) {
+    const side = SPEC_CHECKS.find((s) => s.key === check.key)?.side;
+    if (!side) continue;
+    const last = groups[groups.length - 1];
+    if (last && last.side === side) last.span += 1;
+    else groups.push({ side, span: 1 });
+  }
+  return groups;
 }
 
 export function Tracker() {
+  const rows = [...GATEWAYS].sort((a, b) => weight(b) - weight(a));
+  const groups = sideGroups();
+  const max = NORMATIVE_CHECKS.length;
+
+  // Column indexes where a side group begins (draws the group rule).
+  const boundaries = new Set<number>();
+  let acc = 0;
+  for (const grp of groups) {
+    boundaries.add(acc);
+    acc += grp.span;
+  }
+
   return (
     <section
       id="tracker"
       aria-labelledby="tracker-heading"
-      className="border-t border-steel/60 bg-panel"
+      className="scroll-mt-20 border-t border-steel/60 bg-panel"
     >
       <div className="mx-auto w-full max-w-6xl px-6 py-[var(--space-section)]">
-        <div className="max-w-2xl">
-          <p className="mono-label text-steel-dark">The scoreboard</p>
-          <h2 id="tracker-heading" className="text-section mt-5 font-medium">
-            Every gateway, against the same bar.
-          </h2>
-          <p className="mt-6 leading-relaxed text-steel-dark">
-            The nine checks of{" "}
-            <a
-              href="/spec"
-              className="text-skylight-deep underline underline-offset-2 hover:text-ink"
-            >
-              GB/1.0
-            </a>
-            , checked against each gateway&rsquo;s public documentation.
-            Hover any cell for the sourced reasoning.
+        <div className="flex flex-wrap items-end justify-between gap-6">
+          <div className="max-w-2xl">
+            <p className="mono-label text-steel-dark">The scoreboard</p>
+            <h2 id="tracker-heading" className="text-section mt-5 font-medium">
+              Every gateway, against the same bar.
+            </h2>
+            <p className="mt-6 leading-relaxed text-steel-dark">
+              The nine checks of{" "}
+              <Link
+                href="/spec"
+                className="text-skylight-deep underline underline-offset-2 hover:text-ink"
+              >
+                GB/1.0
+              </Link>
+              , read against each gateway&rsquo;s public documentation. Rows
+              are ordered by what they verify. Hover any cell for the sourced
+              reasoning; every column header opens the normative text it
+              scores.
+            </p>
+          </div>
+          <p className="mono-label text-steel-dark">
+            Verified {LAST_VERIFIED}
           </p>
         </div>
-
-        {/* What each check means, one line per check. */}
-        <dl className="mt-12 grid gap-x-10 gap-y-5 sm:grid-cols-2">
-          {CHECKS.map((c) => (
-            <div key={c.key} className="flex gap-4">
-              <dt className="w-16 shrink-0 font-mono text-sm font-medium text-ink">
-                {c.code}
-              </dt>
-              <dd className="text-sm leading-relaxed text-steel-dark">
-                <span className="text-ink">{c.short}.</span> {c.title}.
-              </dd>
-            </div>
-          ))}
-        </dl>
 
         {/* Legend */}
         <ul className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-2">
@@ -93,6 +126,21 @@ export function Tracker() {
                 {LAST_VERIFIED}
               </caption>
               <thead>
+                {/* Side group band */}
+                <tr className="border-b border-steel/50">
+                  <td aria-hidden className="sticky left-0 z-10 bg-atrium" />
+                  {groups.map((grp) => (
+                    <th
+                      key={grp.side}
+                      scope="colgroup"
+                      colSpan={grp.span}
+                      className="border-l border-steel/40 px-2.5 pb-1.5 pt-3 text-center font-mono text-[0.6rem] font-medium uppercase tracking-[0.18em] text-steel-dark"
+                    >
+                      {SIDE_LABEL[grp.side]}
+                    </th>
+                  ))}
+                  <td aria-hidden />
+                </tr>
                 <tr className="border-b border-ink/80">
                   <th
                     scope="col"
@@ -100,113 +148,146 @@ export function Tracker() {
                   >
                     Gateway
                   </th>
-                  {CHECKS.map((c) => (
-                    <th
-                      key={c.key}
-                      scope="col"
-                      title={c.title}
-                      className="px-2.5 py-3 text-center font-mono text-[0.66rem] font-medium uppercase tracking-[0.08em] text-steel-dark"
-                    >
-                      <span className="block text-ink">{c.code}</span>
-                      <span className="mt-0.5 block normal-case tracking-normal">
-                        {c.short}
-                      </span>
-                    </th>
-                  ))}
+                  {CHECKS.map((c, i) => {
+                    const slug = slugByKey.get(c.key);
+                    const boundary = boundaries.has(i);
+                    return (
+                      <th
+                        key={c.key}
+                        scope="col"
+                        title={c.title}
+                        className={`px-2.5 py-3 text-center font-mono text-[0.66rem] font-medium uppercase tracking-[0.08em] text-steel-dark ${
+                          boundary ? "border-l border-steel/40" : ""
+                        }`}
+                      >
+                        {slug ? (
+                          <Link
+                            href={`/spec/${slug}`}
+                            className="group block"
+                          >
+                            <span className="block text-ink underline decoration-transparent decoration-1 underline-offset-2 transition-colors group-hover:decoration-skylight-deep">
+                              {c.code}
+                            </span>
+                            <span className="mt-0.5 block normal-case tracking-normal">
+                              {c.short}
+                            </span>
+                          </Link>
+                        ) : (
+                          <>
+                            <span className="block text-ink">{c.code}</span>
+                            <span className="mt-0.5 block normal-case tracking-normal">
+                              {c.short}
+                            </span>
+                          </>
+                        )}
+                      </th>
+                    );
+                  })}
                   <th
                     scope="col"
-                    className="px-3 py-3 text-center font-mono text-[0.66rem] font-medium uppercase tracking-[0.12em] text-steel-dark"
+                    className="px-4 py-3 text-center font-mono text-[0.66rem] font-medium uppercase tracking-[0.12em] text-steel-dark"
                   >
-                    Score
+                    Verified
                   </th>
                 </tr>
               </thead>
               <tbody>
-                {GATEWAYS.map((g) => (
-                  <tr
-                    key={g.id}
-                    className={
-                      g.ours
-                        ? "border-b border-steel/50 bg-[color-mix(in_oklch,var(--monarch)_7%,transparent)]"
-                        : "border-b border-steel/40"
-                    }
-                  >
-                    <th
-                      scope="row"
-                      className={`sticky left-0 z-10 px-4 py-3.5 align-middle ${
-                        g.ours
-                          ? "bg-[color-mix(in_oklch,var(--monarch)_7%,var(--surface-panel))]"
-                          : "bg-panel"
-                      }`}
-                    >
-                      <a
-                        href={g.url}
-                        className="font-medium text-ink underline decoration-skylight/50 decoration-1 underline-offset-2 transition-colors hover:decoration-skylight-deep"
-                        target="_blank"
-                        rel="noopener noreferrer"
+                {rows.map((g) => {
+                  const n = verifiedCount(g);
+                  return (
+                    <tr key={g.id} className="border-b border-steel/40">
+                      <th
+                        scope="row"
+                        className="sticky left-0 z-10 bg-atrium px-4 py-4 align-middle"
                       >
-                        {g.name}
-                      </a>
-                      <span className="mt-0.5 block font-mono text-[0.62rem] uppercase tracking-[0.1em] text-steel-dark">
-                        {g.ours ? "reference · ours" : g.kind}
-                      </span>
-                    </th>
-                    {CHECKS.map((c) => {
-                      const cell = g.cells[c.key];
-                      const meta = STATUS_META[cell.status];
-                      return (
-                        <td
-                          key={c.key}
-                          title={`${c.code} ${meta.label}: ${cell.note}`}
-                          className="px-2.5 py-3.5 text-center"
+                        <a
+                          href={g.url}
+                          className="font-medium text-ink underline decoration-skylight/50 decoration-1 underline-offset-2 transition-colors hover:decoration-skylight-deep"
+                          target="_blank"
+                          rel="noopener noreferrer"
                         >
-                          <span className="sr-only">
-                            {c.code} {meta.label}
-                          </span>
-                          <span
-                            aria-hidden
-                            className="text-[1.05rem] leading-none"
-                            style={{ color: meta.fill }}
+                          {g.name}
+                        </a>
+                        <span className="mt-0.5 block font-mono text-[0.62rem] uppercase tracking-[0.1em] text-steel-dark">
+                          {g.kind} · {g.lastVerified}
+                        </span>
+                      </th>
+                      {CHECKS.map((c, i) => {
+                        const cell = g.cells[c.key];
+                        const meta = STATUS_META[cell.status];
+                        const boundary = boundaries.has(i);
+                        return (
+                          <td
+                            key={c.key}
+                            title={`${c.code} ${meta.label}: ${cell.note}`}
+                            className={`px-2.5 py-4 text-center ${
+                              boundary ? "border-l border-steel/40" : ""
+                            }`}
                           >
-                            {meta.glyph}
-                          </span>
-                        </td>
-                      );
-                    })}
-                    <td className="px-3 py-3.5 text-center">
-                      <span
-                        className={`font-mono text-sm font-medium ${
-                          g.ours ? "text-monarch-deep" : "text-ink"
-                        }`}
-                      >
-                        {score(g.cells)}
-                      </span>
-                    </td>
-                  </tr>
-                ))}
+                            <span className="sr-only">
+                              {c.code} {meta.label}
+                            </span>
+                            <span
+                              aria-hidden
+                              className="text-[1.1rem] leading-none"
+                              style={{ color: meta.fill }}
+                            >
+                              {meta.glyph}
+                            </span>
+                          </td>
+                        );
+                      })}
+                      <td className="px-4 py-4 text-center align-middle">
+                        <span className="font-mono text-sm font-medium text-ink">
+                          {n}/{max}
+                        </span>
+                        <span
+                          aria-hidden
+                          className="mx-auto mt-1.5 block h-1 w-12 bg-steel/40"
+                        >
+                          <span
+                            className="block h-full"
+                            style={{
+                              width: `${(n / max) * 100}%`,
+                              background: "var(--teal)",
+                            }}
+                          />
+                        </span>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
         </Reveal>
 
         <p className="mt-6 max-w-2xl font-mono text-xs leading-relaxed text-steel-dark">
-          Verified {LAST_VERIFIED} against public documentation, scored against{" "}
-          <a
+          Verified against public documentation, scored against{" "}
+          <Link
             href="/spec"
             className="text-skylight-deep underline underline-offset-2 hover:text-ink"
           >
             GB/1.0
-          </a>{" "}
+          </Link>{" "}
           and nothing else. A cell is a reading of what the docs say a gateway
           does, not a claim about what a deployment achieves. Corrections
-          welcome: every judgment is sourced, and our own row moves down the
-          same way when we fall short. Dated passes and corrections live in the{" "}
-          <a
+          welcome: every judgment is sourced, and every adjudication is
+          recorded, dated, in the{" "}
+          <Link
             href="/ledger"
             className="text-skylight-deep underline underline-offset-2 hover:text-ink"
           >
             ledger
-          </a>
+          </Link>
+          , whichever direction it moves. The three provisional candidates,
+          GB-10 through GB-12, do not appear here because{" "}
+          <Link
+            href="/spec/candidates"
+            className="text-skylight-deep underline underline-offset-2 hover:text-ink"
+          >
+            candidates do not score
+          </Link>
           .
         </p>
       </div>
