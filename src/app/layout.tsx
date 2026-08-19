@@ -1,25 +1,19 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, IBM_Plex_Mono } from "next/font/google";
+import { Space_Grotesk, IBM_Plex_Mono, Shantell_Sans } from "next/font/google";
 import "./globals.css";
 import { SITE_CONFIG } from "@/lib/site-config";
+import { SkipLink } from "@/components/layout/SkipLink";
+import { SiteHeader } from "@/components/layout/SiteHeader";
+import { SiteFooter } from "@/components/layout/SiteFooter";
 
-/**
- * HOLDING LAYOUT. The full layout (SkipLink + SiteHeader + SiteFooter,
- * the third mural typeface, and the full metadata block) is preserved
- * verbatim at `layout.full.tsx.bak`; restoring the site is a copy of that
- * file back over this one, plus `page.full.tsx.bak` over `page.tsx`.
- *
- * Deliberately minimal while the standard is offline: no chrome, no nav,
- * no OpenGraph card, and indexing turned off so search engines do not
- * cache a placeholder in place of the standard.
- */
-
+/** The machined voice: display, headings, UI, body. */
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
   subsets: ["latin"],
   display: "swap",
 });
 
+/** The instrument voice: GB codes, data cells, dates, spec clauses. */
 const plexMono = IBM_Plex_Mono({
   variable: "--font-plex-mono",
   subsets: ["latin"],
@@ -27,12 +21,51 @@ const plexMono = IBM_Plex_Mono({
   display: "swap",
 });
 
+/** The mural voice: hand annotations only, never body text. */
+const shantell = Shantell_Sans({
+  variable: "--font-shantell",
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_CONFIG.url),
-  title: SITE_CONFIG.name,
-  description: SITE_CONFIG.tagline,
-  robots: { index: false, follow: false },
+  title: {
+    default: `${SITE_CONFIG.name}: ${SITE_CONFIG.tagline}`,
+    template: `%s · ${SITE_CONFIG.name}`,
+  },
+  description: SITE_CONFIG.description,
+  keywords: [
+    "cost attribution",
+    "AI cost attribution",
+    "LLM gateway",
+    "chargeback",
+    "invoice-grade attribution",
+    "cloud billing labels",
+  ],
+  openGraph: {
+    type: "website",
+    url: SITE_CONFIG.url,
+    siteName: SITE_CONFIG.name,
+    title: SITE_CONFIG.name,
+    description: SITE_CONFIG.description,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_CONFIG.name,
+    description: SITE_CONFIG.description,
+  },
+  robots: { index: true, follow: true },
+  alternates: { canonical: "/" },
 };
+
+/**
+ * Marks the document as JS-capable before first paint so the reveal
+ * styles only ever hide content when the IntersectionObserver that
+ * un-hides it is guaranteed to run. Static one-liner, no user input.
+ */
+const JS_FLAG = "document.documentElement.classList.add('js')";
 
 export default function RootLayout({
   children,
@@ -40,9 +73,17 @@ export default function RootLayout({
   return (
     <html
       lang={SITE_CONFIG.locale}
-      className={`${spaceGrotesk.variable} ${plexMono.variable} h-full`}
+      className={`${spaceGrotesk.variable} ${plexMono.variable} ${shantell.variable} h-full`}
     >
-      <body className="flex min-h-full flex-col">{children}</body>
+      <body className="flex min-h-full flex-col">
+        <script dangerouslySetInnerHTML={{ __html: JS_FLAG }} />
+        <SkipLink />
+        <SiteHeader />
+        <main id="main" className="flex-1">
+          {children}
+        </main>
+        <SiteFooter />
+      </body>
     </html>
   );
 }

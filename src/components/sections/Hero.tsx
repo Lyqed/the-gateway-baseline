@@ -50,6 +50,24 @@ export function Hero() {
             follows from those.
           </p>
         </Reveal>
+
+        <Reveal>
+          <div className="mt-12 flex flex-wrap items-center gap-6">
+            {/* the enter button: one pill, Cupertino manners */}
+            <a
+              href="#tracker"
+              className="inline-flex items-center gap-2 rounded-full bg-ink px-8 py-3.5 text-[0.95rem] font-medium tracking-tight text-atrium shadow-[0_1px_2px_rgba(0,0,0,0.18)] transition-[transform,opacity] duration-200 hover:opacity-90 active:scale-[0.98]"
+            >
+              Enter
+            </a>
+            <a
+              href="/spec"
+              className="text-[0.95rem] font-medium text-violet transition-opacity hover:opacity-75"
+            >
+              Read the spec <span aria-hidden="true">&rsaquo;</span>
+            </a>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

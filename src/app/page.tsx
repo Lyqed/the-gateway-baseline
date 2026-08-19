@@ -1,28 +1,34 @@
-import { SITE_CONFIG } from "@/lib/site-config";
+import { Hero } from "@/components/sections/Hero";
+import { WhyAuthoritative } from "@/components/sections/WhyAuthoritative";
+import { TrustChoice } from "@/components/sections/TrustChoice";
+import { Requirements } from "@/components/sections/Requirements";
+import { Tracker } from "@/components/sections/Tracker";
+import { PerforatedRail } from "@/components/marks/PerforatedRail";
 
 /**
- * HOLDING PAGE. The full page (Hero, WhyAuthoritative, TrustChoice,
- * Requirements, and the unmounted Tracker) is preserved at
- * `page.full.tsx.bak`. Every section component and the tracker data
- * remain in the tree untouched; only the root route is replaced.
+ * The Gateway Baseline — a single page, statically prerendered. One
+ * scope: cost attribution. Two centers carry the page.
  *
- * Centred on both axes at every width, so the mark reads the same on a
- * phone as on a desktop. One statement, punctuated by a colon: the name
- * declares, the clause after it defines. The break between them is a
- * line break on wide screens and a wrap on narrow ones, but the colon
- * holds the sentence together either way.
+ * The thesis up front (Hero), then the sharp point: why an authoritative
+ * figure, not an estimate, is the thing that matters (WhyAuthoritative).
+ * Then the trust choice a team makes, hedged toward trusting developers
+ * (TrustChoice), which now carries the operator-owned-tag line that once
+ * stood alone on a monolith band. The six requirements follow, in
+ * service of those two arguments rather than as the headline.
+ *
+ * The conformance scoreboard (`sections/Tracker`, data in `lib/gateways`)
+ * is mounted: publishing the standard and publishing the scoreboard
+ * became one decision on 19 August 2026.
  */
-export default function Holding() {
+export default function Home() {
   return (
-    <main className="grid-paper flex flex-1 items-center justify-center">
-      <div className="mx-auto w-full max-w-3xl px-6 py-24 text-center">
-        <h1 className="text-section font-medium uppercase leading-tight tracking-tight">
-          {SITE_CONFIG.name}:
-        </h1>
-        <p className="mx-auto mt-5 max-w-lg font-mono text-[0.72rem] uppercase leading-relaxed tracking-[0.22em] text-steel-dark sm:text-xs sm:tracking-[0.28em]">
-          {SITE_CONFIG.tagline}
-        </p>
-      </div>
-    </main>
+    <>
+      <Hero />
+      <WhyAuthoritative />
+      <PerforatedRail />
+      <TrustChoice />
+      <Requirements />
+      <Tracker />
+    </>
   );
 }
