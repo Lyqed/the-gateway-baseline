@@ -1,7 +1,6 @@
 import Link from "next/link";
 import {
   ADMISSION_RULES,
-  CANDIDATES,
   EVIDENCE_CLASSES,
   NON_GOALS,
   SIDE_LABEL,
@@ -87,16 +86,6 @@ export default function SpecIndex() {
             );
           })}
         </div>
-        <p className="mt-6 text-sm text-steel-dark">
-          Three further checks are candidates in the{" "}
-          <Link
-            href="/spec/candidates"
-            className="text-skylight-deep underline underline-offset-4 hover:text-ink"
-          >
-            provisional track
-          </Link>
-          . A candidate cannot score for one full verification cycle.
-        </p>
       </section>
 
       {/* Evidence classes */}

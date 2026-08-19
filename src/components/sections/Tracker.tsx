@@ -8,9 +8,7 @@ import { Reveal } from "@/components/reveal/Reveal";
  * rule (our row verified identically to everyone else's) is what makes the
  * rest of the board trustworthy.
  *
- * Only the nine normative checks of GB/1.0 score. The three provisional
- * candidates (GB-10..12) are verified and shown, visually set apart, and
- * excluded from every score, per the admission rules at /spec/candidates.
+ * The nine normative checks of GB/1.0 score.
  *
  * Status is encoded in FORM, not only color: a filled square (verified), a
  * half square (partial), a hollow square (missing). The semantic tokens,
@@ -53,18 +51,8 @@ export function Tracker() {
             >
               GB/1.0
             </a>
-            , checked against each gateway&rsquo;s public documentation, plus
-            three{" "}
-            <a
-              href="/spec/candidates"
-              className="text-skylight-deep underline underline-offset-2 hover:text-ink"
-            >
-              provisional candidates
-            </a>{" "}
-            that are verified but do not score. Our own reference
-            implementation is on the board too, scored from its code and held
-            to the same bar: the reds are ours to show. Hover any cell for the
-            sourced reasoning.
+            , checked against each gateway&rsquo;s public documentation.
+            Hover any cell for the sourced reasoning.
           </p>
         </div>
 
@@ -77,11 +65,6 @@ export function Tracker() {
               </dt>
               <dd className="text-sm leading-relaxed text-steel-dark">
                 <span className="text-ink">{c.short}.</span> {c.title}.
-                {c.provisional ? (
-                  <span className="ml-1 font-mono text-[0.62rem] uppercase tracking-[0.1em] text-gold-deep">
-                    candidate, does not score
-                  </span>
-                ) : null}
               </dd>
             </div>
           ))}
@@ -106,7 +89,7 @@ export function Tracker() {
           <div className="mt-8 overflow-x-auto border border-steel/60 bg-atrium">
             <table className="w-full min-w-[1120px] border-collapse text-left">
               <caption className="sr-only">
-                Gateway Baseline conformance, GB-1 through GB-12, verified{" "}
+                Gateway Baseline conformance, GB-1 through GB-9, verified{" "}
                 {LAST_VERIFIED}
               </caption>
               <thead>
@@ -121,24 +104,12 @@ export function Tracker() {
                     <th
                       key={c.key}
                       scope="col"
-                      title={
-                        c.provisional
-                          ? `${c.title}. Candidate: verified, does not score.`
-                          : c.title
-                      }
-                      className={`px-2.5 py-3 text-center font-mono text-[0.66rem] font-medium uppercase tracking-[0.08em] ${
-                        c.provisional
-                          ? "border-l border-dashed border-steel/60 text-gold-deep first-of-type:border-l-0"
-                          : "text-steel-dark"
-                      }`}
+                      title={c.title}
+                      className="px-2.5 py-3 text-center font-mono text-[0.66rem] font-medium uppercase tracking-[0.08em] text-steel-dark"
                     >
-                      <span
-                        className={`block ${c.provisional ? "text-gold-deep" : "text-ink"}`}
-                      >
-                        {c.code}
-                      </span>
+                      <span className="block text-ink">{c.code}</span>
                       <span className="mt-0.5 block normal-case tracking-normal">
-                        {c.provisional ? "candidate" : c.short}
+                        {c.short}
                       </span>
                     </th>
                   ))}
@@ -186,18 +157,11 @@ export function Tracker() {
                       return (
                         <td
                           key={c.key}
-                          title={`${c.code} ${meta.label}${
-                            c.provisional ? " (candidate, does not score)" : ""
-                          }: ${cell.note}`}
-                          className={`px-2.5 py-3.5 text-center ${
-                            c.provisional
-                              ? "border-l border-dashed border-steel/60 opacity-70 first-of-type:border-l-0"
-                              : ""
-                          }`}
+                          title={`${c.code} ${meta.label}: ${cell.note}`}
+                          className="px-2.5 py-3.5 text-center"
                         >
                           <span className="sr-only">
                             {c.code} {meta.label}
-                            {c.provisional ? " (candidate, does not score)" : ""}
                           </span>
                           <span
                             aria-hidden

@@ -44,12 +44,6 @@ export default function LedgerLayout({
             <Link href="/spec" className="mono-label text-steel-dark hover:text-ink">
               Specification {SPEC_VERSION}
             </Link>
-            <Link
-              href="/spec/candidates"
-              className="mono-label text-steel-dark hover:text-ink"
-            >
-              Candidates
-            </Link>
           </nav>
         </div>
       </footer>

@@ -46,16 +46,6 @@ export type SpecCheck = {
   rationale: readonly string[];
 };
 
-export type SpecCandidate = {
-  code: string;
-  slug: string;
-  title: string;
-  /** The proposed requirement, stated as it would enter the bar. */
-  statement: string;
-  /** Unresolved admission questions, stated plainly. */
-  openQuestions: readonly string[];
-};
-
 export type SpecChange = {
   /** ISO date the change to the bar shipped. */
   date: string;
@@ -75,7 +65,7 @@ export const SIDE_LABEL: Record<SpecSide, string> = {
 export const SPEC_INTRO: readonly string[] = [
   "The Gateway Baseline is a conformance standard for LLM gateways, scoped to money and the controls around it. It defines what a gateway does so that every unit of spend is attributed to a spender, capped before it runs away, and lands, named, on the cloud provider's own bill.",
   "It is written for the team that answers for the bill and the incident: the platform engineer who fields the finance question about last month's invoice, and the on-call who explains why a caller was cut off mid-stream. The checks are the questions those two people ask, made decidable.",
-  "Conformance means passing a check as written on these pages. A check passes, scores partial, or fails against named evidence drawn from the classes defined below; each check lists the classes it accepts, and its pass condition states what that evidence must show, including when more than one class is required together. There is no credit for roadmap, intent, or vendor assurance. Nine checks, GB-1 through GB-9, are normative in GB/1.0. Three candidates, GB-10 through GB-12, sit in a provisional track and do not score.",
+  "Conformance means passing a check as written on these pages. A check passes, scores partial, or fails against named evidence drawn from the classes defined below; each check lists the classes it accepts, and its pass condition states what that evidence must show, including when more than one class is required together. There is no credit for roadmap, intent, or vendor assurance. Nine checks, GB-1 through GB-9, are normative in GB/1.0.",
   "The tracker is a separate artifact. Any gateway's row on it is scored against these pages and nothing else. The spec is the ruler; the tracker is a measurement taken with it."
 ];
 
@@ -89,10 +79,7 @@ export const VERSION_RULES: readonly string[] = [
 export const ADMISSION_RULES: readonly string[] = [
   "A new check MUST be decidable from the evidence classes defined in this spec: public documentation, a conformance-run transcript, or a cloud billing artifact. Vendor intent is not evidence.",
   "A new check MUST measure money truth observable at the caller or on the invoice. A check that rewards an implementation shape does not qualify, however good the shape.",
-  "At least two independent implementations, at most one of them maintained by the spec's authors, MUST plausibly be able to pass within twelve months of admission; the admission changelog entry MUST name both implementations and record the basis for plausibility.",
-  "A candidate enters the provisional track on admission and MUST NOT score until at least one full verification cycle (a dated, changelog-recorded scoring pass over every tracked gateway against the then-current normative checks) has completed after its admission date.",
-  "A candidate MAY enter the provisional track while an admission rule remains in open question, with that question stated plainly on its listing; it MUST satisfy every admission rule before it can freeze as normative and score."
-];
+  "At least two independent implementations, at most one of them maintained by the spec's authors, MUST plausibly be able to pass within twelve months of admission; the admission changelog entry MUST name both implementations and record the basis for plausibility.",];
 
 export const EVIDENCE_CLASSES: readonly EvidenceClass[] = [
   {
@@ -333,45 +320,12 @@ export const SPEC_CHECKS: readonly SpecCheck[] = [
   }
 ];
 
-export const CANDIDATES_INTRO: readonly string[] = [
-  "Three checks enter GB/1.0 as candidates. They are published, worded, and open to argument, and they do not score. A candidate sits in the provisional track for at least one full verification cycle, the dated, changelog-recorded scoring pass defined under admission, before it can freeze as normative, and it can be reworded or withdrawn while it sits there.",
-  "Each candidate is listed with its open questions stated plainly. A question listed here is unresolved; the wording beside it is a draft, not a bar."
-];
-
-export const CANDIDATES: readonly SpecCandidate[] = [
-  {
-    "code": "GB-10",
-    "slug": "gb-10",
-    "title": "The fleet is managed the way teams already manage clusters",
-    "statement": "Fleet policy lives as desired state in Git, and a reconciler converges the running fleet to it. Changes are proposed as diffs, reviewed, merged, and applied by machinery, and the running state can always be compared against the declared one.",
-    "openQuestions": [
-      "It observes an implementation shape rather than something visible at the caller or on the invoice, which strains admission rule 2. The case for it is that a fleet whose policy cannot be diffed and reviewed cannot show what its rules were on a given date, and that is a money question. The case is not yet decisive.",
-      "It has to be worded so that a hosted control plane with exported, diffable, reviewable desired state could plausibly pass. Worded to require Git itself, it fails admission rule 3."
-    ]
-  },
-  {
-    "code": "GB-11",
-    "slug": "gb-11",
-    "title": "Every traffic shape the gateway carries is metered and attributed",
-    "statement": "Whatever shapes a gateway chooses to carry (SSE streams, realtime sessions, MCP tool calls, agent fan-out), every one of them is metered and attributed. Nothing escapes the meter, and where the meter is inexact, the inexactness is stated, never silent. A gateway that does not carry a shape takes N/A on that shape, not a fail.",
-    "openQuestions": [
-      "The wording has to score metering truth and never feature presence: a gateway gains nothing for carrying a shape and loses nothing for declining one. Holding that line in normative text is the open drafting problem.",
-      "Deciding from public evidence whether a gateway does not carry a shape, or carries it unmetered, is unresolved."
-    ]
-  },
-  {
-    "code": "GB-12",
-    "slug": "gb-12",
-    "title": "The spend figure is the bill's, not a guess",
-    "statement": "The spend figure the gateway reports comes from provider-authoritative usage. No dollar figure is fabricated, and where an estimate appears, it carries a stated error bound.",
-    "openQuestions": [
-      "It overlaps GB-7 and GB-8, which already require the attribution value to land on the provider's own bill.",
-      "The alternative under consideration is to record the same facts as a classification column on the tracker (attribution source: operator-resolved or caller-asserted; dollar source: provider invoice or price table) instead of a scored check. That adjudication is open, not decided."
-    ]
-  }
-];
 
 export const SPEC_CHANGELOG: readonly SpecChange[] = [
+  {
+    "date": "2026-08-19",
+    "note": "GB-10, GB-11, and GB-12 withdrawn from the provisional track before scoring. The Baseline is GB-1 through GB-9. The reference implementation's row is retired from the tracker; the standard is scored against shipping gateways only."
+  },
   {
     "date": "2026-08-05",
     "note": "GB/1.0 frozen. Nine checks, GB-1 through GB-9, are normative. GB-10, GB-11, and GB-12 enter the provisional candidates track and do not score for one full verification cycle."

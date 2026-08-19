@@ -2,9 +2,7 @@
  * The Gateway Baseline conformance tracker.
  *
  * Every gateway measured against the same bar: nine normative checks
- * (GB-1..GB-9, frozen as GB/1.0 in lib/spec.ts) plus three provisional
- * candidates (GB-10..GB-12) that are verified and shown but do not
- * score. Statuses are hand-verified against public documentation on
+ * (GB-1..GB-9, frozen as GB/1.0 in lib/spec.ts). Statuses are hand-verified against public documentation on
  * the date recorded per gateway; our own row is scored from the code and
  * held to the same bar, reds and all. The integrity rule is the whole
  * point: our row is verified identically to everyone else’s.
@@ -18,17 +16,12 @@ export type CheckStatus = "yes" | "partial" | "no";
 export type Check = {
   /** Stable key, matches the cell keys below. */
   key: string;
-  /** Coded check, GB-1..GB-12. */
+  /** Coded check, GB-1..GB-9. */
   code: string;
   /** Short column label for the matrix. */
   short: string;
   /** One-line definition of the check. */
   title: string;
-  /**
-   * True for candidates in the provisional track (/spec/candidates).
-   * Candidate cells are verified and shown but never score.
-   */
-  provisional?: boolean;
 };
 
 export type GatewayRow = {
@@ -56,51 +49,20 @@ export const CHECKS: readonly Check[] = [
   { key: "aws-invoice", code: "GB-7", short: "AWS bill", title: "The tag reaches the AWS invoice" },
   { key: "vertex-invoice", code: "GB-8", short: "Vertex bill", title: "The tag reaches the Vertex invoice" },
   { key: "live-changes", code: "GB-9", short: "Live change", title: "The rules and config can change while it runs, with no dropped requests and stated staleness" },
-  { key: "fleet-gitops", code: "GB-10", short: "Fleet as Git", title: "The fleet is managed the way teams already manage clusters: desired state in Git, a reconciler that converges it", provisional: true },
-  { key: "metered-shapes", code: "GB-11", short: "All shapes metered", title: "Every traffic shape the gateway carries is metered and attributed: nothing escapes the meter, and inexactness is stated, never silent", provisional: true },
-  { key: "invoice-true", code: "GB-12", short: "Invoice-true", title: "The spend figure is the bill’s, not a guess: provider-authoritative usage, no fabricated dollars, estimates only with a stated error bound", provisional: true },
 ];
 
 /** The nine normative checks that score. */
-export const NORMATIVE_CHECKS: readonly Check[] = CHECKS.filter(
-  (c) => !c.provisional,
-);
+export const NORMATIVE_CHECKS: readonly Check[] = CHECKS;
 
-/** The provisional candidates: verified, shown, never scored. */
-export const CANDIDATE_CHECKS: readonly Check[] = CHECKS.filter(
-  (c) => c.provisional,
-);
 
 export const GATEWAYS: readonly GatewayRow[] = [
-  {
-    id: "the-gateway-baseline",
-    name: "The Open Source Gateway",
-    kind: "reference",
-    url: "https://opensourcegateway.com",
-    ours: true,
-    lastVerified: "2026-08-03",
-    cells: {
-      "enforced-keys": { status: "yes", note: "fleet.attribution.required_keys refuses unattributed requests at the door with the operator template; proven by gb1_missing_required_key_rejected against the." },
-      "jwt-values": { status: "partial", note: "HS256 claim->key mapping is built and tested (gb2_claim_mapped_key_proven_from_verified_jwt) but deferred by judgment as lowest-priority; RS256/JWKS unbuilt, may." },
-      "static-values": { status: "yes", note: "Operator-pinned attribution: caller headers for pinned keys are stripped then re-inserted with adjudicated values, never believed." },
-      "error-bodies": { status: "yes", note: "Per-provider/route operator rejection templates including streaming terminal events and a dedicated cap-exceeded voice, scoped down the chain (gb4 conformance tests)." },
-      "default-limit": { status: "yes", note: "Fleet-default spend_caps per attribution value (budget.rs composed fleet default), budget shares with bounded overspend under partition, per-value overrides." },
-      alerts: { status: "yes", note: "GB-6 soft-80% and hard-cap alerts fire from the enforcement layer to a validated webhook sink at operator alert_at (alerts_fire_from_the_meter_at_soft_then_hard)." },
-      "aws-invoice": { status: "yes", note: "SigV4 AssumeRole with attribution-derived STS session tags reaches CUR, operator-set and caller-stripped; raw caller session tag rejected at config load (gb7 tests)." },
-      "vertex-invoice": { status: "yes", note: "Operator billing labels merged into the native generateContent body before signing, operator wins on conflict so callers cannot override (labels.rs, gb8 tests)." },
-      "live-changes": { status: "yes", note: "Phase-4 versioned snapshot hot-swap: each request pins its Arc<Snapshot> for life, old versions drain with last in-flight stream, stated bounded staleness." },
-      "fleet-gitops": { status: "yes", note: "Desired state in Git, a domain-aware reconciler that converges N data planes across heterogeneous fleets (VMs, DMZ, edge, multi-cloud), drift heals toward Git. The product itself." },
-      "metered-shapes": { status: "partial", note: "Every carried shape meters through one event model, degradation loud, never silent; two gaps stated in docs/11 — default OpenAI streams settle on estimate, aborts under-bill." },
-      "invoice-true": { status: "yes", note: "Never invents a dollar: usage is the provider’s terminal frame, the live estimate reconciles to it per request with a published bound, and dollars live only on the invoice." },
-    },
-  },
   {
     id: "agentgateway",
     name: "agentgateway",
     kind: "open source",
     url: "https://agentgateway.dev",
     ours: false,
-    lastVerified: "2026-08-03",
+    lastVerified: "2026-08-19",
     cells: {
       "enforced-keys": { status: "yes", note: "CEL-based auth/RBAC policies require and evaluate attribution per request; unattributed traffic is refused, not caller-optional." },
       "jwt-values": { status: "yes", note: "Validated JWT/OIDC claims (jwt.sub, custom claims) map into attribution and downstream CEL descriptors and session tags." },
@@ -108,12 +70,9 @@ export const GATEWAYS: readonly GatewayRow[] = [
       "error-bodies": { status: "partial", note: "Rate-limit rejections return a fixed 429 'rate limit exceeded'; only the budget ImmediateResponse status is being made configurable, no operator-worded custom body." },
       "default-limit": { status: "partial", note: "RateLimit/budget policies attach opt-in per Gateway/HTTPRoute and count per-instance; no fleet-wide default cap auto-applied to every attribution value." },
       alerts: { status: "no", note: "Budget/rate-limit state surfaces only as Prometheus metrics; no built-in Slack/webhook/email notification when a cap is hit." },
-      "aws-invoice": { status: "yes", note: "AwsSessionTag {key,value,expression} sets STS TagSession tags via per-request CEL (jwt.sub etc.) that reach the AWS CUR, caller cannot forge; PRs #2435/#2447 merged." },
+      "aws-invoice": { status: "yes", note: "AwsSessionTag {key,value,expression} sets STS TagSession tags via per-request CEL (jwt.sub etc.) that reach the AWS CUR, caller cannot forge; PRs #2435/#2447 merged, and dynamic (CEL) RoleSessionName landed via #2508, so the CUR identity column is per-request too." },
       "vertex-invoice": { status: "no", note: "Native generateContent labels (#2023) are caller pass-through per issue #2490; the operator-set labels knob is PR #2806, still OPEN, so Vertex attribution is not." },
       "live-changes": { status: "yes", note: "Local config hot-reloads via file-watch into the shared IR and xDS pushes are zero-downtime; kgateway v2.1.0 control plane adds graceful shutdown/zero-downtime." },
-      "fleet-gitops": { status: "partial", note: "Config is Gateway API CRDs; multi-cluster convergence is outsourced to an external GitOps tool (ArgoCD/Flux, both documented), not agentgateway itself. The data plane runs anywhere, but the fleet model needs clusters and diffs opaque YAML, not routes or spend." },
-      "metered-shapes": { status: "partial", note: "All LLM shapes hit gen_ai_client_token_usage (SSE via forced include_usage, realtime via response.done); MCP gets only request counts, A2A only access logs." },
-      "invoice-true": { status: "partial", note: "Dollars are list price from a models.dev catalog (agctl costs import) shown as realized USD; unpriced models flagged not zeroed, but nothing reconciles to the bill." },
     },
   },
   {
@@ -122,7 +81,7 @@ export const GATEWAYS: readonly GatewayRow[] = [
     kind: "open source",
     url: "https://docs.litellm.ai",
     ours: false,
-    lastVerified: "2026-08-05",
+    lastVerified: "2026-08-19",
     cells: {
       "enforced-keys": { status: "partial", note: "enforced_params (e.g. require user/metadata.generation_name, rejects missing with 'please pass param=user') exists but is an Enterprise-gated feature, not free-tier." },
       "jwt-values": { status: "partial", note: "OIDC/JWT claims map to attribution via JWT-to-virtual-key mapping, but docs state 'JWT → Virtual Key Mapping is an Enterprise feature.'" },
@@ -133,9 +92,6 @@ export const GATEWAYS: readonly GatewayRow[] = [
       "aws-invoice": { status: "no", note: "Corrected 2026-08-05: PR #32797 (aws_session_tags on STS AssumeRole) is open and unmerged per the GitHub API, so no operator-set session tags reach the AWS CUR; the 2026-08-03 pass scored this partial on a mistaken merged status." },
       "vertex-invoice": { status: "partial", note: "LiteLLM forwards a labels field (and converts string metadata to labels) into Vertex generateContent for GCP billing, but docs show no server-side label pinning so." },
       "live-changes": { status: "partial", note: "With store_model_in_db, pods poll and converge on config changes within proxy_config_reload_interval_seconds (default 30s), but a process restart drops in-flight." },
-      "fleet-gitops": { status: "no", note: "A single proxy instance with a config surface; no fleet-as-Git model, no reconciler converging many data planes toward a repo." },
-      "metered-shapes": { status: "partial", note: "Chat, embeddings, audio and realtime reach spend logs; MCP and A2A meter only via operator-set cost_per_query, and Vertex passthrough tracks /generateContent alone." },
-      "invoice-true": { status: "partial", note: "Usage frames are provider-real but dollars are tokens times model_prices json; unmapped models log $0 and nothing reconciles against the invoice." },
     },
   },
   {
@@ -144,7 +100,7 @@ export const GATEWAYS: readonly GatewayRow[] = [
     kind: "commercial",
     url: "https://portkey.ai/docs",
     ours: false,
-    lastVerified: "2026-08-03",
+    lastVerified: "2026-08-19",
     cells: {
       "enforced-keys": { status: "partial", note: "Owners can define mandatory metadata fields and requests that omit/mismatch them are rejected before forwarding, but required-metadata enforcement is an." },
       "jwt-values": { status: "partial", note: "JWT/OIDC validation (JWKS/introspection, requiredClaims, claim matching) with a claims_header forwarding sub/email/workspace_id exists but is documented on the MCP." },
@@ -155,9 +111,6 @@ export const GATEWAYS: readonly GatewayRow[] = [
       "aws-invoice": { status: "no", note: "Bedrock integration uses an Assumed Role ARN for access only; no documentation of Portkey injecting per-request STS session tags (TagSession) so operator metadata." },
       "vertex-invoice": { status: "yes", note: "Portkey request metadata is forwarded as Vertex AI resource labels into native calls (enterprise changelog notes the fix for mislabeled request types), reaching GCP." },
       "live-changes": { status: "yes", note: "Gateway configs are referenced by ID and edited in the UI take effect on the next request with no commits or redeploys, and configs are resolved per-request so." },
-      "fleet-gitops": { status: "no", note: "Managed through a hosted console and API; no desired-state-in-Git reconciler over a fleet of self-owned gateways." },
-      "metered-shapes": { status: "partial", note: "MCP calls logged per-user; SSE cost needs stream_options.include_usage opt-in; unpriced models flow at $0.00 outside budget limits." },
-      "invoice-true": { status: "partial", note: "Provider usage tokens priced via Portkey’s central pricing JSON (Portkey-AI/models, 24h cache); no invoice reconciliation, unpriced models show $0.00." },
     },
   },
   {
@@ -177,9 +130,6 @@ export const GATEWAYS: readonly GatewayRow[] = [
       "aws-invoice": { status: "partial", note: "ai-proxy-advanced 3.10 added Bedrock AssumeRole auth but only static credentials/role are documented; no per-request STS session tags (TagSession) reaching CUR." },
       "vertex-invoice": { status: "no", note: "AI Proxy Advanced supports Vertex as a provider but no documented injection of billing labels into generateContent for GCP billing export." },
       "live-changes": { status: "yes", note: "kong reload rotates nginx workers so new config serves while old workers drain in-flight requests; DB-less polls with declarative_config_hash for hot reload." },
-      "fleet-gitops": { status: "partial", note: "decK puts gateway config in Git — the closest prior art — but it is an imperative sync CLI, not a reconciler that continuously converges and self-heals drift." },
-      "metered-shapes": { status: "partial", note: "ai-proxy log_statistics meters tokens and cost on LLM routes (with stream estimation), but Agent Gateway MCP/A2A shapes get only request and latency metrics." },
-      "invoice-true": { status: "partial", note: "Cost = tokens x operator-entered input_cost/output_cost per 1M in ai-proxy model.options; authoritative tokens but no invoice reconciliation or error bound." },
     },
   },
   {
@@ -199,9 +149,6 @@ export const GATEWAYS: readonly GatewayRow[] = [
       "aws-invoice": { status: "no", note: "Bedrock BackendSecurityPolicy uses static creds or OIDC/IRSA AssumeRole with the session name hardcoded to the policy name; it injects no per-request TagSession." },
       "vertex-invoice": { status: "no", note: "AI Gateway routes to Vertex/Gemini but does not document injecting operator-set billing labels into native generateContent, so attribution does not reach GCP." },
       "live-changes": { status: "yes", note: "Config changes propagate via xDS/CRD reconcile and apply to new requests while in-flight HTTP requests drain gracefully (drainTimeout 60s default); known issue." },
-      "fleet-gitops": { status: "partial", note: "GitOps via Kubernetes CRDs and an external ArgoCD; genuine for a k8s-only shop, but clusters only and not domain-aware about routes, spend, or attribution." },
-      "metered-shapes": { status: "partial", note: "llmRequestCosts meters all LLM shapes incl. SSE via forced stream_options.include_usage, but MCPRoute, images and audio flow spend-unmetered." },
-      "invoice-true": { status: "yes", note: "Usage is read from provider response frames (extproc forces stream_options.include_usage); no price table ships anywhere, so no dollar figure is ever fabricated." },
     },
   },
   {
@@ -221,9 +168,6 @@ export const GATEWAYS: readonly GatewayRow[] = [
       "aws-invoice": { status: "no", note: "Unified Billing routes through Cloudflare-managed credentials against a Cloudflare credit balance, and BYOK forwards without STS AssumeRole session tags, so no." },
       "vertex-invoice": { status: "no", note: "No operator-set billing labels are injected into native Vertex generateContent; usage is settled via Cloudflare's own account/credits, not GCP billing export." },
       "live-changes": { status: "yes", note: "Config changes (routes, spend limits, provider keys, guardrails) apply instantly from dashboard/API across Cloudflare's edge with no redeploys or downtime, and." },
-      "fleet-gitops": { status: "no", note: "Configured through the Cloudflare dashboard and API on Cloudflare-run infrastructure; no self-hosted fleet converging on an operator Git repo." },
-      "metered-shapes": { status: "partial", note: "Costs are metered only for endpoints whose responses return token data and the model name; Realtime WebSocket metering undocumented." },
-      "invoice-true": { status: "partial", note: "Dashboard dollars are list-price estimates (‘refer to your provider’s dashboard’); only Unified Billing credits, at pass-through rates plus a 5% fee, are the bill." },
     },
   },
   {
@@ -243,9 +187,6 @@ export const GATEWAYS: readonly GatewayRow[] = [
       "aws-invoice": { status: "partial", note: "Bedrock integration allows a configurable RoleSessionName but no STS TagSession session tags reaching AWS CUR per request are documented." },
       "vertex-invoice": { status: "no", note: "Vertex provider docs cover auth and request conversion but document no operator-set billing labels injected into generateContent reaching GCP billing export." },
       "live-changes": { status: "partial", note: "Config applies at runtime with no restart (add provider / revoke key take effect on next request) plus gossip-sync cluster mode and zero-downtime deploys, but." },
-      "fleet-gitops": { status: "no", note: "A single self-hosted instance; no control plane reconciling a fleet of gateways from desired state in Git." },
-      "metered-shapes": { status: "partial", note: "CalculateCost spans every carried shape incl. forced-usage streams, but MCP meters via operator-entered CostPerExecution and unknown models fall to $0 with a debug log." },
-      "invoice-true": { status: "partial", note: "Authoritative provider usage, but dollars are Maxim’s datasheet price map (24h sync), no invoice reconciliation; unknown models price at $0." },
     },
   },
   {
@@ -265,9 +206,6 @@ export const GATEWAYS: readonly GatewayRow[] = [
       "aws-invoice": { status: "no", note: "No propagation of an operator tag into AWS CUR and no STS AssumeRole/TagSession session-tag support; attribution lives only in Helicone's own store." },
       "vertex-invoice": { status: "no", note: "No injection of operator-set billing labels into native Vertex generateContent reaching GCP billing export." },
       "live-changes": { status: "no", note: "Config is loaded from --config config.yaml at startup with no documented file-watch/SIGHUP/hot-reload, and the product has been in maintenance mode since Mintlify's." },
-      "fleet-gitops": { status: "no", note: "Primarily an observability layer with a proxy; no fleet-of-gateways GitOps reconciliation model." },
-      "metered-shapes": { status: "partial", note: "Chat and embeddings hit the cost registry, but SSE meters only with include_usage, passthrough and Realtime carry unpriced, unknown models log $0." },
-      "invoice-true": { status: "partial", note: "Provider usage frames are authoritative, but dollars come from Helicone’s packages/cost registry (‘Best Effort’); no invoice reconciliation, unknowns $0." },
     },
   },
 ];
