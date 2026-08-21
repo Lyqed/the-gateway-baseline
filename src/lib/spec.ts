@@ -139,7 +139,8 @@ export const SPEC_CHECKS: readonly SpecCheck[] = [
     ],
     "rationale": [
       "A spend figure with no name attached can be totaled but never answered for. The question of whether the spend was worth it cannot even be asked until every line of it has a spender, and attribution enforced at the gateway, on every request, is what makes the set of spenders complete by construction rather than by audit.",
-      "The rejection is the enforcement. A gateway that logs a missing tag and forwards the request anyway has a reporting feature, not a control: the untagged traffic it waves through is exactly the spend nobody claims at the end of the month."
+      "The rejection is the enforcement. A gateway that logs a missing tag and forwards the request anyway has a reporting feature, not a control: the untagged traffic it waves through is exactly the spend nobody claims at the end of the month.",
+      "The cloud providers say the same thing about their own tagging. Amazon Bedrock's per-request metadata documentation states that request metadata \"is supplied per call and is not enforced by Amazon Bedrock. Requests that omit it still succeed, and there is no service-side policy to require it. To guarantee coverage across an organization, set request metadata in a shared client or LLM gateway.\" The provider will record whatever the caller sends and will not refuse a request for sending nothing; the only place attribution can be made mandatory is the gateway, which is why this check exists and why it sits first."
     ]
   },
   {
@@ -265,7 +266,7 @@ export const SPEC_CHECKS: readonly SpecCheck[] = [
     "short": "AWS invoice",
     "side": "invoice",
     "normative": [
-      "The gateway MUST carry the attribution value into AWS billing records for every request it routes to AWS Bedrock, such that the operator-resolved value lands, per request, in the Cost and Usage Report; session tags and the role session name on the credentials for the upstream call are the reference mechanisms, and any mechanism that lands the value on the report satisfies this statement.",
+      "The gateway MUST carry the attribution value into AWS billing records for every request it routes to AWS Bedrock, such that the cost of every request lands in the Cost and Usage Report under the operator-resolved value (the report aggregates line items by tag, principal, and usage type over time; it carries no per-request identifier, and none is required); session tags and the role session name on the credentials for the upstream call are the reference mechanisms, and any mechanism that lands the value on the report satisfies this statement.",
       "The gateway MUST resolve the value that lands in the Cost and Usage Report in the proven mode (GB-2) or the assigned mode (GB-3).",
       "The gateway MUST NOT forward a caller-supplied value onto the bill without operator resolution."
     ],
@@ -290,7 +291,7 @@ export const SPEC_CHECKS: readonly SpecCheck[] = [
     "short": "Vertex invoice",
     "side": "invoice",
     "normative": [
-      "The gateway MUST carry the attribution value into Google billing records for every request it routes to Google Vertex AI, such that the operator-resolved value lands, per request, in the GCP billing export; billing labels on the native Vertex request are the reference mechanism, and any mechanism that lands the value in the export satisfies this statement.",
+      "The gateway MUST carry the attribution value into Google billing records for every request it routes to Google Vertex AI, such that the cost of every request lands in the GCP billing export under the operator-resolved value (the export aggregates by label and SKU over time; no per-request identifier is required); billing labels on the native Vertex request are the reference mechanism, and any mechanism that lands the value in the export satisfies this statement.",
       "The gateway MUST resolve the value that lands in the GCP billing export in the proven mode (GB-2) or the assigned mode (GB-3).",
       "The gateway MUST NOT forward a caller-supplied value onto the bill without operator resolution."
     ],
@@ -373,6 +374,10 @@ export const CANDIDATES: readonly SpecCandidate[] = [
 ];
 
 export const SPEC_CHANGELOG: readonly SpecChange[] = [
+  {
+    "date": "2026-08-22",
+    "note": "Erratum to GB-7 and GB-8: the phrase \"lands, per request, in\" the billing report is replaced with \"the cost of every request lands in\" the report under the operator-resolved value, with a note that the reports aggregate by tag, principal, and usage type over time and carry no per-request identifier. AWS documented on 2026-08-21 that neither CUR nor CUR 2.0 carries one. The meaning is unchanged (every request's spend is attributed; the report sums it) and no published score moves. GB-1 rationale gains AWS's own statement that request attribution is not enforced by Bedrock and must be made mandatory at the gateway."
+  },
   {
     "date": "2026-08-19",
     "note": "GB-10, GB-11, and GB-12 return to the provisional track, reversing the same-day withdrawal below. Candidates are argued in public, not erased in private; they remain published, worded, and unscored. The reference row stays retired."
