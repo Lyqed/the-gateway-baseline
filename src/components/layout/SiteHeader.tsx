@@ -42,7 +42,10 @@ export function SiteHeader() {
         <nav aria-label="Sections">
           <ul className="flex items-center gap-4 sm:gap-7">
             {NAV_ITEMS.map((item) => (
-              <li key={item.href}>
+              <li
+                key={item.href}
+                className={item.primary ? undefined : "hidden sm:block"}
+              >
                 <a
                   href={item.href}
                   className="mono-label text-steel-dark transition-colors duration-150 hover:text-ink"

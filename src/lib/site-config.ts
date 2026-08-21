@@ -14,14 +14,16 @@ export const SITE_CONFIG = {
 export type NavItem = {
   label: string;
   href: string;
+  /** Shown at every width; the rest appear from the sm breakpoint up. */
+  primary?: boolean;
 };
 
 /** The reading order: the argument, the bar, the measurement, the record. */
 export const NAV_ITEMS: readonly NavItem[] = [
   { label: "Why", href: "/#why-it-matters" },
   { label: "The checks", href: "/#checks" },
-  { label: "Scoreboard", href: "/#tracker" },
+  { label: "Scoreboard", href: "/#tracker", primary: true },
   { label: "Signals", href: "/#signals" },
-  { label: "Spec", href: "/spec" },
-  { label: "Ledger", href: "/ledger" },
+  { label: "Spec", href: "/spec", primary: true },
+  { label: "Ledger", href: "/ledger", primary: true },
 ] as const;

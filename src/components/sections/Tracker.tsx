@@ -118,9 +118,17 @@ export function Tracker() {
           ))}
         </ul>
 
-        <Reveal>
-          <div className="mt-8 overflow-x-auto border border-steel/60 bg-atrium">
-            <table className="w-full min-w-[1120px] border-collapse text-left">
+        {/* Desktop: the matrix. Sized to the container, no horizontal scroll. */}
+        <Reveal className="hidden lg:block">
+          <div className="mt-8 border border-steel/60 bg-atrium">
+            <table className="w-full table-fixed border-collapse text-left">
+              <colgroup>
+                <col className="w-[13.5rem]" />
+                {CHECKS.map((c) => (
+                  <col key={c.key} />
+                ))}
+                <col className="w-[5.5rem]" />
+              </colgroup>
               <caption className="sr-only">
                 Gateway Baseline conformance, GB-1 through GB-9, verified{" "}
                 {LAST_VERIFIED}
@@ -128,7 +136,7 @@ export function Tracker() {
               <thead>
                 {/* Side group band */}
                 <tr className="border-b border-steel/50">
-                  <td aria-hidden className="sticky left-0 z-10 bg-atrium" />
+                  <td aria-hidden />
                   {groups.map((grp) => (
                     <th
                       key={grp.side}
@@ -144,7 +152,7 @@ export function Tracker() {
                 <tr className="border-b border-ink/80">
                   <th
                     scope="col"
-                    className="sticky left-0 z-10 bg-atrium px-4 py-3 font-mono text-[0.66rem] font-medium uppercase tracking-[0.12em] text-steel-dark"
+                    className="px-4 py-3 font-mono text-[0.66rem] font-medium uppercase tracking-[0.12em] text-steel-dark"
                   >
                     Gateway
                   </th>
@@ -198,7 +206,7 @@ export function Tracker() {
                     <tr key={g.id} className="border-b border-steel/40">
                       <th
                         scope="row"
-                        className="sticky left-0 z-10 bg-atrium px-4 py-4 align-middle"
+                        className="px-4 py-4 align-middle"
                       >
                         <a
                           href={g.url}
@@ -261,6 +269,94 @@ export function Tracker() {
             </table>
           </div>
         </Reveal>
+
+        {/* Mobile and tablet: one card per gateway, the nine cells as a grid. */}
+        <ul className="mt-8 space-y-4 lg:hidden">
+          {rows.map((g) => {
+            const n = verifiedCount(g);
+            return (
+              <li
+                key={g.id}
+                className="border border-steel/60 bg-atrium p-4"
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <a
+                      href={g.url}
+                      className="font-medium text-ink underline decoration-skylight/50 decoration-1 underline-offset-2"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {g.name}
+                    </a>
+                    <span className="mt-0.5 block font-mono text-[0.62rem] uppercase tracking-[0.1em] text-steel-dark">
+                      {g.kind} · {g.lastVerified}
+                    </span>
+                  </div>
+                  <div className="shrink-0 text-right">
+                    <span className="font-mono text-sm font-medium text-ink">
+                      {n}/{max}
+                    </span>
+                    <span
+                      aria-hidden
+                      className="mt-1.5 block h-1 w-14 bg-steel/40"
+                    >
+                      <span
+                        className="block h-full"
+                        style={{
+                          width: `${(n / max) * 100}%`,
+                          background: "var(--teal)",
+                        }}
+                      />
+                    </span>
+                  </div>
+                </div>
+                <ul className="mt-4 grid grid-cols-3 gap-px border border-steel/40 bg-steel/40">
+                  {CHECKS.map((c) => {
+                    const cell = g.cells[c.key];
+                    const meta = STATUS_META[cell.status];
+                    const slug = slugByKey.get(c.key);
+                    const inner = (
+                      <>
+                        <span className="flex items-center justify-between gap-2">
+                          <span className="font-mono text-[0.62rem] font-medium text-ink">
+                            {c.code}
+                          </span>
+                          <span
+                            aria-hidden
+                            className="text-base leading-none"
+                            style={{ color: meta.fill }}
+                          >
+                            {meta.glyph}
+                          </span>
+                        </span>
+                        <span className="mt-1 block font-mono text-[0.6rem] text-steel-dark">
+                          {c.short}
+                        </span>
+                        <span className="sr-only">{meta.label}</span>
+                      </>
+                    );
+                    return (
+                      <li
+                        key={c.key}
+                        title={`${c.code} ${meta.label}: ${cell.note}`}
+                        className="bg-atrium px-2.5 py-2"
+                      >
+                        {slug ? (
+                          <Link href={`/spec/${slug}`} className="block">
+                            {inner}
+                          </Link>
+                        ) : (
+                          inner
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </li>
+            );
+          })}
+        </ul>
 
         <p className="mt-6 max-w-2xl font-mono text-xs leading-relaxed text-steel-dark">
           Verified against public documentation, scored against{" "}
