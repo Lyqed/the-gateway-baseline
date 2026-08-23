@@ -13,3 +13,10 @@ pnpm install
 pnpm dev    # local development
 pnpm build  # static production build
 ```
+
+## License
+
+Code is MIT. The Baseline text itself (the requirements GB-1..GB-9, their
+rationale, and the scoring) is © Anton Braverman and released under
+[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/): quote it, adopt it,
+score against it; keep the attribution.
