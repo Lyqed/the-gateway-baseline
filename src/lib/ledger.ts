@@ -46,7 +46,7 @@ export type PatchRef = {
 };
 
 /** ISO date every patch-ledger status below was verified against the GitHub API. */
-export const PATCH_STATUS_DATE = "2026-08-19";
+export const PATCH_STATUS_DATE = "2026-08-23";
 
 export const PASSES: readonly VerificationPass[] = [
   {

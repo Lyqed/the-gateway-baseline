@@ -38,10 +38,32 @@
     "kind": "pr",
     "title": "Operator-configured billing labels for cost attribution on Vertex",
     "moves": "Billing labels riding to the Vertex invoice (GB-8)",
+    "status": "Closed 2026-08-22 in favour of finalTransformations (#2912)",
+    "expectedState": "closed",
+    "ours": true,
+    "url": "https://github.com/agentgateway/agentgateway/pull/2806"
+  },
+  {
+    "repo": "agentgateway/agentgateway",
+    "number": 2912,
+    "kind": "pr",
+    "title": "feat(transformations): post provider conversion transformation policies",
+    "moves": "Operator-set labels on the native Vertex request and metadata on Bedrock, at expression level (GB-8 mechanism, unreleased)",
+    "status": "Merged 2026-08-10",
+    "expectedState": "merged",
+    "ours": false,
+    "url": "https://github.com/agentgateway/agentgateway/pull/2912"
+  },
+  {
+    "repo": "agentgateway/website",
+    "number": 931,
+    "kind": "pr",
+    "title": "Invoice-grade attribution: session tags, request metadata and Vertex labels",
+    "moves": "Documentation that makes the GB-7 and GB-8 mechanisms verifiable from the docs alone",
     "status": "Open",
     "expectedState": "open",
     "ours": true,
-    "url": "https://github.com/agentgateway/agentgateway/pull/2806"
+    "url": "https://github.com/agentgateway/website/pull/931"
   },
   {
     "repo": "agentgateway/agentgateway",
