@@ -50,6 +50,10 @@ export const PATCH_STATUS_DATE = "2026-08-19";
 
 export const PASSES: readonly VerificationPass[] = [
   {
+    date: "2026-08-23",
+    note: "agentgateway GB-8 note updated, status unchanged (no): the operator-set Vertex labels mechanism merged to main as finalTransformations (#2912, 2026-08-10) and the dedicated-field PRs #2806 and #3125 were closed in its favour; nothing shipped yet (latest release v1.4.1) and the docs are in website PR #931. The re-score rule is recorded in the cell: replace form with static values scores yes, merge or error-prone expressions score partial.",
+  },
+  {
     date: "2026-08-19",
     note: "Third verification: every patch-ledger ref re-checked against the GitHub API with zero drift, agentgateway #2508 (dynamic RoleSessionName, merged 2026-07-16) added to the record, LiteLLM #32797 confirmed still open, and the tracker's dated cells re-read where documentation moved.",
   },
