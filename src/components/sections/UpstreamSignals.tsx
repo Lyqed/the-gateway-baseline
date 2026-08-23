@@ -15,7 +15,7 @@ import { Reveal } from "@/components/reveal/Reveal";
  * check it moves, with its real status on the date shown. The community
  * refs that move the same checks are counted and linked, not listed:
  * the full record, machine-verified against the GitHub API, lives in
- * the ledger.
+ * the record.
  */
 
 /** Pull the "(GB-N)" code out of a moves line, if it carries one. */
@@ -104,10 +104,10 @@ export function UpstreamSignals() {
         record, re-verified against the GitHub API by machinery, lives in
         the{" "}
         <Link
-          href="/ledger"
+          href="/record"
           className="text-skylight-deep underline underline-offset-2 hover:text-ink"
         >
-          ledger
+          record
         </Link>
         .
       </p>

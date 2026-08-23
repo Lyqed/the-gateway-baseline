@@ -25,5 +25,5 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { label: "Scoreboard", href: "/#tracker", primary: true },
   { label: "Signals", href: "/#signals" },
   { label: "Spec", href: "/spec", primary: true },
-  { label: "Ledger", href: "/ledger", primary: true },
+  { label: "Record", href: "/record", primary: true },
 ] as const;

@@ -22,8 +22,8 @@ const STEPS = [
   {
     n: "03",
     title: "The measurement",
-    body: "Every gateway is scored against the text and nothing else, on a dated pass. Each cell carries its sourced reasoning, disputes are adjudicated in public, and every correction lands in the ledger whichever direction it moves.",
-    link: { href: "/ledger", label: "The ledger" },
+    body: "Every gateway is scored against the text and nothing else, on a dated pass. Each cell carries its sourced reasoning, disputes are adjudicated in public, and every correction lands in the record whichever direction it moves.",
+    link: { href: "/record", label: "The record" },
   },
 ] as const;
 

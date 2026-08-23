@@ -371,10 +371,10 @@ export function Tracker() {
           welcome: every judgment is sourced, and every adjudication is
           recorded, dated, in the{" "}
           <Link
-            href="/ledger"
+            href="/record"
             className="text-skylight-deep underline underline-offset-2 hover:text-ink"
           >
-            ledger
+            record
           </Link>
           , whichever direction it moves. The three provisional candidates,
           GB-10 through GB-12, do not appear here because{" "}

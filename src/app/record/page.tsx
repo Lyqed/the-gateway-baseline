@@ -38,15 +38,15 @@ function PatchList({ refs }: { refs: readonly PatchRef[] }) {
 }
 
 /**
- * The verification ledger. Corrections lead: a record that keeps its own
+ * The verification record. Corrections lead: a record that keeps its own
  * mistakes, dated, is the credential for everything else on the board.
  */
-export default function LedgerPage() {
+export default function RecordPage() {
   return (
     <article>
       <p className="mono-label text-steel-dark">The record behind the tracker</p>
       <h1 className="text-section mt-3 font-medium tracking-tight">
-        Verification ledger
+        Verification record
       </h1>
       <p className="mt-6 max-w-2xl text-steel-dark">
         Dated verification passes, corrections kept rather than erased, and
@@ -104,10 +104,10 @@ export default function LedgerPage() {
         </ol>
       </section>
 
-      {/* Patch ledger */}
+      {/* Patch record */}
       <section className="mt-14" aria-labelledby="patches-heading">
         <h2 id="patches-heading" className="mono-label text-steel-dark">
-          Upstream patch ledger
+          Upstream patch record
         </h2>
         <p className="mt-3 max-w-2xl text-sm text-steel-dark">
           The standard moves by patches into the gateways it scores, and by

@@ -30,7 +30,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.6,
     },
     {
-      url: `${SITE_CONFIG.url}/ledger`,
+      url: `${SITE_CONFIG.url}/record`,
       lastModified: frozen,
       changeFrequency: "weekly",
       priority: 0.6,

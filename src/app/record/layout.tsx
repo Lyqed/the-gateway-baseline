@@ -4,17 +4,17 @@ import { SITE_CONFIG } from "@/lib/site-config";
 import { SPEC_VERSION } from "@/lib/spec";
 
 /**
- * Chrome for the ledger, matching the specification section. Indexable
+ * Chrome for the record, matching the specification section. Indexable
  * on its own metadata while the root holds.
  */
 export const metadata: Metadata = {
-  title: `Ledger, ${SITE_CONFIG.name}`,
+  title: `Record, ${SITE_CONFIG.name}`,
   description:
     "The dated record behind the Gateway Baseline tracker: verification passes, corrections kept rather than erased, upstream patches with their real statuses, and the dispute protocol.",
   robots: { index: true, follow: true },
 };
 
-export default function LedgerLayout({
+export default function RecordLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
@@ -27,8 +27,8 @@ export default function LedgerLayout({
           >
             {SITE_CONFIG.name}
           </Link>
-          <Link href="/ledger" className="mono-label text-steel-dark hover:text-ink">
-            Ledger
+          <Link href="/record" className="mono-label text-steel-dark hover:text-ink">
+            Record
           </Link>
         </div>
       </header>

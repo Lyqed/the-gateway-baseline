@@ -62,10 +62,10 @@ export default function SpecLayout({
               Changelog
             </Link>
             <Link
-              href="/ledger"
+              href="/record"
               className="mono-label text-steel-dark hover:text-ink"
             >
-              Ledger
+              Record
             </Link>
           </nav>
         </div>

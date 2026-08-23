@@ -13,6 +13,9 @@ const SECURITY_HEADERS = [
 ];
 
 const nextConfig: NextConfig = {
+  async redirects() {
+    return [{ source: "/ledger", destination: "/record", permanent: true }];
+  },
   async headers() {
     return [
       {
