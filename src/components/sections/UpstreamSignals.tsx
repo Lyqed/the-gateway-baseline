@@ -5,7 +5,6 @@ import {
   PATCH_STATUS_DATE,
   type PatchRef,
 } from "@/lib/ledger";
-import { Reveal } from "@/components/reveal/Reveal";
 
 /**
  * Upstream signals — the refs that move cells, cited by number.
@@ -98,39 +97,51 @@ export function UpstreamSignals() {
         </p>
       </div>
 
-      {/* Community — the field moving on its own, listed first and in full */}
-      <div className="mt-10 flex items-baseline justify-between border-t border-steel/40 pt-6">
-        <p className="mono-label text-steel-dark">
-          Community · the field moving on its own
-        </p>
-        <p className="font-mono text-sm text-steel-dark">
-          {COMMUNITY_PATCHES.length}
-        </p>
-      </div>
-      <ul>
-        {[...COMMUNITY_PATCHES].sort(byImpact).map((signal) => (
-          <Reveal key={`${signal.repo}#${signal.number}`}>
-            <SignalRow signal={signal} />
-          </Reveal>
-        ))}
-      </ul>
+      {/* Community — the field moving on its own, first and open by default */}
+      <details className="group mt-10 border-t border-steel/40" open>
+        <summary className="flex cursor-pointer list-none items-baseline gap-3 py-4 [&::-webkit-details-marker]:hidden">
+          <span
+            aria-hidden
+            className="font-mono text-xs text-steel-dark transition-transform group-open:rotate-90"
+          >
+            ▸
+          </span>
+          <span className="mono-label text-violet-deep">
+            Community ({COMMUNITY_PATCHES.length})
+          </span>
+          <span className="text-sm text-steel-dark">
+            the field moving toward the bar on its own
+          </span>
+        </summary>
+        <ul>
+          {[...COMMUNITY_PATCHES].sort(byImpact).map((signal) => (
+            <SignalRow key={`${signal.repo}#${signal.number}`} signal={signal} />
+          ))}
+        </ul>
+      </details>
 
-      {/* Ours — patches written to move the field onto the standard */}
-      <div className="mt-14 flex items-baseline justify-between border-t border-steel/40 pt-6">
-        <p className="mono-label text-steel-dark">
-          Ours · patches written upstream to move the field
-        </p>
-        <p className="font-mono text-sm text-steel-dark">
-          {OUR_PATCHES.length}
-        </p>
-      </div>
-      <ul>
-        {[...OUR_PATCHES].sort(byImpact).map((signal) => (
-          <Reveal key={`${signal.repo}#${signal.number}`}>
-            <SignalRow signal={signal} />
-          </Reveal>
-        ))}
-      </ul>
+      {/* Ours — patches written to move the field, collapsed by default */}
+      <details className="group border-t border-steel/40">
+        <summary className="flex cursor-pointer list-none items-baseline gap-3 py-4 [&::-webkit-details-marker]:hidden">
+          <span
+            aria-hidden
+            className="font-mono text-xs text-steel-dark transition-transform group-open:rotate-90"
+          >
+            ▸
+          </span>
+          <span className="mono-label text-steel-dark">
+            Ours ({OUR_PATCHES.length})
+          </span>
+          <span className="text-sm text-steel-dark">
+            patches written upstream to move the field onto the standard
+          </span>
+        </summary>
+        <ul>
+          {[...OUR_PATCHES].sort(byImpact).map((signal) => (
+            <SignalRow key={`${signal.repo}#${signal.number}`} signal={signal} />
+          ))}
+        </ul>
+      </details>
 
       <p className="mt-8 max-w-2xl text-sm leading-relaxed text-steel-dark">
         The full record, re-verified against the GitHub API by machinery,
