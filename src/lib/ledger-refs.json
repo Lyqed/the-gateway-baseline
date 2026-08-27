@@ -60,8 +60,8 @@
     "kind": "pr",
     "title": "Invoice-grade attribution: session tags, request metadata and Vertex labels",
     "moves": "Documentation that makes the GB-7 and GB-8 mechanisms verifiable from the docs alone",
-    "status": "Open",
-    "expectedState": "open",
+    "status": "Merged 2026-08-27",
+    "expectedState": "merged",
     "ours": true,
     "url": "https://github.com/agentgateway/website/pull/931"
   },

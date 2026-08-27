@@ -10,13 +10,20 @@ import { Reveal } from "@/components/reveal/Reveal";
 /**
  * Upstream signals — the refs that move cells, cited by number.
  *
- * The standard does not only measure the field; it produces patches.
- * This strip shows our upstream contributions in full, each tied to the
- * check it moves, with its real status on the date shown. The community
- * refs that move the same checks are counted and linked, not listed:
- * the full record, machine-verified against the GitHub API, lives in
- * the record.
+ * Community first: the strongest evidence a bar is real is the field
+ * moving toward it on its own — maintainers and unaffiliated contributors
+ * pushing the same checks, with no connection to the standard. Those are
+ * listed in full, first. Our own upstream patches follow, held to the
+ * same citation. Every ref carries its real status on the date shown,
+ * re-verified against the GitHub API.
  */
+
+/** Landed refs (merged) lead; then open, then closed — most-shipped first. */
+function byImpact(a: PatchRef, b: PatchRef): number {
+  const rank = (r: PatchRef) =>
+    r.expectedState === "merged" ? 0 : r.expectedState === "open" ? 1 : 2;
+  return rank(a) - rank(b);
+}
 
 /** Pull the "(GB-N)" code out of a moves line, if it carries one. */
 function splitMoves(moves: string): { code: string | null; text: string } {
@@ -74,13 +81,16 @@ export function UpstreamSignals() {
         <div className="max-w-2xl">
           <p className="mono-label text-steel-dark">Upstream signals</p>
           <h2 id="signals-heading" className="text-section mt-5 font-medium">
-            The bar moves the field.
+            The field is moving toward the bar.
           </h2>
           <p className="mt-6 leading-relaxed text-steel-dark">
-            A standard that only measures is a spectator. These are the
-            patches and issues upstream in the tracked gateways that move
-            cells on the scoreboard — ours listed in full, each tied to the
-            check it moves, with its real status on the date shown.
+            The strongest proof a bar is real is not that we push on it — it
+            is that the field moves toward it on its own. These are the
+            patches and issues from maintainers and the wider community,
+            with no tie to this standard, that move the same cells on the
+            scoreboard. They come first. Our own upstream patches follow,
+            held to the same citation. Every ref carries its real status on
+            the date shown.
           </p>
         </div>
         <p className="mono-label text-steel-dark">
@@ -88,8 +98,34 @@ export function UpstreamSignals() {
         </p>
       </div>
 
-      <ul className="mt-10 border-t border-steel/40">
-        {OUR_PATCHES.map((signal) => (
+      {/* Community — the field moving on its own, listed first and in full */}
+      <div className="mt-10 flex items-baseline justify-between border-t border-steel/40 pt-6">
+        <p className="mono-label text-steel-dark">
+          Community · the field moving on its own
+        </p>
+        <p className="font-mono text-sm text-steel-dark">
+          {COMMUNITY_PATCHES.length}
+        </p>
+      </div>
+      <ul>
+        {[...COMMUNITY_PATCHES].sort(byImpact).map((signal) => (
+          <Reveal key={`${signal.repo}#${signal.number}`}>
+            <SignalRow signal={signal} />
+          </Reveal>
+        ))}
+      </ul>
+
+      {/* Ours — patches written to move the field onto the standard */}
+      <div className="mt-14 flex items-baseline justify-between border-t border-steel/40 pt-6">
+        <p className="mono-label text-steel-dark">
+          Ours · patches written upstream to move the field
+        </p>
+        <p className="font-mono text-sm text-steel-dark">
+          {OUR_PATCHES.length}
+        </p>
+      </div>
+      <ul>
+        {[...OUR_PATCHES].sort(byImpact).map((signal) => (
           <Reveal key={`${signal.repo}#${signal.number}`}>
             <SignalRow signal={signal} />
           </Reveal>
@@ -97,12 +133,8 @@ export function UpstreamSignals() {
       </ul>
 
       <p className="mt-8 max-w-2xl text-sm leading-relaxed text-steel-dark">
-        <span className="font-mono font-medium text-ink">
-          {COMMUNITY_PATCHES.length} more refs
-        </span>{" "}
-        by maintainers and the community move the same checks. The full
-        record, re-verified against the GitHub API by machinery, lives in
-        the{" "}
+        The full record, re-verified against the GitHub API by machinery,
+        lives in the{" "}
         <Link
           href="/record"
           className="text-skylight-deep underline underline-offset-2 hover:text-ink"

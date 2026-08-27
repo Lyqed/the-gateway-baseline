@@ -46,12 +46,12 @@ export type PatchRef = {
 };
 
 /** ISO date every patch-ledger status below was verified against the GitHub API. */
-export const PATCH_STATUS_DATE = "2026-08-23";
+export const PATCH_STATUS_DATE = "2026-08-27";
 
 export const PASSES: readonly VerificationPass[] = [
   {
     date: "2026-08-27",
-    note: "agentgateway GB-8 (the tag reaches the Vertex invoice) re-scored no → yes. The trigger recorded in the 2026-08-23 note — the first release that ships the operator-set mechanism — was met: v1.5.0 released 2026-08-27, carrying finalTransformations (#2912, merged 2026-08-10), and it is documented in website PR #931. Scored on the replace form, whose operator-resolved labels the caller cannot forge. The fail-open posture is kept explicit in the cell: unlike an STS session tag, a final transformation drops the field on an expression error and the request still reaches Vertex, so a mistyped field silently drops attribution and the merge form forwards unclaimed caller labels. No other cell moved.",
+    note: "Full re-verification: all 29 patch-ledger refs re-checked against the GitHub API. One drift — agentgateway website #931 moved open → merged (2026-08-27) — corrected in the record. agentgateway GB-8 (the tag reaches the Vertex invoice) re-scored no → yes: the trigger recorded in the 2026-08-23 note, the first release that ships the operator-set mechanism, was met by v1.5.0 (2026-08-27), which carries finalTransformations (#2912, merged 2026-08-10) and is now documented in the merged #931. Scored on the replace form, whose operator-resolved labels the caller cannot forge. The fail-open posture is kept explicit in the cell: unlike an STS session tag, a final transformation drops the field on an expression error and the request still reaches Vertex, so a mistyped field silently drops attribution and the merge form forwards unclaimed caller labels. No other cell moved.",
   },
   {
     date: "2026-08-23",
