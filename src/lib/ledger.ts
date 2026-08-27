@@ -50,6 +50,10 @@ export const PATCH_STATUS_DATE = "2026-08-23";
 
 export const PASSES: readonly VerificationPass[] = [
   {
+    date: "2026-08-27",
+    note: "agentgateway GB-8 (the tag reaches the Vertex invoice) re-scored no → yes. The trigger recorded in the 2026-08-23 note — the first release that ships the operator-set mechanism — was met: v1.5.0 released 2026-08-27, carrying finalTransformations (#2912, merged 2026-08-10), and it is documented in website PR #931. Scored on the replace form, whose operator-resolved labels the caller cannot forge. The fail-open posture is kept explicit in the cell: unlike an STS session tag, a final transformation drops the field on an expression error and the request still reaches Vertex, so a mistyped field silently drops attribution and the merge form forwards unclaimed caller labels. No other cell moved.",
+  },
+  {
     date: "2026-08-23",
     note: "agentgateway GB-8 note updated, status unchanged (no): the operator-set Vertex labels mechanism merged to main as finalTransformations (#2912, 2026-08-10) and the dedicated-field PRs #2806 and #3125 were closed in its favour; nothing shipped yet (latest release v1.4.1) and the docs are in website PR #931. The re-score rule is recorded in the cell: replace form with static values scores yes, merge or error-prone expressions score partial.",
   },
