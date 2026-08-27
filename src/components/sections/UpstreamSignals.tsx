@@ -133,7 +133,8 @@ export function UpstreamSignals() {
             Ours ({OUR_PATCHES.length})
           </span>
           <span className="text-sm text-steel-dark">
-            patches written upstream to move the field onto the standard
+            patches I personally wrote upstream to move the field onto the
+            standard
           </span>
         </summary>
         <ul>
