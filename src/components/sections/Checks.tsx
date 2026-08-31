@@ -9,19 +9,17 @@ import {
 import { Reveal } from "@/components/reveal/Reveal";
 
 /**
- * The bar itself: nine normative checks rendered from lib/spec, the
- * single source of truth, grouped by side. Each row links to its
- * normative page. The three provisional candidates follow, visibly
- * separated and visibly unscored — the queue is public, the bar is not
- * quietly extended.
+ * The nine checks as cards: each one a discrete thing a gateway does or
+ * does not do. Grouped by side, linked to its normative page. The three
+ * provisional candidates follow on a soft card, visibly unscored.
  */
 
 const SIDES: readonly SpecSide[] = ["control", "invoice", "operations"];
 
 const SIDE_NOTE: Record<SpecSide, string> = {
-  control: "Who spends, and what stops them",
-  invoice: "The name lands on the provider's bill",
-  operations: "The rules hold on a running fleet",
+  control: "Who spends, and what stops them.",
+  invoice: "The name lands on the provider's bill.",
+  operations: "The rules hold on a running fleet.",
 };
 
 export function Checks() {
@@ -29,55 +27,44 @@ export function Checks() {
     <section
       id="checks"
       aria-labelledby="checks-heading"
-      className="mx-auto w-full max-w-6xl scroll-mt-20 px-6 py-[var(--space-section)]"
+      className="mx-auto w-full max-w-6xl scroll-mt-20 px-6 py-10 sm:py-14"
     >
-      <div className="max-w-2xl">
-        <p className="mono-label text-steel-dark">The bar</p>
-        <h2 id="checks-heading" className="text-section mt-5 font-medium">
-          Nine checks. Each one falsifiable.
+      <div className="mx-auto max-w-3xl text-center">
+        <p className="mono-label text-steel-dark">The nine checks</p>
+        <h2 id="checks-heading" className="text-section mt-3 text-ink">
+          Each one falsifiable.
         </h2>
-        <p className="mt-6 leading-relaxed text-steel-dark">
+        <p className="mt-5 text-[1.0625rem] leading-relaxed text-steel-dark">
           Every check is a page of normative text: numbered clauses, a single
           pass condition a verifier decides from evidence, what scores
-          partial, and the reasoning. The codes below are the columns on the
-          scoreboard.
+          partial, and the reasoning.
         </p>
       </div>
 
-      <div className="mt-14 space-y-12">
+      <div className="mt-10 space-y-8">
         {SIDES.map((side, si) => {
           const checks = SPEC_CHECKS.filter((c) => c.side === side);
           if (checks.length === 0) return null;
           return (
             <Reveal key={side} delay={si * 60}>
-              <div className="grid gap-x-10 gap-y-4 sm:grid-cols-[11rem_1fr]">
-                <div>
-                  <h3 className="mono-label text-ink">{SIDE_LABEL[side]}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-steel-dark">
-                    {SIDE_NOTE[side]}
-                  </p>
-                </div>
-                <ul className="divide-y divide-steel border-y border-steel">
+              <div>
+                <p className="px-1 text-[0.9375rem] text-steel-dark">
+                  <span className="font-semibold text-ink">{SIDE_LABEL[side]}.</span>{" "}
+                  {SIDE_NOTE[side]}
+                </p>
+                <ul className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   {checks.map((check) => (
                     <li key={check.code}>
                       <Link
                         href={`/spec/${check.slug}`}
-                        className="group grid grid-cols-[4.5rem_1fr_auto] items-baseline gap-4 py-4 sm:grid-cols-[4.5rem_11rem_1fr_auto]"
+                        className="card lift group flex h-full flex-col p-7"
                       >
-                        <span className="font-mono text-sm font-medium text-monarch-deep">
-                          {check.code}
-                        </span>
-                        <span className="mono-label hidden text-steel-dark sm:block">
-                          {check.short}
-                        </span>
-                        <span className="font-medium text-ink transition-colors group-hover:text-skylight-deep">
+                        <span className="pill w-fit font-mono">{check.code}</span>
+                        <span className="mt-5 text-[1.25rem] font-semibold leading-snug tracking-tight text-ink">
                           {check.title}
                         </span>
-                        <span
-                          aria-hidden="true"
-                          className="text-steel-dark transition-colors group-hover:text-skylight-deep"
-                        >
-                          &rsaquo;
+                        <span className="mt-auto pt-6 text-[0.9375rem] text-skylight group-hover:underline">
+                          Read the check <span aria-hidden="true">&rsaquo;</span>
                         </span>
                       </Link>
                     </li>
@@ -89,40 +76,33 @@ export function Checks() {
         })}
       </div>
 
-      {/* The provisional track: published, argued, unscored. */}
       <Reveal>
         <aside
           aria-labelledby="candidates-heading"
-          className="mt-16 border border-dashed border-steel bg-gold-wash/60 px-6 py-8 sm:px-8"
+          className="card mt-8 bg-gold-wash px-7 py-8 sm:px-9"
         >
           <div className="flex flex-wrap items-baseline justify-between gap-4">
-            <h3 id="candidates-heading" className="mono-label text-gold-deep">
-              Provisional track · {SPEC_VERSION} · does not score
+            <h3 id="candidates-heading" className="text-[1.0625rem] font-semibold text-ink">
+              Provisional track
+              <span className="pill pill-partial ml-3 align-middle">Does not score</span>
             </h3>
-            <Link
-              href="/spec/candidates"
-              className="mono-label text-skylight-deep hover:text-ink"
-            >
+            <Link href="/spec/candidates" className="link-more !text-[0.9375rem]">
               Open questions <span aria-hidden="true">&rsaquo;</span>
             </Link>
           </div>
-          <ul className="mt-5 space-y-3">
+          <ul className="mt-5 grid gap-3 sm:grid-cols-3">
             {CANDIDATES.map((c) => (
-              <li key={c.code} className="flex gap-4">
-                <span className="w-[4.5rem] shrink-0 font-mono text-sm font-medium text-gold-deep">
-                  {c.code}
-                </span>
-                <span className="text-sm leading-relaxed text-ink">
-                  {c.title}
-                </span>
+              <li key={c.code} className="text-[0.9375rem] leading-relaxed text-ink">
+                <span className="font-mono text-[0.8125rem] text-gold-deep">{c.code}</span>
+                <span className="mt-1 block">{c.title}</span>
               </li>
             ))}
           </ul>
-          <p className="mt-5 max-w-3xl text-sm leading-relaxed text-steel-dark">
-            Candidates are published and argued in the open, with their
-            admission questions stated plainly. A candidate cannot score until
-            a full verification cycle completes after its admission, and it
-            can be reworded or withdrawn while it waits.
+          <p className="mt-5 max-w-3xl text-[0.875rem] leading-relaxed text-steel-dark">
+            Candidates for {SPEC_VERSION} are published and argued in the open.
+            A candidate cannot score until a full verification cycle completes
+            after its admission, and it can be reworded or withdrawn while it
+            waits.
           </p>
         </aside>
       </Reveal>

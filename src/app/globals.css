@@ -1,38 +1,46 @@
 @import "tailwindcss";
 
 /* ------------------------------------------------------------------ *
- * Design tokens — copied verbatim from the binding design brief
- * (docs/DESIGN.md, section 2). Semantic mapping is binding:
- *   teal = conforms/verified, gold = partial/in progress,
- *   blossom = missing/error, monarch = leader/emphasis/primary action,
- *   violet = human voice, skylight = links. Never swap these roles.
+ * Design tokens. The names are the ones every component and the spec
+ * and record pages already use; the values are a product surface:
+ * a light grey ground, white cards, near-black text, one blue for
+ * action, and three status colours that read without a legend.
+ * Semantic roles are unchanged and binding: teal = verified, gold =
+ * partial, blossom = missing, monarch = primary action / emphasis,
+ * violet = the human voice, skylight = links.
  * ------------------------------------------------------------------ */
 :root {
   color-scheme: light;
 
-  /* Architecture */
-  --surface-atrium: oklch(97.5% 0.004 95);   /* warm gallery white — page ground */
-  --surface-panel: oklch(94.5% 0.005 250);   /* cool panel white — cards, wells */
-  --steel: oklch(76% 0.01 250);              /* brushed rail — borders, rules */
-  --steel-dark: oklch(52% 0.014 255);        /* fixture gray — secondary text */
-  --floor: oklch(21% 0.012 270);             /* polished dark floor — footer, dark band */
-  --ink: oklch(19% 0.016 270);               /* primary text */
+  /* Surfaces */
+  --surface-atrium: #f5f5f7;                 /* page ground */
+  --surface-panel: #ffffff;                  /* cards */
+  --steel: #d2d2d7;                          /* hairlines, the few that remain */
+  --steel-dark: #6e6e73;                     /* secondary text */
+  --steel-faint: #86868b;                    /* tertiary text */
+  --floor: #f5f5f7;                          /* footer ground */
+  --ink: #1d1d1f;                            /* primary text */
 
-  /* Murals (semantic, never decorative-only) */
-  --monarch: oklch(69% 0.185 55);            /* monarch orange — leadership, emphasis, CTAs */
-  --violet: oklch(54% 0.21 300);             /* mural violet — the human layer: annotations, community */
-  --teal: oklch(64% 0.115 195);              /* sky teal — conformance, verified, success */
-  --gold: oklch(80% 0.15 90);                /* sun gold — partial, in-progress, caution */
-  --skylight: oklch(63% 0.14 250);           /* skylight blue — links, interactive */
-  --blossom: oklch(58% 0.2 25);              /* blossom red — missing, errors, hard stops */
+  /* Semantic colour */
+  --monarch: #0071e3;                        /* primary action, emphasis */
+  --violet: #5e5ce6;                         /* the human layer */
+  --teal: #34c759;                           /* verified */
+  --gold: #ff9f0a;                           /* partial */
+  --skylight: #0071e3;                       /* links */
+  --blossom: #ff3b30;                        /* missing */
 
   /* Type scale */
-  --text-base: clamp(1rem, 0.94rem + 0.3vw, 1.125rem);
-  --text-hero: clamp(2.75rem, 1.2rem + 6.5vw, 7rem);
-  --text-section: clamp(1.75rem, 1.2rem + 2.2vw, 3rem);
+  --text-base: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+  --text-hero: clamp(2.75rem, 1.4rem + 5.2vw, 5.5rem);
+  --text-section: clamp(2rem, 1.3rem + 2.4vw, 3.25rem);
 
   /* Rhythm */
-  --space-section: clamp(5rem, 3.5rem + 6vw, 11rem);
+  --space-section: clamp(4.5rem, 3rem + 5vw, 8.5rem);
+
+  /* Radii: a hierarchy, not one value */
+  --r-card-xl: 28px;
+  --r-card: 20px;
+  --r-pill: 980px;
 
   /* Motion */
   --duration-fast: 150ms;
@@ -40,39 +48,28 @@
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* ------------------------------------------------------------------ *
- * Derived extension — shared verbatim across both sites. The mural
- * tokens above are reserved for non-text (dots, fills, strokes) where
- * they fall short of 4.5:1 on the atrium ground; text set in a mural
- * color uses the darker `-deep` member of the same family (brief
- * section 6: "verify every mural-color-on-white pairing >= 4.5:1 for
- * text, or reserve for non-text"). Roles are never swapped. `-wash`
- * members are the faint section grounds. This block is kept byte-
- * identical across both sites.
- * ------------------------------------------------------------------ */
+/* Text-safe members and washes. Roles are never swapped. */
 :root {
-  --skylight-deep: oklch(46% 0.14 250);      /* link text at body sizes */
-  --monarch-deep: oklch(50% 0.155 55);       /* leader/emphasis text */
-  --violet-deep: oklch(47% 0.19 300);        /* human-layer small text on washes */
-  --teal-deep: oklch(44% 0.095 195);         /* verified label text */
-  --gold-deep: oklch(48% 0.105 90);          /* in-progress label text */
-  --blossom-deep: oklch(47% 0.185 25);       /* missing/error label text */
-  --violet-wash: oklch(95.5% 0.02 300);      /* community panel ground */
-  --gold-wash: oklch(96% 0.03 95);           /* in-progress panel ground */
-  --teal-wash: oklch(96% 0.02 195);          /* done/verified panel ground */
-  --floor-soft: oklch(30% 0.014 270);        /* floor hairlines */
-  --focus-ring: oklch(53% 0.16 55);          /* darker monarch, AA-safe on atrium */
+  --skylight-deep: #0066cc;
+  --monarch-deep: #0066cc;
+  --violet-deep: #4644c7;
+  --teal-deep: #1f8f3e;
+  --gold-deep: #9a5a00;
+  --blossom-deep: #c12b22;
+  --violet-wash: #eeeefc;
+  --gold-wash: #fff4e0;
+  --teal-wash: #e8f8ec;
+  --blossom-wash: #ffecea;
+  --floor-soft: #e8e8ed;
+  --focus-ring: #0071e3;
 }
 
-/* ------------------------------------------------------------------ *
- * Map tokens into Tailwind v4. Utilities like `bg-atrium`,
- * `text-steel-dark`, `border-steel`, `font-hand` flow from here.
- * ------------------------------------------------------------------ */
 @theme inline {
   --color-atrium: var(--surface-atrium);
   --color-panel: var(--surface-panel);
   --color-steel: var(--steel);
   --color-steel-dark: var(--steel-dark);
+  --color-steel-faint: var(--steel-faint);
   --color-floor: var(--floor);
   --color-ink: var(--ink);
 
@@ -93,16 +90,17 @@
   --color-gold-wash: var(--gold-wash);
   --color-skylight-deep: var(--skylight-deep);
   --color-blossom-deep: var(--blossom-deep);
+  --color-blossom-wash: var(--blossom-wash);
 
-  --font-sans: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-plex-mono), ui-monospace, "SFMono-Regular", monospace;
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 }
 
 /* ------------------------------------------------------------------ *
  * Base
  * ------------------------------------------------------------------ */
 html {
-  scroll-padding-top: 5.5rem;
+  scroll-padding-top: 4.5rem;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -116,17 +114,19 @@ body {
   color: var(--ink);
   font-family: var(--font-sans);
   font-size: var(--text-base);
-  line-height: 1.6;
+  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  letter-spacing: -0.01em;
 }
 
 ::selection {
-  background: oklch(69% 0.185 55 / 0.25);
+  background: rgba(0, 113, 227, 0.2);
 }
 
 :focus-visible {
   outline: 2px solid var(--focus-ring);
-  outline-offset: 2px;
+  outline-offset: 3px;
+  border-radius: 6px;
 }
 
 /* ------------------------------------------------------------------ *
@@ -134,69 +134,120 @@ body {
  * ------------------------------------------------------------------ */
 .text-hero {
   font-size: var(--text-hero);
+  font-weight: 600;
   letter-spacing: -0.03em;
-  line-height: 0.95;
+  line-height: 1.02;
 }
 
 .text-section {
   font-size: var(--text-section);
+  font-weight: 600;
   letter-spacing: -0.025em;
-  line-height: 1.02;
+  line-height: 1.06;
 }
 
-/* Mono always at smaller optical sizes with a touch of tracking. */
+/* Codes (GB-7) keep a monospace at small optical sizes. Nothing else does. */
 .font-mono {
-  letter-spacing: 0.02em;
+  letter-spacing: 0;
 }
 
-/* Uppercase micro-labels in the instrument voice. */
+/* What used to be an uppercase mono micro-label is now a small,
+   sentence-case sans label. Every page that used it gets the change. */
 .mono-label {
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  text-transform: none;
 }
 
 /* ------------------------------------------------------------------ *
- * Visual vocabulary — architecture
+ * Product surfaces
  * ------------------------------------------------------------------ */
-
-/* Skylight bands: hard-edged diagonal light, not lines. */
-.skylight-band {
-  background-image: linear-gradient(
-    108deg,
-    transparent 0 20%,
-    oklch(80% 0.15 90 / 0.055) 24% 28%,
-    transparent 32% 42%,
-    oklch(63% 0.14 250 / 0.033) 46% 48%,
-    transparent 52% 66%,
-    oklch(80% 0.15 90 / 0.04) 70% 71%,
-    transparent 75%
-  );
+.card {
+  background: var(--surface-panel);
+  border-radius: var(--r-card);
 }
 
-/* Perforated rail: the mesh railing as a dot-grid texture band. */
-.perf-rail {
-  background-image: radial-gradient(
-    oklch(52% 0.014 255 / 0.28) 1px,
-    transparent 1.4px
-  );
-  background-size: 11px 11px;
+.card-xl {
+  background: var(--surface-panel);
+  border-radius: var(--r-card-xl);
 }
 
-/* Polished floor: faint vertical reflection of the content above. */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  border-radius: var(--r-pill);
+  padding: 0.3em 0.75em;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.2;
+  background: #e8e8ed;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+.pill-yes {
+  background: var(--teal-wash);
+  color: var(--teal-deep);
+}
+
+.pill-partial {
+  background: var(--gold-wash);
+  color: var(--gold-deep);
+}
+
+.pill-no {
+  background: #eeeef0;
+  color: var(--steel-dark);
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--r-pill);
+  padding: 0.8rem 1.4rem;
+  font-size: 1.0625rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: #fff;
+  background: var(--monarch);
+  transition: background var(--duration-fast) ease;
+}
+
+.btn-primary:hover {
+  background: var(--monarch-deep);
+}
+
+.link-more {
+  color: var(--skylight);
+  font-size: 1.0625rem;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.link-more:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Translucent product nav. */
+.nav-glass {
+  background: rgba(250, 250, 252, 0.8);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+}
+
+/* Legacy vocabulary kept as no-ops so nothing breaks; the surfaces are
+   flat now. */
+.skylight-band,
+.perf-rail,
 .floor-reflection {
-  background: linear-gradient(
-    to bottom,
-    oklch(97.5% 0.004 95 / 0.09),
-    transparent 42%
-  );
+  background-image: none;
 }
 
-/* ------------------------------------------------------------------ *
- * Machined hover: cards lift 2px, hard-edged shadow shifts like
- * sunlight (offset, not blur).
- * ------------------------------------------------------------------ */
 .lift {
   transition:
     transform var(--duration-fast) var(--ease-out-expo),
@@ -204,8 +255,8 @@ body {
 }
 
 .lift:hover {
-  transform: translateY(-2px);
-  box-shadow: 5px 6px 0 0 oklch(21% 0.012 270 / 0.1);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -217,11 +268,9 @@ body {
 }
 
 /* ------------------------------------------------------------------ *
- * Reveal machinery. The `js` class is set by an inline one-liner in
- * the layout, so users without JavaScript (and reduced-motion users)
- * see everything immediately — nothing is hidden by default.
- * The machined layer fades and translates; the hand layer draws
- * itself (stroke-dash on `pathLength=1` paths).
+ * Reveal machinery, unchanged: gated behind `js` on <html> and
+ * prefers-reduced-motion, so no-JS and reduced-motion users see
+ * everything.
  * ------------------------------------------------------------------ */
 @media (prefers-reduced-motion: no-preference) {
   .js [data-reveal] {
@@ -249,9 +298,6 @@ body {
     stroke-dashoffset: 0;
   }
 
-  /* The stillness layer barely moves at all: monolith bands fade in
-     slowly (1200ms, linear, Kubrick pacing) and their sentence does
-     not translate, only appears. */
   .js [data-still] {
     opacity: 0;
     transition: opacity 1200ms linear;
@@ -261,3 +307,14 @@ body {
     opacity: 1;
   }
 }
+
+/* The mark: the dot orbits the ring on a 16s clock, phase-locked to the
+   favicon's frames via --orbit-delay, set before first paint. */
+.monarch-orbit {
+  transform-box: view-box;
+  transform-origin: 50% 50%;
+  animation: monarch-orbit 16s linear infinite;
+  animation-delay: var(--orbit-delay, 0s);
+}
+@keyframes monarch-orbit { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .monarch-orbit { animation-duration: 64s; } }

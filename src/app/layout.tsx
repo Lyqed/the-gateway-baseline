@@ -1,25 +1,10 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { SITE_CONFIG } from "@/lib/site-config";
 import { SkipLink } from "@/components/layout/SkipLink";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
-
-/** The machined voice: display, headings, UI, body. */
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-/** The instrument voice: GB codes, data cells, dates, spec clauses. */
-const plexMono = IBM_Plex_Mono({
-  variable: "--font-plex-mono",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  display: "swap",
-});
+import { FaviconOrbit } from "@/components/layout/FaviconOrbit";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_CONFIG.url),
@@ -55,20 +40,26 @@ export const metadata: Metadata = {
 /**
  * Marks the document as JS-capable before first paint so the reveal
  * styles only ever hide content when the IntersectionObserver that
- * un-hides it is guaranteed to run. Static one-liner, no user input.
+ * un-hides it is guaranteed to run; and phase-locks the mark's orbit to
+ * the favicon's frames. Static one-liner, no user input.
  */
-const JS_FLAG = "document.documentElement.classList.add('js')";
+const JS_FLAG =
+  "document.documentElement.classList.add('js');" +
+  "(function(){var p=matchMedia('(prefers-reduced-motion: reduce)').matches?64:16;" +
+  "document.documentElement.style.setProperty('--orbit-delay',(-(Date.now()/1000%p)).toFixed(2)+'s')})()";
 
+/**
+ * The type is the system's own: SF on Apple devices, Segoe or Roboto
+ * elsewhere, Helvetica and Arial as the floor. No web fonts are loaded.
+ */
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html
-      lang={SITE_CONFIG.locale}
-      className={`${spaceGrotesk.variable} ${plexMono.variable} h-full`}
-    >
+    <html lang={SITE_CONFIG.locale} className="h-full">
       <body className="flex min-h-full flex-col">
         <script dangerouslySetInnerHTML={{ __html: JS_FLAG }} />
+        <FaviconOrbit />
         <SkipLink />
         <SiteHeader />
         <main id="main" className="flex-1">
