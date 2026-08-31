@@ -12,7 +12,7 @@ export function TrustChoice() {
       aria-labelledby="trust-heading"
       className="mx-auto w-full max-w-6xl scroll-mt-20 px-6 py-8 sm:py-12"
     >
-      <div className="mx-auto max-w-3xl text-center">
+      <div className="max-w-3xl">
         <p className="mono-label text-steel-dark">The trust choice</p>
         <h2 id="trust-heading" className="text-section mt-3 text-ink">
           The gateway assigns the tag. How far you go on identity is your

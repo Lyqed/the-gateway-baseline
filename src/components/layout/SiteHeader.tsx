@@ -58,11 +58,8 @@ export function SiteHeader() {
               </li>
             ))}
           </ul>
-          <a
-            href="/#tracker"
-            className="btn-primary !px-3.5 !py-1.5 !text-[0.8125rem]"
-          >
-            View scores
+          <a href="/#tracker" className="text-[0.875rem] font-semibold text-monarch-deep hover:underline">
+            Scoreboard <span aria-hidden="true">&rsaquo;</span>
           </a>
         </nav>
       </div>

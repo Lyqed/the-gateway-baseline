@@ -61,7 +61,7 @@ export function Tracker() {
       className="scroll-mt-16"
     >
       <div className="mx-auto w-full max-w-6xl px-6 py-[var(--space-section)]">
-        <div className="mx-auto max-w-3xl text-center">
+        <div className="max-w-3xl">
           <p className="mono-label text-steel-dark">The scoreboard</p>
           <h2 id="tracker-heading" className="text-section mt-3 text-ink">
             Which gateway can put your name on the bill?
@@ -75,7 +75,7 @@ export function Tracker() {
 
         <TrackerBoard rows={rows} checks={checks} max={max} />
 
-        <p className="mx-auto mt-6 max-w-3xl text-center text-[0.875rem] leading-relaxed text-steel-dark">
+        <p className="mt-6 max-w-3xl text-[0.875rem] leading-relaxed text-steel-dark">
           Scored against{" "}
           <Link href="/spec" className="text-skylight hover:underline">
             GB/1.0

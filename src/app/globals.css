@@ -13,21 +13,21 @@
   color-scheme: light;
 
   /* Surfaces */
-  --surface-atrium: #f5f5f7;                 /* page ground */
+  --surface-atrium: #efeeea;                 /* page ground: warm paper-grey */
   --surface-panel: #ffffff;                  /* cards */
-  --steel: #d2d2d7;                          /* hairlines, the few that remain */
-  --steel-dark: #6e6e73;                     /* secondary text */
-  --steel-faint: #86868b;                    /* tertiary text */
-  --floor: #f5f5f7;                          /* footer ground */
-  --ink: #1d1d1f;                            /* primary text */
+  --steel: #d6d3cc;                          /* hairlines, the few that remain */
+  --steel-dark: #605e59;                     /* secondary text */
+  --steel-faint: #8a877f;                    /* tertiary text */
+  --floor: #efeeea;                          /* footer ground */
+  --ink: #161513;                            /* primary text */
 
   /* Semantic colour */
-  --monarch: #0071e3;                        /* primary action, emphasis */
+  --monarch: #d9531e;                        /* primary action, emphasis: the site's own orange */
   --violet: #5e5ce6;                         /* the human layer */
-  --teal: #34c759;                           /* verified */
-  --gold: #ff9f0a;                           /* partial */
-  --skylight: #0071e3;                       /* links */
-  --blossom: #ff3b30;                        /* missing */
+  --teal: #2e9e5b;                           /* verified */
+  --gold: #e0a100;                           /* partial */
+  --skylight: #b4441a;                       /* links */
+  --blossom: #c8402f;                        /* missing */
 
   /* Type scale */
   --text-base: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
@@ -38,9 +38,9 @@
   --space-section: clamp(4.5rem, 3rem + 5vw, 8.5rem);
 
   /* Radii: a hierarchy, not one value */
-  --r-card-xl: 28px;
-  --r-card: 20px;
-  --r-pill: 980px;
+  --r-card-xl: 16px;
+  --r-card: 12px;
+  --r-pill: 6px;
 
   /* Motion */
   --duration-fast: 150ms;
@@ -50,18 +50,18 @@
 
 /* Text-safe members and washes. Roles are never swapped. */
 :root {
-  --skylight-deep: #0066cc;
-  --monarch-deep: #0066cc;
+  --skylight-deep: #9a3912;
+  --monarch-deep: #b8431a;
   --violet-deep: #4644c7;
-  --teal-deep: #1f8f3e;
-  --gold-deep: #9a5a00;
+  --teal-deep: #1d6b3d;
+  --gold-deep: #7d5200;
   --blossom-deep: #c12b22;
   --violet-wash: #eeeefc;
-  --gold-wash: #fff4e0;
-  --teal-wash: #e8f8ec;
+  --gold-wash: #f8ead0;
+  --teal-wash: #dff1e4;
   --blossom-wash: #ffecea;
-  --floor-soft: #e8e8ed;
-  --focus-ring: #0071e3;
+  --floor-soft: #e4e1da;
+  --focus-ring: #d9531e;
 }
 
 @theme inline {
@@ -92,7 +92,7 @@
   --color-blossom-deep: var(--blossom-deep);
   --color-blossom-wash: var(--blossom-wash);
 
-  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+  --font-sans: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 }
 
@@ -134,16 +134,16 @@ body {
  * ------------------------------------------------------------------ */
 .text-hero {
   font-size: var(--text-hero);
-  font-weight: 600;
-  letter-spacing: -0.03em;
-  line-height: 1.02;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.0;
 }
 
 .text-section {
   font-size: var(--text-section);
-  font-weight: 600;
-  letter-spacing: -0.025em;
-  line-height: 1.06;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
 }
 
 /* Codes (GB-7) keep a monospace at small optical sizes. Nothing else does. */
@@ -178,12 +178,12 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 0.35em;
-  border-radius: var(--r-pill);
-  padding: 0.3em 0.75em;
+  border-radius: 4px;
+  padding: 0.28em 0.6em;
   font-size: 0.8125rem;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1.2;
-  background: #e8e8ed;
+  background: #e4e1da;
   color: var(--ink);
   white-space: nowrap;
 }
@@ -199,7 +199,7 @@ body {
 }
 
 .pill-no {
-  background: #eeeef0;
+  background: #e9e7e1;
   color: var(--steel-dark);
 }
 
@@ -207,10 +207,10 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--r-pill);
-  padding: 0.8rem 1.4rem;
-  font-size: 1.0625rem;
-  font-weight: 500;
+  border-radius: 8px;
+  padding: 0.8rem 1.3rem;
+  font-size: 1rem;
+  font-weight: 600;
   letter-spacing: -0.01em;
   color: #fff;
   background: var(--monarch);
@@ -235,9 +235,8 @@ body {
 
 /* Translucent product nav. */
 .nav-glass {
-  background: rgba(250, 250, 252, 0.8);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
-  backdrop-filter: saturate(180%) blur(20px);
+  background: var(--surface-atrium);
+  border-bottom: 1px solid var(--steel);
 }
 
 /* Legacy vocabulary kept as no-ops so nothing breaks; the surfaces are

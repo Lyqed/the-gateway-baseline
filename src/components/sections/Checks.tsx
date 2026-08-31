@@ -29,7 +29,7 @@ export function Checks() {
       aria-labelledby="checks-heading"
       className="mx-auto w-full max-w-6xl scroll-mt-20 px-6 py-10 sm:py-14"
     >
-      <div className="mx-auto max-w-3xl text-center">
+      <div className="max-w-3xl">
         <p className="mono-label text-steel-dark">The nine checks</p>
         <h2 id="checks-heading" className="text-section mt-3 text-ink">
           Each one falsifiable.

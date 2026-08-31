@@ -16,24 +16,24 @@ export function Hero() {
 
   return (
     <section id="top" aria-labelledby="hero-heading">
-      <div className="mx-auto w-full max-w-6xl px-6 pb-10 pt-14 text-center sm:pb-14 sm:pt-24">
-        <p className="text-[1.0625rem] font-semibold text-ink">
+      <div className="mx-auto w-full max-w-6xl px-6 pb-10 pt-14 sm:pb-14 sm:pt-20">
+        <p className="text-[0.9375rem] font-semibold text-monarch-deep">
           The Gateway Baseline
         </p>
         <h1
           id="hero-heading"
-          className="text-hero mx-auto mt-3 max-w-4xl text-ink"
+          className="text-hero mt-3 max-w-4xl text-ink"
         >
           Know where the money went.
         </h1>
-        <p className="mx-auto mt-6 max-w-3xl text-[1.25rem] leading-snug text-steel-dark sm:text-[1.5rem]">
+        <p className="mt-6 max-w-2xl text-[1.125rem] leading-snug text-steel-dark sm:text-[1.375rem]">
           The standard for AI cost attribution. Every request named to a
           spender, every spender capped by default, every dollar landing,
           named, on the cloud provider&rsquo;s own bill. Nine checks, scored
           against public evidence and nothing else.
         </p>
 
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-x-7 gap-y-4">
+        <div className="mt-8 flex flex-wrap items-center gap-x-7 gap-y-4">
           <a href="#tracker" className="btn-primary">
             See the scoreboard
           </a>
@@ -42,7 +42,7 @@ export function Hero() {
           </a>
         </div>
 
-        <dl className="mx-auto mt-14 grid max-w-3xl grid-cols-2 gap-y-8 sm:grid-cols-4">
+        <dl className="mt-14 grid max-w-3xl grid-cols-2 gap-y-8 border-t border-steel pt-8 sm:grid-cols-4">
           {facts.map((f) => (
             <div key={f.k}>
               <dd className="text-[2.5rem] font-semibold leading-none tracking-tight text-ink sm:text-[3rem]">

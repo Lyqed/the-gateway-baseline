@@ -13,7 +13,7 @@ export function WhyAuthoritative() {
     >
       <Reveal>
         <div className="card-xl px-7 py-12 sm:px-14 sm:py-20">
-          <div className="mx-auto max-w-3xl text-center">
+          <div className="max-w-3xl">
             <p className="mono-label text-steel-dark">Why it matters</p>
             <h2 id="why-heading" className="text-section mt-3 text-ink">
               An estimate loses the argument the moment someone doubts it.
