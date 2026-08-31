@@ -85,14 +85,14 @@ export function TrackerBoard({
             </caption>
             <thead>
               <tr>
-                <th scope="col" className="sticky top-13 z-10 bg-white/95 px-8 pb-5 pt-8 align-bottom backdrop-blur">
+                <th scope="col" className="border-b border-steel px-8 pb-5 pt-8 align-bottom">
                   <span className="sr-only">Check</span>
                 </th>
                 {rows.map((g) => (
                   <th
                     key={g.id}
                     scope="col"
-                    className="sticky top-13 z-10 bg-white/95 px-3 pb-5 pt-8 text-center align-bottom backdrop-blur"
+                    className="border-b border-steel px-3 pb-5 pt-8 text-center align-bottom"
                   >
                     <a
                       href={g.url}
