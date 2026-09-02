@@ -35,8 +35,7 @@ export function TrustChoice() {
             <p className="mt-4 text-[1.0625rem] leading-relaxed text-ink">
               Assign the tag and take the honest header at the boundary. A
               disputed invoice line is caught by the team that reads its own
-              bill. Identity checked at the source may arrive from the platform
-              itself.
+              bill.
             </p>
             <p className="mt-4 text-[1.0625rem] leading-relaxed text-steel-dark">
               No extra latency. No mapping table to own and watch for drift.
