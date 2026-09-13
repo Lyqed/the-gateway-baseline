@@ -1,4 +1,4 @@
-The Gateway Baseline states the requirements for attributing AI traffic as well as:
+The Gateway Baseline states the requirements for attributing AI traffic as well as
 why an authoritative figure (the dollars the provider actually billed) beats an
 estimate, and the trust choice a team makes. Single static page,
 Next.js / React / Tailwind v4 / TypeScript, built with pnpm.
