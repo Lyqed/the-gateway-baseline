@@ -1,5 +1,4 @@
 import type { MetadataRoute } from "next";
-import { SITE_CONFIG } from "@/lib/site-config";
 
 /**
  * OFFLINE POSTURE. While the site serves a holding page, crawling is

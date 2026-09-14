@@ -11,8 +11,8 @@ export function SiteFooter() {
     <footer className="mt-auto border-t border-steel bg-floor text-steel-dark">
       <div className="mx-auto w-full max-w-6xl px-6 py-10 text-[0.8125rem] leading-relaxed">
         <p className="max-w-xl">
-          The standard for cost attribution in AI. The spend named on the
-          provider&apos;s bill, not estimated in a dashboard.
+          An open baseline for attribution in AI. Identity and ownership
+          carried through requests, controls, usage records and provider billing.
         </p>
         <p className="mt-4">
           {SITE_CONFIG.name}, {year}. Published under{" "}

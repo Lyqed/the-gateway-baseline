@@ -58,9 +58,9 @@ export function SiteHeader() {
               </li>
             ))}
           </ul>
-          <a href="/#tracker" className="text-[0.875rem] font-semibold text-monarch-deep hover:underline">
+          <Link href="/#tracker" className="text-[0.875rem] font-semibold text-monarch-deep hover:underline">
             Scoreboard <span aria-hidden="true">&rsaquo;</span>
-          </a>
+          </Link>
         </nav>
       </div>
     </header>

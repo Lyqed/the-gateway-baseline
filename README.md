@@ -1,8 +1,7 @@
-# thegatewaybaseline.com
-
-The Gateway Baseline states the cost-attribution requirements for AI traffic:
-why an authoritative figure (the dollars the provider actually billed) beats an
-estimate, and the trust choice a team makes. Single static page,
+The Gateway Baseline examines attribution for AI traffic: connecting requests
+to applications, teams and people across identity, controls, usage records and
+provider billing. GB/1.0 scores nine specific checks against public evidence.
+The homepage explains the broader purpose; versioned specifications define what scores.
 Next.js / React / Tailwind v4 / TypeScript, built with pnpm.
 
 - Design system: [docs/DESIGN.md](docs/DESIGN.md)

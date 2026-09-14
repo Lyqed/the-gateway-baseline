@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { GATEWAYS } from "@/lib/gateways";
 import { CANDIDATES, SPEC_CHECKS, SPEC_VERSION } from "@/lib/spec";
 
@@ -27,19 +28,20 @@ export function Hero() {
           Know where the money went.
         </h1>
         <p className="mt-6 max-w-2xl text-[1.125rem] leading-snug text-steel-dark sm:text-[1.375rem]">
-          The standard for AI cost attribution. Every request named to a
-          spender, every spender capped by default, every dollar landing,
-          named, on the cloud provider&rsquo;s own bill. Nine checks, scored
-          against public evidence and nothing else.
+          <strong className="font-semibold text-ink">
+            To know that, you have to attribute requests properly.
+          </strong>{" "}
+          Know which application, team or person each request belongs to.
+          Carry that context through usage, policy decisions and provider billing.
         </p>
 
         <div className="mt-8 flex flex-wrap items-center gap-x-7 gap-y-4">
           <a href="#tracker" className="btn-primary">
             See the scoreboard
           </a>
-          <a href="/spec" className="link-more">
+          <Link href="/spec" className="link-more">
             Read the spec <span aria-hidden="true">&rsaquo;</span>
-          </a>
+          </Link>
         </div>
 
         <dl className="mt-14 grid max-w-3xl grid-cols-2 gap-y-8 border-t border-steel pt-8 sm:grid-cols-4">

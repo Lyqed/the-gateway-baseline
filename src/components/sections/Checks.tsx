@@ -17,7 +17,7 @@ import { Reveal } from "@/components/reveal/Reveal";
 const SIDES: readonly SpecSide[] = ["control", "invoice", "operations"];
 
 const SIDE_NOTE: Record<SpecSide, string> = {
-  control: "Who spends, and what stops them.",
+  control: "Who the request belongs to, and which rules apply.",
   invoice: "The name lands on the provider's bill.",
   operations: "The rules hold on a running fleet.",
 };

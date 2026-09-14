@@ -33,13 +33,14 @@ export function TrustChoice() {
               Trust your developers
             </h3>
             <p className="mt-4 text-[1.0625rem] leading-relaxed text-ink">
-              Assign the tag and take the honest header at the boundary. A
-              disputed invoice line is caught by the team that reads its own
-              bill.
+              Bind the tag to the applications, routes or keys you manage.
+              Use that assignment when counting requests, applying limits,
+              investigating failures and reconciling charges.
             </p>
             <p className="mt-4 text-[1.0625rem] leading-relaxed text-steel-dark">
-              No extra latency. No mapping table to own and watch for drift.
-              For most teams this is enough.
+              For internal workloads, a stable application or team identity
+              may provide the accountability you need. Keep the assignment
+              current as applications and their owners change.
             </p>
           </article>
         </Reveal>
@@ -50,13 +51,14 @@ export function TrustChoice() {
               Verify identity
             </h3>
             <p className="mt-4 text-[1.0625rem] leading-relaxed text-ink">
-              Prove the caller from a directory or a login before the tag is
-              trusted. Stronger proof, more machinery.
+              Derive the caller or group from a verified login when a decision
+              needs that level of proof. Connect the identity to the ownership
+              and policy context used downstream.
             </p>
             <p className="mt-4 text-[1.0625rem] leading-relaxed text-steel-dark">
-              It costs latency on every request and an owner for a mapping table
-              that drifts. Reach for it when the threat model earns that cost,
-              not by default.
+              Verification brings configuration and lifecycle work. Choose
+              the level of proof that your access, policy and attribution
+              decisions require.
             </p>
           </article>
         </Reveal>

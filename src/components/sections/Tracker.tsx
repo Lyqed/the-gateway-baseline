@@ -64,7 +64,7 @@ export function Tracker() {
         <div className="max-w-3xl">
           <p className="mono-label text-steel-dark">The scoreboard</p>
           <h2 id="tracker-heading" className="text-section mt-3 text-ink">
-            Which gateway can put your name on the bill?
+            Which gateways keep attribution intact?
           </h2>
           <p className="mt-5 text-[1.0625rem] leading-relaxed text-steel-dark">
             Every gateway against the same nine checks, read from its public
